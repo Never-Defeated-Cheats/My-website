@@ -1,0 +1,37 @@
+/* ==========================================================================
+   CREATIVE VIBE - SOOTHING, CALM LIGHT THEME TOKENS
+   ========================================================================== */
+
+:root {
+  --bg-page: #f6f5f0;
+  --bg-card: #ffffff;
+  --bg-subtle: #eeece4;
+  --bg-accent-soft: #e4ece8;
+  --bg-glass: rgba(246, 245, 240, 0.92);
+
+  --text-heading: #242b27;
+  --text-body: #4c5750;
+  --text-muted: #748078;
+  --text-light: #9ba69e;
+
+  --accent-sage: #537568;
+  --accent-sage-hover: #415e53;
+  --accent-sage-soft: rgba(83, 117, 104, 0.12);
+  
+  --accent-slate: #4f6878;
+  --accent-slate-soft: rgba(79, 104, 120, 0.12);
+
+  --border-subtle: #e4e1d5;
+  --shadow-soft: 0 4px 20px rgba(36, 43, 39, 0.04);
+  --shadow-hover: 0 12px 30px rgba(36, 43, 39, 0.08);
+
+  --font-brand: 'Roboto', sans-serif;
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 26px;
+  --radius-full: 9999px;
+}

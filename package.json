@@ -1,0 +1,13 @@
+{
+  "name": "creative-vibe-portfolio",
+  "version": "1.0.0",
+  "description": "Creative Vibe - Professional Freelance Video Editor Portfolio Website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["video-editor", "portfolio", "creative-vibe", "motion-graphics", "youtube-editor"],
+  "author": "Creative Vibe",
+  "license": "ISC"
+}

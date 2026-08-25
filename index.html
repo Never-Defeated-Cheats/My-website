@@ -1,0 +1,2607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creative Vibe | Freelance Video Editor</title>
+  <meta name="description" content="Creative Vibe - Professional freelance video editor crafting high-retention documentaries, motion graphics, SaaS animations, talking head videos, vlogs, and viral shorts/reels.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+
+  <!-- Google Fonts: Roboto Bold, Plus Jakarta Sans, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Roboto:wght@700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       CREATIVE VIBE - SOOTHING, CALM & RELAXED LIGHT THEME
+       Carefully curated dull, peaceful, eye-friendly color palette
+       ========================================================================== */
+
+    :root {
+      /* Calming, dull, satisfying light tones (No pure black, no harsh bright white) */
+      --bg-page: #f6f5f0;           /* Soft warm linen / calm oatmeal */
+      --bg-card: #ffffff;           /* Clean soft white card */
+      --bg-subtle: #eeece4;         /* Muted sand / dull warm tint */
+      --bg-accent-soft: #e4ece8;    /* Calming sage tint */
+      --bg-glass: rgba(246, 245, 240, 0.88);
+
+      /* Typography Colors - Muted charcoal, soft slate (Easy on the eyes) */
+      --text-heading: #242b27;      /* Warm deep graphite */
+      --text-body: #4c5750;         /* Dull soothing slate green-grey */
+      --text-muted: #748078;        /* Soft sage grey */
+      --text-light: #9ba69e;
+
+      /* Dull & Peaceful Accent Shades */
+      --accent-sage: #537568;       /* Calming dull sage green */
+      --accent-sage-hover: #415e53;
+      --accent-sage-soft: rgba(83, 117, 104, 0.12);
+      
+      --accent-slate: #4f6878;      /* Dull calm ocean slate */
+      --accent-slate-soft: rgba(79, 104, 120, 0.12);
+      
+      --accent-warm: #b56e54;       /* Soft terracotta / muted coral from logo */
+      --accent-warm-hover: #9c5c44;
+      --accent-warm-soft: rgba(181, 110, 84, 0.12);
+
+      /* Subtle Borders & Soft Ambient Shadows */
+      --border-subtle: #e4e1d5;     /* Soft dull sand border */
+      --border-focus: #537568;
+      
+      --shadow-soft: 0 4px 20px rgba(36, 43, 39, 0.04);
+      --shadow-hover: 0 12px 30px rgba(36, 43, 39, 0.08);
+
+      /* Fonts */
+      --font-brand: 'Roboto', sans-serif;
+      --font-heading: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Inter', sans-serif;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 26px;
+      --radius-full: 9999px;
+
+      --transition-smooth: 0.25s ease;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-page);
+      color: var(--text-body);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Layout */
+    .container {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .container-narrow {
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Headings */
+    h1, h2, h3, h4, h5 {
+      font-family: var(--font-heading);
+      color: var(--text-heading);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    p {
+      color: var(--text-body);
+      font-size: 1.025rem;
+    }
+
+    /* Subtle Peaceful Background Elements */
+    .calm-bg-shapes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .shape-1 {
+      position: absolute;
+      top: -15%;
+      left: 10%;
+      width: 550px;
+      height: 550px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(83, 117, 104, 0.05) 0%, rgba(246, 245, 240, 0) 70%);
+      filter: blur(40px);
+    }
+    .shape-2 {
+      position: absolute;
+      bottom: 5%;
+      right: 5%;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(79, 104, 120, 0.04) 0%, rgba(246, 245, 240, 0) 70%);
+      filter: blur(50px);
+    }
+
+    .site-wrapper {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* --------------------------------------------------------------------------
+       1. HEADER & NAVIGATION BAR (CLEAN, MINIMAL & CALM)
+       -------------------------------------------------------------------------- */
+    .site-header {
+      position: sticky;
+      top: 1.25rem;
+      z-index: 1000;
+      padding: 0 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .nav-bar {
+      max-width: 1180px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 0.65rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-soft);
+    }
+
+    /* Brand Logo Identity */
+    .brand-identity {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .brand-logo-frame {
+      width: 46px;
+      height: 46px;
+      min-width: 46px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      background: #7ae7f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform var(--transition-smooth);
+    }
+
+    .brand-logo-frame:hover {
+      transform: scale(1.06);
+    }
+
+    .brand-logo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-family: var(--font-brand);
+      font-weight: 900;
+      font-size: 1.28rem;
+      color: var(--text-heading);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-sub {
+      font-family: var(--font-body);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 1px;
+    }
+
+    /* Nav Links */
+    .nav-tabs-group {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      list-style: none;
+      background: var(--bg-subtle);
+      padding: 0.3rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .nav-tab-btn {
+      background: transparent;
+      border: none;
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 0.45rem 1.1rem;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: all var(--transition-smooth);
+      text-decoration: none;
+    }
+
+    .nav-tab-btn:hover {
+      color: var(--text-heading);
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .nav-tab-btn.active {
+      background: var(--bg-card);
+      color: var(--accent-sage);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      font-weight: 700;
+    }
+
+    /* Nav Action Buttons */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    /* Google Sign-in / User Profile Topbar */
+    .google-signin-nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 0.95rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-heading);
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      transition: all var(--transition-smooth);
+    }
+
+    .google-signin-nav-btn:hover {
+      background: #ffffff;
+      border-color: #4285F4;
+      box-shadow: 0 4px 12px rgba(66, 133, 244, 0.18);
+      transform: translateY(-1px);
+    }
+
+    .user-profile-menu-wrap {
+      position: relative;
+    }
+
+    .user-chip-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.3rem 0.75rem 0.3rem 0.35rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+      transition: all var(--transition-smooth);
+    }
+
+    .user-chip-btn:hover {
+      border-color: var(--accent-sage);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .user-chip-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .admin-crown-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.15rem 0.45rem;
+      background: #fef3c7;
+      color: #92400e;
+      border-radius: var(--radius-full);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .user-dropdown-card {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 260px;
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+      padding: 1rem;
+      display: none;
+      flex-direction: column;
+      z-index: 1100;
+      animation: dropdownFade 0.2s ease forwards;
+    }
+
+    .user-dropdown-card.active {
+      display: flex;
+    }
+
+    @keyframes dropdownFade {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .user-dropdown-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .dropdown-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .dropdown-meta {
+      overflow: hidden;
+    }
+
+    .dropdown-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .dropdown-email {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 0.25rem;
+    }
+
+    .dropdown-role-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: var(--radius-full);
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .dropdown-role-badge.guest {
+      background: #ecfdf5;
+      color: #059669;
+    }
+
+    .dropdown-divider {
+      height: 1px;
+      background: var(--border-subtle);
+      margin: 0.5rem 0;
+    }
+
+    .dropdown-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .dropdown-item-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      width: 100%;
+      padding: 0.55rem 0.75rem;
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text-heading);
+      cursor: pointer;
+      text-align: left;
+      transition: background var(--transition-smooth);
+    }
+
+    .dropdown-item-btn:hover {
+      background: var(--bg-subtle);
+    }
+
+    .dropdown-item-btn.admin-btn {
+      color: #b45309;
+      background: #fffbeb;
+    }
+
+    .dropdown-item-btn.admin-btn:hover {
+      background: #fef3c7;
+    }
+
+    .dropdown-item-btn.logout-btn {
+      color: #dc2626;
+    }
+
+    .dropdown-item-btn.logout-btn:hover {
+      background: #fee2e2;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: transparent;
+      border: none;
+      font-size: 1.4rem;
+      color: var(--text-heading);
+      cursor: pointer;
+      padding: 0.25rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      padding: 0.75rem 1.6rem;
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all var(--transition-smooth);
+      text-decoration: none;
+      outline: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--accent-sage);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(83, 117, 104, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-sage-hover);
+      box-shadow: 0 6px 16px rgba(83, 117, 104, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-heading);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-subtle);
+      border-color: var(--text-muted);
+      transform: translateY(-2px);
+    }
+
+    .btn-sm {
+      padding: 0.45rem 1.1rem;
+      font-size: 0.86rem;
+    }
+
+    .btn-lg {
+      padding: 0.9rem 2.2rem;
+      font-size: 1.02rem;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.95rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .badge-pill.pulse::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background: #10b981;
+      border-radius: 50%;
+    }
+
+    /* --------------------------------------------------------------------------
+       2. TABS & PAGES
+       -------------------------------------------------------------------------- */
+    .tab-page {
+      display: none;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .tab-page.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-spacing {
+      padding: 4.5rem 0;
+      position: relative;
+    }
+
+    .section-head {
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto 3rem;
+    }
+
+    .section-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-sage);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .section-main-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--text-heading);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-description {
+      font-size: 1.02rem;
+      color: var(--text-muted);
+    }
+
+    /* --------------------------------------------------------------------------
+       3. HERO SECTION
+       -------------------------------------------------------------------------- */
+    .hero-box {
+      padding: 2.5rem 0 4.5rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-badge-wrap {
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-main-heading {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--text-heading);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-accent-text {
+      color: var(--accent-sage);
+      border-bottom: 3px solid rgba(83, 117, 104, 0.25);
+    }
+
+    .hero-bio {
+      font-size: 1.12rem;
+      color: var(--text-body);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      max-width: 520px;
+    }
+
+    .hero-btn-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-stats-bar {
+      display: flex;
+      align-items: center;
+      gap: 2.25rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .stat-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-num {
+      font-family: var(--font-heading);
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--text-heading);
+      line-height: 1.1;
+    }
+
+    .stat-text {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Hero Showreel Card (Soft, Light & Clean) */
+    .showreel-card {
+      position: relative;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      background: var(--bg-card);
+      box-shadow: var(--shadow-hover);
+      border: 1px solid var(--border-subtle);
+      aspect-ratio: 16 / 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+    }
+
+    .showreel-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .showreel-cover-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.9;
+      transition: transform 0.6s ease;
+    }
+
+    .showreel-card:hover .showreel-cover-img {
+      transform: scale(1.04);
+    }
+
+    .showreel-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(36, 43, 39, 0.05) 0%, rgba(36, 43, 39, 0.75) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.5rem;
+    }
+
+    .play-circle {
+      align-self: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #ffffff;
+      color: var(--accent-sage);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      transition: all var(--transition-smooth);
+    }
+
+    .showreel-card:hover .play-circle {
+      transform: scale(1.12);
+      background: var(--accent-sage);
+      color: #ffffff;
+    }
+
+    /* --------------------------------------------------------------------------
+       4. WORK / SHOWREELS (CATEGORIZED, 16:9 & 9:16 VERTICAL)
+       -------------------------------------------------------------------------- */
+    .filter-pills-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+    }
+
+    .filter-pill {
+      padding: 0.5rem 1.2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      font-family: var(--font-heading);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all var(--transition-smooth);
+    }
+
+    .filter-pill:hover {
+      border-color: var(--accent-sage);
+      color: var(--text-heading);
+    }
+
+    .filter-pill.active {
+      background: var(--text-heading);
+      color: #ffffff;
+      border-color: var(--text-heading);
+    }
+
+    /* Category Stream Section */
+    .cat-section {
+      margin-bottom: 4.5rem;
+      scroll-margin-top: 6rem;
+    }
+
+    .cat-head-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .cat-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .cat-symbol {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--bg-accent-soft);
+      color: var(--accent-sage);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .cat-heading {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-heading);
+    }
+
+    .cat-subline {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .cat-expand-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--accent-sage);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--radius-full);
+      transition: all var(--transition-smooth);
+    }
+
+    .cat-expand-btn:hover {
+      background: var(--bg-accent-soft);
+    }
+
+    /* Horizontal Video Grid (16:9) */
+    .grid-horizontal {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .video-card-horiz {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: all var(--transition-smooth);
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .video-card-horiz:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--accent-sage);
+    }
+
+    .thumb-holder-169 {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #e2e8f0;
+      overflow: hidden;
+    }
+
+    .thumb-holder-169 img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .video-card-horiz:hover .thumb-holder-169 img {
+      transform: scale(1.05);
+    }
+
+    .play-hover-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(36, 43, 39, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity var(--transition-smooth);
+    }
+
+    .video-card-horiz:hover .play-hover-overlay,
+    .video-card-vert:hover .play-hover-overlay {
+      opacity: 1;
+    }
+
+    .play-mini-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #ffffff;
+      color: var(--accent-sage);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .duration-tag {
+      position: absolute;
+      bottom: 0.6rem;
+      right: 0.6rem;
+      background: rgba(0, 0, 0, 0.7);
+      color: #ffffff;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .card-content-area {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-cat-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-sage);
+      margin-bottom: 0.3rem;
+    }
+
+    .card-item-title {
+      font-size: 1.12rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--text-heading);
+      margin-bottom: 0.5rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-item-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-footer-meta {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* Vertical Video Grid (9:16 Shorts/Reels) */
+    .grid-vertical {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .video-card-vert {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: all var(--transition-smooth);
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .video-card-vert:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--accent-sage);
+    }
+
+    .thumb-holder-916 {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      background: #1e2420;
+      overflow: hidden;
+    }
+
+    .thumb-holder-916 img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .video-card-vert:hover .thumb-holder-916 img {
+      transform: scale(1.05);
+    }
+
+    .vert-overlay-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem 0.85rem;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 100%);
+      color: #ffffff;
+      z-index: 2;
+    }
+
+    .vert-item-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.3;
+      margin-bottom: 0.25rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .vert-views-pill {
+      font-size: 0.75rem;
+      color: #7ae7f9;
+      font-weight: 600;
+    }
+
+    .vert-tag-top {
+      position: absolute;
+      top: 0.65rem;
+      right: 0.65rem;
+      background: rgba(0, 0, 0, 0.6);
+      color: #ffffff;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-full);
+      font-size: 0.72rem;
+      font-weight: 700;
+      z-index: 2;
+    }
+
+    /* --------------------------------------------------------------------------
+       5. CLIENT REVIEWS & TRUST (AUTHENTIC VERIFIED GOOGLE CARDS)
+       -------------------------------------------------------------------------- */
+    .section-head-with-action {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .reviews-stream-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .review-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      transition: all var(--transition-smooth);
+      position: relative;
+    }
+
+    .review-box:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(66, 133, 244, 0.3);
+    }
+
+    .review-head-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .verified-google-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #059669;
+      background: #ecfdf5;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-full);
+      border: 1px solid #a7f3d0;
+    }
+
+    .review-date-badge {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .star-rating {
+      color: #f59e0b;
+      font-size: 1rem;
+      letter-spacing: 2px;
+      margin-bottom: 0.75rem;
+    }
+
+    .review-quote-text {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--text-heading);
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .review-author-row {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .author-pic {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border-subtle);
+    }
+
+    .author-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-heading);
+      line-height: 1.2;
+    }
+
+    .author-channel {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Google Auth Modal Styles */
+    .google-auth-box {
+      background: #ffffff;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 440px;
+      padding: 2.25rem;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+      position: relative;
+      animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .gauth-header {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+
+    .gauth-google-logo {
+      margin: 0 auto 0.75rem;
+      display: block;
+    }
+
+    .gauth-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-heading);
+      margin-bottom: 0.35rem;
+    }
+
+    .gauth-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .gauth-accounts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .gauth-account-item {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      text-align: left;
+      transition: all var(--transition-smooth);
+    }
+
+    .gauth-account-item:hover {
+      background: #ffffff;
+      border-color: #4285F4;
+      box-shadow: 0 4px 14px rgba(66, 133, 244, 0.15);
+      transform: translateY(-1px);
+    }
+
+    .gauth-acc-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .gauth-acc-info {
+      flex-grow: 1;
+      overflow: hidden;
+    }
+
+    .gauth-acc-name {
+      display: block;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text-heading);
+    }
+
+    .gauth-tag-admin {
+      font-size: 0.7rem;
+      color: #b45309;
+      font-weight: 800;
+    }
+
+    .gauth-acc-email {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .gauth-acc-arrow {
+      color: var(--text-light);
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .gauth-or-divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 1.25rem 0;
+      color: var(--text-light);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .gauth-or-divider::before, .gauth-or-divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .gauth-or-divider span {
+      padding: 0 0.75rem;
+    }
+
+    /* Write Review Modal Styles */
+    .write-review-box {
+      background: #ffffff;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 520px;
+      padding: 2.25rem;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+      position: relative;
+      animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .rev-auth-user-preview {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.75rem 1rem;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-md);
+      margin-top: 1rem;
+    }
+
+    .rev-user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .rev-user-meta {
+      flex-grow: 1;
+      overflow: hidden;
+    }
+
+    .rev-user-name {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--text-heading);
+    }
+
+    .rev-user-email {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .rev-verified-pill {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #059669;
+      background: #ecfdf5;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-full);
+      border: 1px solid #a7f3d0;
+    }
+
+    /* --------------------------------------------------------------------------
+       6. PRICING TIERS
+       -------------------------------------------------------------------------- */
+    .pricing-boxes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 2rem;
+    }
+
+    .price-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 2.25rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      transition: all var(--transition-smooth);
+    }
+
+    .price-box:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .price-box.featured {
+      border-color: var(--accent-sage);
+      box-shadow: 0 8px 30px rgba(83, 117, 104, 0.15);
+    }
+
+    .featured-ribbon {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent-sage);
+      color: #ffffff;
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 0.25rem 0.95rem;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .plan-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-heading);
+      margin-bottom: 0.4rem;
+    }
+
+    .plan-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .price-amount-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 0.35rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .price-number {
+      font-family: var(--font-heading);
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: var(--text-heading);
+    }
+
+    .price-timeframe {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .plan-feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: 2rem;
+      flex-grow: 1;
+    }
+
+    .plan-feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      font-size: 0.92rem;
+      color: var(--text-heading);
+    }
+
+    .check-mark {
+      color: var(--accent-sage);
+      font-weight: 700;
+    }
+
+    /* --------------------------------------------------------------------------
+       7. PROCESS WORKFLOW CARDS
+       -------------------------------------------------------------------------- */
+    .process-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .step-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.75rem;
+      position: relative;
+      transition: all var(--transition-smooth);
+    }
+
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .step-badge-num {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--border-subtle);
+      position: absolute;
+      top: 1rem;
+      right: 1.25rem;
+      line-height: 1;
+    }
+
+    .step-symbol {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: var(--bg-accent-soft);
+      color: var(--accent-sage);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* --------------------------------------------------------------------------
+       8. MODALS (VIDEO PLAYER, BOOKING, ADMIN, AUTH, REVIEWS)
+       -------------------------------------------------------------------------- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 28, 25, 0.65);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 2500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      opacity: 0;
+      transition: opacity var(--transition-smooth);
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-heading);
+      font-size: 1.4rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: all var(--transition-smooth);
+    }
+
+    .modal-close-btn:hover {
+      background: #fee2e2;
+      color: #dc2626;
+      border-color: #fca5a5;
+    }
+
+    .profile-setup-box {
+      background: #ffffff;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 480px;
+      padding: 2.25rem;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+      position: relative;
+      animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .avatar-upload-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin: 1.25rem 0;
+      padding: 1rem;
+      background: var(--bg-subtle);
+      border: 1px dashed var(--border-subtle);
+      border-radius: var(--radius-lg);
+    }
+
+    .avatar-preview-img {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      background: #ffffff;
+    }
+
+    .avatar-upload-actions {
+      flex-grow: 1;
+    }
+
+    .avatar-upload-btn-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.95rem;
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      cursor: pointer;
+      transition: all var(--transition-smooth);
+    }
+
+    .avatar-upload-btn-label:hover {
+      border-color: var(--accent-sage);
+      color: var(--accent-sage);
+    }
+
+    .verified-email-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.85rem;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+      border-radius: var(--radius-full);
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-top: 0.45rem;
+    }
+
+    .calm-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(36, 43, 39, 0.6);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity var(--transition-smooth);
+    }
+
+    .calm-modal-backdrop.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .calm-modal-box {
+      background: var(--bg-card);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-hover);
+      width: 100%;
+      max-width: 920px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .calm-modal-box.is-vertical {
+      max-width: 420px;
+    }
+
+    .modal-frame-box {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+    }
+
+    .calm-modal-box.is-vertical .modal-frame-box {
+      aspect-ratio: 9 / 16;
+      max-height: 75vh;
+    }
+
+    .modal-frame-box iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .modal-close-icon {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-heading);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: all var(--transition-smooth);
+    }
+
+    .modal-close-icon:hover {
+      background: #fee2e2;
+      color: #dc2626;
+      border-color: #fca5a5;
+    }
+
+    /* Forms */
+    .form-group-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .form-group-field label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-heading);
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--text-heading);
+      outline: none;
+      transition: all var(--transition-smooth);
+    }
+
+    .input-field:focus {
+      border-color: var(--accent-sage);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px var(--bg-accent-soft);
+    }
+
+    .pill-select-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .pill-select-opt {
+      padding: 0.45rem 0.95rem;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all var(--transition-smooth);
+    }
+
+    .pill-select-opt.selected {
+      background: var(--accent-sage);
+      color: #ffffff;
+      border-color: var(--accent-sage);
+    }
+
+    /* Footer */
+    .site-footer {
+      margin-top: auto;
+      padding: 4rem 0 2rem;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .footer-grid-layout {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-links-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .footer-links-list a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color var(--transition-smooth);
+    }
+
+    .footer-links-list a:hover {
+      color: var(--accent-sage);
+    }
+
+    .footer-bottom-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-stats-bar { justify-content: center; }
+    }
+
+    @media (max-width: 768px) {
+      .site-header { top: 0.5rem; padding: 0 0.75rem; }
+      .nav-bar { padding: 0.55rem 1rem; }
+      .nav-tabs-group {
+        position: fixed;
+        top: 4.75rem;
+        left: 1rem;
+        right: 1rem;
+        background: #ffffff;
+        border: 1px solid var(--border-subtle);
+        box-shadow: var(--shadow-hover);
+        border-radius: var(--radius-lg);
+        flex-direction: column;
+        padding: 1rem;
+        gap: 0.5rem;
+        display: none;
+      }
+      .nav-tabs-group.mobile-open { display: flex; }
+      .mobile-menu-btn { display: flex; }
+      .hero-main-heading { font-size: 2.3rem; }
+      .grid-horizontal { grid-template-columns: 1fr; }
+      .grid-vertical { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid-layout { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .grid-vertical { grid-template-columns: 1fr; }
+      .hero-main-heading { font-size: 1.95rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Calming Subtle Shapes -->
+  <div class="calm-bg-shapes">
+    <div class="shape-1"></div>
+    <div class="shape-2"></div>
+  </div>
+
+  <div class="site-wrapper">
+
+    <!-- ====================================================================
+         HEADER & NAVIGATION BAR (LIGHT, CLEAN & SOOTHING)
+         ==================================================================== -->
+    <header class="site-header">
+      <nav class="nav-bar">
+        <!-- Brand Identity with Logo -->
+        <a class="brand-identity" data-tab="home" id="brandIdentityBtn">
+          <div class="brand-logo-frame">
+            <img src="assets/logo.svg" alt="Creative Vibe Brand Logo" width="46" height="46">
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">Creative Vibe</span>
+            <span class="brand-sub">freelance video editor</span>
+          </div>
+        </a>
+
+        <!-- Nav Tabs -->
+        <ul class="nav-tabs-group" id="navTabsGroup">
+          <li><button class="nav-tab-btn active" data-tab="home">Home</button></li>
+          <li><button class="nav-tab-btn" data-tab="work">Work / Showreels</button></li>
+          <li><button class="nav-tab-btn" data-tab="process">Process & Workflow</button></li>
+          <li><button class="nav-tab-btn" data-tab="pricing">Pricing</button></li>
+          <li><button class="nav-tab-btn" data-tab="book-call">Book a Call</button></li>
+        </ul>
+
+        <!-- Nav Actions -->
+        <div class="nav-actions">
+          <!-- Google Auth User Profile / Sign In Button Container -->
+          <div id="userAuthNavWrap"></div>
+
+          <!-- Book CTA -->
+          <button class="btn btn-primary btn-sm" data-open-booking="true">
+            <span>Book a Call</span>
+          </button>
+
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">☰</button>
+        </div>
+      </nav>
+    </header>
+
+
+    <!-- ====================================================================
+         TAB 1: HOME PAGE
+         ==================================================================== -->
+    <main id="tab-home" class="tab-page active">
+      <!-- Hero -->
+      <section class="hero-box">
+        <div class="container">
+          <div class="hero-grid">
+            <div>
+              <div class="hero-badge-wrap">
+                <span class="badge-pill pulse">Available for Select YouTube Channels & Brands</span>
+              </div>
+              <h1 class="hero-main-heading">
+                Crafting visual stories with <span class="hero-accent-text">high retention</span> & cinematic flow.
+              </h1>
+              <p class="hero-bio">
+                Hey, I'm <strong>Creative Vibe</strong> — a freelance video editor helping creators, YouTubers, and SaaS founders transform raw footage into captivating, high-performing videos.
+              </p>
+              <div class="hero-btn-row">
+                <button class="btn btn-primary btn-lg" data-tab="work">
+                  <span>Explore Work (6 Categories)</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+                <button class="btn btn-secondary btn-lg" data-open-booking="true">
+                  <span>Book a 1-on-1 Call</span>
+                </button>
+              </div>
+
+              <!-- Stats -->
+              <div class="hero-stats-bar">
+                <div class="stat-block">
+                  <span class="stat-num">50M+</span>
+                  <span class="stat-text">Views Generated</span>
+                </div>
+                <div class="stat-block">
+                  <span class="stat-num">180+</span>
+                  <span class="stat-text">Videos Edited</span>
+                </div>
+                <div class="stat-block">
+                  <span class="stat-num">72%</span>
+                  <span class="stat-text">Avg. Watch Retention</span>
+                </div>
+                <div class="stat-block">
+                  <span class="stat-num">4.9★</span>
+                  <span class="stat-text">Client Rating</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Showreel Card -->
+            <div>
+              <div class="showreel-card" id="heroShowreelCard" title="Click to play showreel">
+                <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1000&q=80" alt="Showreel Thumbnail" class="showreel-cover-img">
+                <div class="showreel-card-overlay">
+                  <div>
+                    <span class="badge-pill" style="background: rgba(255,255,255,0.9); border:none;">⚡ 2026 Showreel</span>
+                  </div>
+                  <div class="play-circle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </div>
+                  <div style="color: #ffffff;">
+                    <div style="font-size: 1.15rem; font-weight: 700;">Creative Vibe Showreel</div>
+                    <div style="font-size: 0.82rem; opacity: 0.9;">Documentary • Motion Graphics • Sound Design</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Featured Works Section -->
+      <section class="section-spacing" style="background: var(--bg-card); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+        <div class="container">
+          <div class="section-head">
+            <span class="section-label">Recent Edits</span>
+            <h2 class="section-main-title">Selected Projects</h2>
+            <p class="section-description">A quick look at recent edits crafted for maximum audience retention and clarity.</p>
+          </div>
+
+          <div class="grid-horizontal" id="homeFeaturedGrid"></div>
+
+          <div style="text-align: center; margin-top: 3rem;">
+            <button class="btn btn-secondary btn-lg" data-tab="work">
+              <span>View All 6 Categories in Portfolio</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Client Reviews Section -->
+      <section class="section-spacing">
+        <div class="container">
+          <div class="section-head-with-action">
+            <div>
+              <span class="section-label">Verified Testimonials</span>
+              <h2 class="section-main-title">Client Reviews & Results</h2>
+              <p class="section-description">Real, verified feedback from YouTubers, SaaS founders, and creators.</p>
+            </div>
+            <button class="btn btn-secondary btn-sm" data-open-write-review="true">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              <span>Write a Review</span>
+            </button>
+          </div>
+
+          <div class="reviews-stream-grid" id="reviewsGridContainer"></div>
+        </div>
+      </section>
+    </main>
+
+
+    <!-- ====================================================================
+         TAB 2: WORK / SHOWREELS (CATEGORIZED, 16:9 & 9:16 VERTICAL)
+         ==================================================================== -->
+    <main id="tab-work" class="tab-page">
+      <div class="container" style="padding-top: 2rem; padding-bottom: 5rem;">
+        <div class="section-head">
+          <span class="section-label">Portfolio Stream</span>
+          <h2 class="section-main-title">All Categories & Works</h2>
+          <p class="section-description">
+            Scroll down to explore each category. Click any category pill to filter or jump directly to it.
+          </p>
+        </div>
+
+        <!-- Filter Pills Bar -->
+        <div class="filter-pills-bar" id="workCategoryChips"></div>
+
+        <!-- Categorized Video Stream Container -->
+        <div id="workStreamContainer"></div>
+      </div>
+    </main>
+
+
+    <!-- ====================================================================
+         TAB 3: PROCESS & WORKFLOW
+         ==================================================================== -->
+    <main id="tab-process" class="tab-page">
+      <div class="container" style="padding-top: 2rem; padding-bottom: 5rem;">
+        <div class="section-head">
+          <span class="section-label">Standards & Pipeline</span>
+          <h2 class="section-main-title">5-Stage Editing Workflow</h2>
+          <p class="section-description">A transparent, reliable process that delivers consistent quality and on-time turnarounds.</p>
+        </div>
+
+        <div class="process-steps-grid">
+          <div class="step-card">
+            <span class="step-badge-num">01</span>
+            <div class="step-symbol">📥</div>
+            <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Ingest & Story Hook</h3>
+            <p style="font-size: 0.92rem; color: var(--text-muted);">Organizing footage, syncing audio, and cutting the strongest narrative hook in the first 10 seconds.</p>
+          </div>
+
+          <div class="step-card">
+            <span class="step-badge-num">02</span>
+            <div class="step-symbol">✂️</div>
+            <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Pacing & Rough Cut</h3>
+            <p style="font-size: 0.92rem; color: var(--text-muted);">Removing dead air, dialling in rhythm, pattern interrupts, and seamless B-roll storytelling.</p>
+          </div>
+
+          <div class="step-card">
+            <span class="step-badge-num">03</span>
+            <div class="step-symbol">✨</div>
+            <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Motion Graphics & 3D</h3>
+            <p style="font-size: 0.92rem; color: var(--text-muted);">Custom kinetic typography, map animations, UI product callouts, and smooth zooms.</p>
+          </div>
+
+          <div class="step-card">
+            <span class="step-badge-num">04</span>
+            <div class="step-symbol">🎨</div>
+            <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Cinema Color Grade</h3>
+            <p style="font-size: 0.92rem; color: var(--text-muted);">Skin-tone balancing, custom film grain, mood LUTs, and DaVinci Resolve color matching.</p>
+          </div>
+
+          <div class="step-card">
+            <span class="step-badge-num">05</span>
+            <div class="step-symbol">🎧</div>
+            <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Sound Design & Mix</h3>
+            <p style="font-size: 0.92rem; color: var(--text-muted);">Multi-layered Foley, bass risers, vocal mastering, audio ducking, and 4K final master export.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+
+    <!-- ====================================================================
+         TAB 4: PRICING
+         ==================================================================== -->
+    <main id="tab-pricing" class="tab-page">
+      <div class="container" style="padding-top: 2rem; padding-bottom: 5rem;">
+        <div class="section-head">
+          <span class="section-label">Transparent Packages</span>
+          <h2 class="section-main-title">Editing Pricing & Retainers</h2>
+          <p class="section-description">Simple, clear pricing for creators and brands scaling their content output.</p>
+        </div>
+
+        <div class="pricing-boxes-grid" id="pricingCardsGrid"></div>
+      </div>
+    </main>
+
+
+    <!-- ====================================================================
+         TAB 5: BOOK A CALL
+         ==================================================================== -->
+    <main id="tab-book-call" class="tab-page">
+      <div class="container-narrow" style="padding-top: 2rem; padding-bottom: 5rem;">
+        <div class="section-head">
+          <span class="section-label">Let's Connect</span>
+          <h2 class="section-main-title">Book a 1-on-1 Discovery Call</h2>
+          <p class="section-description">Choose your preferred date, share your video vision, and let's craft something great.</p>
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: 2.5rem; box-shadow: var(--shadow-soft);">
+          <form onsubmit="event.preventDefault(); window.bookingManager.openBookingModal();">
+            <div class="form-group-field">
+              <label>Select Project Type</label>
+              <div class="pill-select-row">
+                <span class="pill-select-opt selected" data-value="YouTube Long-Form">YouTube Long-Form</span>
+                <span class="pill-select-opt" data-value="Viral Shorts & Reels">Viral Shorts / Reels</span>
+                <span class="pill-select-opt" data-value="Documentary Editing">Documentaries</span>
+                <span class="pill-select-opt" data-value="SaaS & Motion Graphics">SaaS Animations</span>
+                <span class="pill-select-opt" data-value="Monthly Retainer">Monthly Retainer</span>
+              </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+              <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+                <span>Continue to Schedule & Connect</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+
+    <!-- ====================================================================
+         FOOTER
+         ==================================================================== -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid-layout">
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+              <div class="brand-logo-frame" style="width: 38px; height: 38px; min-width: 38px;">
+                <img src="assets/logo.svg" alt="Creative Vibe" width="38" height="38">
+              </div>
+              <div class="brand-text">
+                <span class="brand-name">Creative Vibe</span>
+                <span class="brand-sub">freelance video editor</span>
+              </div>
+            </div>
+            <p style="font-size: 0.92rem; color: var(--text-muted); max-width: 320px;">
+              Helping YouTubers and brands tell unforgettable visual stories with premium pacing, sound design, and motion graphics.
+            </p>
+          </div>
+
+          <div>
+            <h4 style="font-size: 1rem; margin-bottom: 1rem;">Navigation</h4>
+            <ul class="footer-links-list">
+              <li><a href="#" data-tab="home">Home</a></li>
+              <li><a href="#" data-tab="work">Work / Showreels</a></li>
+              <li><a href="#" data-tab="process">Process & Workflow</a></li>
+              <li><a href="#" data-tab="pricing">Pricing</a></li>
+              <li><a href="#" data-tab="book-call">Book a Call</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 style="font-size: 1rem; margin-bottom: 1rem;">Connect</h4>
+            <ul class="footer-links-list">
+              <li><a href="mailto:contact.creativevibe@gmail.com">contact.creativevibe@gmail.com</a></li>
+              <li><a href="https://instagram.com" target="_blank">Instagram / @creativevibe.edits</a></li>
+              <li><a href="https://youtube.com" target="_blank">YouTube Channel</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom-line">
+          <div>&copy; 2026 Creative Vibe. All Rights Reserved.</div>
+          <div>
+            <button class="btn btn-secondary btn-sm" onclick="window.adminCMS.openAdminModal()">
+              <span>⚙️ Admin Portal</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+
+  <!-- ====================================================================
+       MODAL 1: UNIVERSAL VIDEO PLAYER (16:9 & 9:16 YOUTUBE)
+       ==================================================================== -->
+  <div class="calm-modal-backdrop" id="videoPlayerModal">
+    <div class="calm-modal-box">
+      <button class="modal-close-icon" id="modalCloseBtn" title="Close">✕</button>
+      <div class="modal-frame-box" id="modalIframeBox"></div>
+      <div style="padding: 1.25rem 1.5rem; background: var(--bg-card); display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-subtle);">
+        <div>
+          <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-heading);" id="modalVideoTitle">Video Title</h3>
+          <p style="font-size: 0.84rem; color: var(--text-muted); margin-top: 2px;" id="modalVideoSub">Category • Client</p>
+        </div>
+        <button class="btn btn-primary btn-sm" data-open-booking="true">
+          <span>Book Similar Edit</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ====================================================================
+       MODAL 2: INTERACTIVE "BOOK A CALL"
+       ==================================================================== -->
+  <div class="calm-modal-backdrop" id="bookingModal">
+    <div class="calm-modal-box" style="max-width: 580px; padding: 2.25rem; max-height: 90vh; overflow-y: auto;">
+      <button class="modal-close-icon" id="bookingCloseBtn" title="Close">✕</button>
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <span class="section-label">Let's Connect</span>
+        <h3 style="font-size: 1.6rem; font-weight: 800;">Book a Discovery Call</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted);">Share your video requirements and preferred slot.</p>
+      </div>
+
+      <form id="bookingForm">
+        <div class="form-group-field">
+          <label>Project Type</label>
+          <div class="pill-select-row">
+            <span class="pill-select-opt selected" data-value="YouTube Long-Form">YouTube Long-Form</span>
+            <span class="pill-select-opt" data-value="Viral Shorts (9:16)">Viral Shorts (9:16)</span>
+            <span class="pill-select-opt" data-value="Documentary Video">Documentary</span>
+            <span class="pill-select-opt" data-value="SaaS / Motion Explainer">SaaS Explainer</span>
+          </div>
+        </div>
+
+        <div class="form-group-field">
+          <label for="bookName">Your Name / Channel Name *</label>
+          <input type="text" class="input-field" id="bookName" placeholder="e.g. Alex Rivera or TechVision" required>
+        </div>
+
+        <div class="form-group-field">
+          <label for="bookEmail">Email Address *</label>
+          <input type="email" class="input-field" id="bookEmail" placeholder="e.g. alex@creator.com" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group-field">
+            <label for="bookDate">Preferred Date</label>
+            <input type="date" class="input-field" id="bookDate" required>
+          </div>
+          <div class="form-group-field">
+            <label>Preferred Time</label>
+            <select class="input-field" id="bookTimeSelect">
+              <option value="11:00 AM">11:00 AM EST</option>
+              <option value="02:00 PM">02:00 PM EST</option>
+              <option value="05:00 PM" selected>05:00 PM EST</option>
+              <option value="08:00 PM">08:00 PM EST</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group-field">
+          <label for="bookRefLink">Reference Link / Raw Footage (Optional)</label>
+          <input type="url" class="input-field" id="bookRefLink" placeholder="e.g. YouTube or Google Drive link">
+        </div>
+
+        <div class="form-group-field">
+          <label for="bookNotes">Project Details</label>
+          <textarea class="input-field" id="bookNotes" rows="3" placeholder="Tell me about your video length, pacing, or timeline..."></textarea>
+        </div>
+
+        <div style="margin-top: 0.5rem;">
+          <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+            <span>Confirm & Connect on WhatsApp / Email</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ====================================================================
+       MODAL 3: ADMIN CMS PORTAL (PIN: 1234)
+       ==================================================================== -->
+  <div class="calm-modal-backdrop" id="adminModal">
+    <div class="calm-modal-box" style="max-width: 900px; max-height: 90vh; overflow-y: auto;">
+      <button class="modal-close-icon" id="adminCloseBtn" title="Close">✕</button>
+
+      <!-- PIN AUTH SCREEN -->
+      <div id="adminAuthBox" style="padding: 3.5rem 2rem; display: flex; flex-direction: column; align-items: center; text-align: center;">
+        <div style="width: 56px; height: 56px; border-radius: 50%; background: var(--bg-accent-soft); color: var(--accent-sage); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin-bottom: 1.25rem;">🔒</div>
+        <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 0.4rem;">Admin Portal Access</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">Enter your 4-digit PIN to manage portfolio videos and pricing.</p>
+        
+        <div style="display: flex; gap: 0.75rem; margin-bottom: 1.75rem;">
+          <input type="password" maxlength="1" class="pin-digit-input input-field" style="width: 50px; height: 56px; text-align: center; font-size: 1.6rem;" autofocus>
+          <input type="password" maxlength="1" class="pin-digit-input input-field" style="width: 50px; height: 56px; text-align: center; font-size: 1.6rem;">
+          <input type="password" maxlength="1" class="pin-digit-input input-field" style="width: 50px; height: 56px; text-align: center; font-size: 1.6rem;">
+          <input type="password" maxlength="1" class="pin-digit-input input-field" style="width: 50px; height: 56px; text-align: center; font-size: 1.6rem;">
+        </div>
+
+        <button class="btn btn-primary" id="adminVerifyBtn" style="width: 100%; max-width: 240px;">
+          <span>Unlock Dashboard</span>
+        </button>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem;">(Default PIN: <strong>1234</strong>)</p>
+      </div>
+
+      <!-- DASHBOARD PANEL -->
+      <div id="adminPanelBox" style="display: none; flex-direction: column; padding: 2rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem; margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.3rem;">⚙️ Creative Vibe CMS</h3>
+          <div style="display: flex; gap: 0.35rem;">
+            <button class="btn btn-secondary btn-sm" id="admTabBtnVid" onclick="switchAdminTab('videos')">Videos</button>
+            <button class="btn btn-secondary btn-sm" id="admTabBtnPrice" onclick="switchAdminTab('pricing')">Pricing</button>
+            <button class="btn btn-secondary btn-sm" id="admTabBtnRev" onclick="switchAdminTab('reviews')">Reviews</button>
+            <button class="btn btn-secondary btn-sm" id="admTabBtnBack" onclick="switchAdminTab('backup')">Backup</button>
+          </div>
+        </div>
+
+        <!-- Admin Tab: Videos -->
+        <div id="admSectionVideos">
+          <div style="background: var(--bg-subtle); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem;">
+            <h4 style="margin-bottom: 1rem;">Add / Edit Video (YouTube Unlisted or Public)</h4>
+            <form id="adminVideoForm">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group-field">
+                  <label for="admVideoTitle">Video Title *</label>
+                  <input type="text" class="input-field" id="admVideoTitle" placeholder="e.g. The Rise of AI | Mini Doc" required>
+                </div>
+                <div class="form-group-field">
+                  <label for="admVideoCategory">Category *</label>
+                  <select class="input-field" id="admVideoCategory">
+                    <option value="documentary">Documentaries</option>
+                    <option value="motion-graphics">Motion Graphics</option>
+                    <option value="saas">SaaS Animations</option>
+                    <option value="talking-head">Talking Head</option>
+                    <option value="vlogs">Vlogs & Travel</option>
+                    <option value="shorts-reels">Viral Shorts & Reels (9:16)</option>
+                  </select>
+                </div>
+                <div class="form-group-field">
+                  <label for="admVideoUrl">YouTube Link (Public or Unlisted) *</label>
+                  <input type="url" class="input-field" id="admVideoUrl" placeholder="https://www.youtube.com/watch?v=... or shorts/..." required>
+                </div>
+                <div class="form-group-field">
+                  <label for="admVideoAspect">Aspect Ratio *</label>
+                  <select class="input-field" id="admVideoAspect">
+                    <option value="16:9">16:9 Horizontal (YouTube / Cinema)</option>
+                    <option value="9:16">9:16 Vertical (Shorts / Reels / TikTok)</option>
+                  </select>
+                </div>
+                <div class="form-group-field">
+                  <label for="admVideoClient">Client Name / Channel</label>
+                  <input type="text" class="input-field" id="admVideoClient" placeholder="e.g. VoxStyle Media">
+                </div>
+                <div class="form-group-field">
+                  <label for="admVideoViews">Views Badge</label>
+                  <input type="text" class="input-field" id="admVideoViews" placeholder="e.g. 1.2M Views">
+                </div>
+                <div class="form-group-field" style="grid-column: 1 / -1;">
+                  <label for="admVideoDesc">Description</label>
+                  <textarea class="input-field" id="admVideoDesc" rows="2" placeholder="Brief editing details..."></textarea>
+                </div>
+                <div style="grid-column: 1 / -1; text-align: right;">
+                  <button type="submit" class="btn btn-primary" id="admVideoSubmitBtn">Add Video to Portfolio</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <h4 style="margin-bottom: 1rem;">Existing Videos</h4>
+          <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+              <thead>
+                <tr style="border-bottom: 1px solid var(--border-subtle); text-align: left;">
+                  <th style="padding: 0.6rem;">Thumb</th>
+                  <th style="padding: 0.6rem;">Title & Format</th>
+                  <th style="padding: 0.6rem;">Client</th>
+                  <th style="padding: 0.6rem;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminVideosTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Admin Tab: Pricing -->
+        <div id="admSectionPricing" style="display: none;">
+          <div id="adminPricingContainer"></div>
+          <div style="text-align: right; margin-top: 1rem;">
+            <button class="btn btn-primary" id="adminSavePricingBtn">Save Pricing Changes</button>
+          </div>
+        </div>
+
+        <!-- Admin Tab: Reviews -->
+        <div id="admSectionReviews" style="display: none;">
+          <div style="background: var(--bg-subtle); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem;">
+            <h4 style="margin-bottom: 1rem;">Add Client Review</h4>
+            <form id="adminReviewForm">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group-field">
+                  <label for="admRevName">Client Name *</label>
+                  <input type="text" class="input-field" id="admRevName" required>
+                </div>
+                <div class="form-group-field">
+                  <label for="admRevChannel">Channel / Company</label>
+                  <input type="text" class="input-field" id="admRevChannel">
+                </div>
+                <div class="form-group-field" style="grid-column: 1 / -1;">
+                  <label for="admRevText">Review Quote *</label>
+                  <textarea class="input-field" id="admRevText" rows="3" required></textarea>
+                </div>
+                <div style="grid-column: 1 / -1; text-align: right;">
+                  <button type="submit" class="btn btn-primary">Add Review</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div id="adminReviewsList"></div>
+        </div>
+
+        <!-- Admin Tab: Backup -->
+        <div id="admSectionBackup" style="display: none;">
+          <div style="background: var(--bg-subtle); border-radius: var(--radius-lg); padding: 2rem; text-align: center;">
+            <h4 style="margin-bottom: 0.5rem;">Backup or Restore Portfolio JSON</h4>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Export your entire portfolio data to a JSON file.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+              <button class="btn btn-primary" id="adminExportJsonBtn">📥 Download JSON Backup</button>
+              <button class="btn btn-secondary" id="adminResetDefaultsBtn" style="color: #dc2626;">Reset to Defaults</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       MODAL 1: PURE OFFICIAL GOOGLE SIGN-IN MODAL
+       ==================================================================== -->
+  <div class="modal-overlay" id="googleAuthModal">
+    <div class="google-auth-box">
+      <button class="modal-close-btn" id="googleAuthCloseBtn" aria-label="Close">&times;</button>
+      
+      <div class="gauth-header">
+        <svg class="gauth-google-logo" viewBox="0 0 24 24" width="46" height="46">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+        </svg>
+        <h3 class="gauth-title">Sign in with Google</h3>
+        <p class="gauth-subtitle" id="googleAuthNotice">to continue to Creative Vibe</p>
+      </div>
+
+      <!-- Single Official Continue with Google Action -->
+      <button class="btn btn-secondary btn-lg" id="continueWithGoogleBtn" style="width: 100%; justify-content: center; padding: 0.95rem 1.25rem; font-weight: 700; font-size: 1rem; border-color: #cbd5e1; box-shadow: 0 4px 14px rgba(0,0,0,0.08); background: #ffffff;">
+        <svg class="google-g-icon" viewBox="0 0 24 24" width="22" height="22">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+        </svg>
+        <span>Continue with Google</span>
+      </button>
+      
+      <p style="font-size: 0.74rem; color: var(--text-muted); text-align: center; margin-top: 1.5rem; line-height: 1.45;">
+        🔒 To continue, Google will share your verified name, email address, and profile picture with Creative Vibe.
+      </p>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       MODAL 2: COMPLETE YOUR PROFILE (STEP 2: NAME & PROFILE PHOTO)
+       ==================================================================== -->
+  <div class="modal-overlay" id="profileSetupModal">
+    <div class="profile-setup-box">
+      <button class="modal-close-btn" id="profileSetupCloseBtn" aria-label="Close">&times;</button>
+      
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <span class="verified-email-chip">
+          <svg class="google-g-icon" viewBox="0 0 24 24" width="14" height="14">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span id="setupGoogleEmailBadge">user@gmail.com</span>
+        </span>
+        <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--text-heading); margin-top: 0.75rem;">Complete Your Profile</h3>
+        <p style="color: var(--text-muted); font-size: 0.88rem;">Confirm your name and optionally add a profile picture.</p>
+      </div>
+
+      <form id="profileSetupForm">
+        <!-- Full Name -->
+        <div style="margin-bottom: 1.25rem;">
+          <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-heading); display: block; margin-bottom: 0.4rem;">
+            Your Display Name <span style="color: #dc2626;">*</span>
+          </label>
+          <input type="text" class="input-field" id="setupNameInput" placeholder="e.g. Rahul Sharma" required>
+        </div>
+
+        <!-- Profile Photo Upload (Optional) -->
+        <div style="margin-bottom: 1.5rem;">
+          <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-heading); display: block; margin-bottom: 0.4rem;">
+            Profile Photo <span style="font-size: 0.78rem; font-weight: 500; color: var(--text-muted);">(Optional - Google avatar used if none)</span>
+          </label>
+          <div class="avatar-upload-wrap">
+            <img src="" id="setupAvatarPreview" class="avatar-preview-img" alt="Avatar Preview">
+            <div class="avatar-upload-actions">
+              <label for="setupPhotoFileInput" class="avatar-upload-btn-label">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <span>Upload Custom Photo</span>
+              </label>
+              <input type="file" id="setupPhotoFileInput" accept="image/png, image/jpeg, image/webp" style="display: none;">
+              <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.35rem;">PNG, JPG up to 5MB</p>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+          <span>Complete Setup & Continue</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       MODAL 3: WRITE VERIFIED REVIEW MODAL
+       ==================================================================== -->
+  <div class="modal-overlay" id="writeReviewModal">
+    <div class="write-review-box">
+      <button class="modal-close-btn" id="writeReviewCloseBtn" aria-label="Close">&times;</button>
+      
+      <div class="modal-header-block">
+        <span class="badge-pill" style="margin-bottom: 0.5rem; color: #059669; border-color: #a7f3d0; background: #ecfdf5;">
+          ✓ Verified Google Client Review
+        </span>
+        <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--text-heading);">Leave Your Client Review</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Share your experience working with Creative Vibe.</p>
+      </div>
+
+      <!-- Logged-in User Identity Chip -->
+      <div class="rev-auth-user-preview">
+        <img id="revModalUserAvatar" src="assets/logo.svg" class="rev-user-avatar" alt="User">
+        <div class="rev-user-meta">
+          <div class="rev-user-name" id="revModalUserName"></div>
+          <div class="rev-user-email" id="revModalUserEmail"></div>
+        </div>
+        <div class="rev-verified-pill">✓ Google Verified</div>
+      </div>
+
+      <form id="writeReviewForm" style="margin-top: 1.25rem;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div>
+            <label style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Rating</label>
+            <select class="input-field" id="revRatingSelect">
+              <option value="5">★★★★★ 5.0 - Outstanding</option>
+              <option value="4">★★★★☆ 4.0 - Very Good</option>
+              <option value="3">★★★☆☆ 3.0 - Good</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Project Category</label>
+            <select class="input-field" id="revProjectTypeSelect">
+              <option value="Documentary & Storytelling">Documentaries</option>
+              <option value="Motion Graphics & 3D">Motion Graphics</option>
+              <option value="SaaS & Product Demo">SaaS Animations</option>
+              <option value="YouTube Long-Form">Talking Head / Podcast</option>
+              <option value="Viral Shorts / Reels">Shorts & Reels</option>
+              <option value="Vlog & Travel Edit">Vlogs</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <label style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">YouTube Channel / Company Name (Optional)</label>
+          <input type="text" class="input-field" id="revChannelInput" placeholder="e.g. Apex Tech (320K Subs) or Founder at TaskPulse">
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <label style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Your Review & Video Results</label>
+          <textarea class="input-field" id="revTextInput" rows="4" placeholder="How did the editing pacing, sound design, retention rate or turnaround speed help your project?" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+          <span>Publish Verified Review</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div id="toastContainer" style="position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem;"></div>
+
+  <!-- Google Identity Services SDK -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/portfolio.js"></script>
+  <script src="js/booking.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    function switchAdminTab(tabName) {
+      document.getElementById('admSectionVideos').style.display = tabName === 'videos' ? 'block' : 'none';
+      document.getElementById('admSectionPricing').style.display = tabName === 'pricing' ? 'block' : 'none';
+      document.getElementById('admSectionReviews').style.display = tabName === 'reviews' ? 'block' : 'none';
+      document.getElementById('admSectionBackup').style.display = tabName === 'backup' ? 'block' : 'none';
+    }
+  </script>
+</body>
+</html>
