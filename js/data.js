@@ -2,20 +2,21 @@
    CREATIVE VIBE - DEFAULT DATA & LOCALSTORAGE SYNC
    ========================================================================== */
 
-const STORAGE_KEY = 'CREATIVE_VIBE_DATA_V2';
+const STORAGE_KEY = 'CREATIVE_VIBE_DATA_V3';
 
 const DEFAULT_PORTFOLIO_DATA = {
   profile: {
     brandName: "Creative Vibe",
     brandTitle: "Freelance Video Editor",
     tagline: "Crafting High-Retention Stories, Cinematic Documentaries & Viral Motion Graphics",
-    bio: "Hey, I'm Creative Vibe — a full-stack freelance video editor with 4+ years of experience helping top YouTubers, SaaS brands, and creators turn raw footage into high-converting visual masterpieces.",
-    email: "contact.creativevibe@gmail.com",
-    adminEmail: "contact.creativevibe@gmail.com",
-    whatsapp: "+919876543210",
-    instagram: "https://instagram.com/creativevibe.edits",
-    youtube: "https://youtube.com/@creativevibe",
-    twitter: "https://twitter.com/creativevibe",
+    bio: "Hey, I'm Creative Vibe — a full-stack freelance video editor helping top YouTubers, SaaS brands, and creators turn raw footage into high-converting visual masterpieces.",
+    email: "creavibe.studios@gmail.com",
+    adminEmail: "creavibe.studios@gmail.com",
+    whatsapp: "+919193905629",
+    instagram: "https://www.instagram.com/creavibe.studios",
+    discord: "@creavibe.studios",
+    youtube: "https://youtube.com/@creavibe.studios",
+    twitter: "https://twitter.com/creavibe",
     adminPin: "1234",
     customLogoUrl: "assets/logo.svg"
   },

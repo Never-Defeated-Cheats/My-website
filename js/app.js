@@ -64,8 +64,12 @@ function switchTab(tabId) {
   // Play audio
   if (window.soundFX) window.soundFX.playPop();
 
-  // Re-trigger scroll reveals
-  setTimeout(initScrollReveal, 100);
+  // Re-trigger scroll reveals & counter animations
+  setTimeout(() => {
+    if (typeof initScrollReveal === 'function') initScrollReveal();
+    if (tabId === 'home' && typeof animateCounters === 'function') animateCounters();
+    if (tabId === 'book-call' && window.bookingManager) window.bookingManager.syncUserAuthFields();
+  }, 100);
 }
 window.switchTab = switchTab;
 
@@ -167,7 +171,48 @@ function initScrollReveal() {
 
   reveals.forEach(el => observer.observe(el));
 }
-window.initScrollReveal = initScrollReveal;
+// Stats Counter Animation (requestAnimationFrame + easeOutExpo)
+function animateCounters() {
+  const statNumbers = document.querySelectorAll('.stat-num[data-target]');
+  if (!statNumbers.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        if (el.getAttribute('data-animated') === 'true') return;
+        el.setAttribute('data-animated', 'true');
+
+        const target = parseFloat(el.getAttribute('data-target'));
+        const suffix = el.getAttribute('data-suffix') || '';
+        const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+        const duration = 1800; // ms
+        const startTime = performance.now();
+
+        function updateCount(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          // Ease Out Expo
+          const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+          const currentVal = (target * easeProgress).toFixed(decimals);
+
+          el.textContent = `${currentVal}${suffix}`;
+
+          if (progress < 1) {
+            requestAnimationFrame(updateCount);
+          } else {
+            el.textContent = `${target.toFixed(decimals)}${suffix}`;
+          }
+        }
+
+        requestAnimationFrame(updateCount);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  statNumbers.forEach(num => observer.observe(num));
+}
+window.animateCounters = animateCounters;
 
 // DOM Ready Bootstrap
 document.addEventListener('DOMContentLoaded', () => {
@@ -199,8 +244,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 5. Scroll reveal observer
+  // 5. Scroll reveal observer & Stats Counter animation
   initScrollReveal();
+  animateCounters();
 
   console.log('✨ Creative Vibe Portfolio initialized successfully.');
 });
