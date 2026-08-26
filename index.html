@@ -3133,17 +3133,17 @@
                 </div>
                 <div class="form-group-field">
                   <label for="bookPreferredSlotIST">Preferred Time (IST) *</label>
-                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
-                    <input type="date" class="input-field" id="bookPreferredDateIST" required>
-                    <select class="input-field" id="bookPreferredSlotIST">
-                      <option value="11:00 AM IST">11:00 AM IST</option>
-                      <option value="02:00 PM IST">02:00 PM IST</option>
-                      <option value="05:00 PM IST" selected>05:00 PM IST</option>
-                      <option value="08:00 PM IST">08:00 PM IST</option>
-                      <option value="10:00 PM IST">10:00 PM IST</option>
-                      <option value="Flexible Timing">Flexible Timing</option>
-                    </select>
-                  </div>
+                  <select class="input-field" id="bookPreferredSlotIST" required>
+                    <option value="Flexible / Anytime (IST)" selected>Flexible / Anytime (IST)</option>
+                    <option value="09:00 AM - 11:00 AM (IST)">09:00 AM - 11:00 AM (IST) (Morning)</option>
+                    <option value="11:00 AM - 01:00 PM (IST)">11:00 AM - 01:00 PM (IST) (Noon)</option>
+                    <option value="01:00 PM - 03:00 PM (IST)">01:00 PM - 03:00 PM (IST) (Afternoon)</option>
+                    <option value="03:00 PM - 05:00 PM (IST)">03:00 PM - 05:00 PM (IST) (Evening)</option>
+                    <option value="05:00 PM - 07:00 PM (IST)">05:00 PM - 07:00 PM (IST) (Prime Slot)</option>
+                    <option value="07:00 PM - 09:00 PM (IST)">07:00 PM - 09:00 PM (IST) (Night)</option>
+                    <option value="09:00 PM - 11:00 PM (IST)">09:00 PM - 11:00 PM (IST) (Late Night)</option>
+                    <option value="11:00 PM - 01:00 AM (IST)">11:00 PM - 01:00 AM (IST) (Midnight)</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -3156,8 +3156,8 @@
               </label>
               <div class="form-row-2col">
                 <div class="form-group-field">
-                  <label for="bookRefLink">Reference Video / Style Benchmark (Optional)</label>
-                  <input type="url" class="input-field" id="bookRefLink" placeholder="e.g. https://youtube.com/watch?v=xxx">
+                  <label for="bookRefLink">Reference Video / Style Benchmark *</label>
+                  <input type="url" class="input-field" id="bookRefLink" placeholder="e.g. https://youtube.com/watch?v=xxx" required>
                 </div>
                 <div class="form-group-field">
                   <label for="bookFootageLink">Raw Footage Link (Optional)</label>
@@ -3170,20 +3170,20 @@
             <div class="form-fieldset-wrap">
               <label class="form-fieldset-title">
                 <span class="form-step-num">4</span>
-                <span>Direct Contact Handles (For Quick Coordination)</span>
+                <span>Direct Contact Handles (All Required for Instant Coordination)</span>
               </label>
               <div class="form-row-3col">
                 <div class="form-group-field">
-                  <label for="bookWhatsAppNum">WhatsApp Number</label>
-                  <input type="text" class="input-field" id="bookWhatsAppNum" placeholder="e.g. +91 98765 43210">
+                  <label for="bookWhatsAppNum">WhatsApp Number *</label>
+                  <input type="text" class="input-field" id="bookWhatsAppNum" placeholder="e.g. +91 98765 43210" required>
                 </div>
                 <div class="form-group-field">
-                  <label for="bookInstaUser">Instagram Username</label>
-                  <input type="text" class="input-field" id="bookInstaUser" placeholder="e.g. @yourinstagram">
+                  <label for="bookInstaUser">Instagram Username *</label>
+                  <input type="text" class="input-field" id="bookInstaUser" placeholder="e.g. @yourinstagram" required>
                 </div>
                 <div class="form-group-field">
-                  <label for="bookDiscordUser">Discord Username</label>
-                  <input type="text" class="input-field" id="bookDiscordUser" placeholder="e.g. username#1234">
+                  <label for="bookDiscordUser">Discord Username *</label>
+                  <input type="text" class="input-field" id="bookDiscordUser" placeholder="e.g. username#1234" required>
                 </div>
               </div>
             </div>
@@ -3192,10 +3192,10 @@
             <div class="form-fieldset-wrap">
               <label class="form-fieldset-title">
                 <span class="form-step-num">5</span>
-                <span>Project Scope & Video Vision</span>
+                <span>Project Scope & Video Vision *</span>
               </label>
               <div class="form-group-field" style="margin-bottom: 0;">
-                <textarea class="input-field" id="bookProjectDetails" rows="3" placeholder="Tell me about video length, pacing style, turnaround deadline, special motion graphics or retention goals..."></textarea>
+                <textarea class="input-field" id="bookProjectDetails" rows="3" placeholder="Tell me about video length, pacing style, turnaround deadline, special motion graphics or retention goals..." required></textarea>
               </div>
             </div>
 
@@ -3328,13 +3328,19 @@
 
       <h3 class="appointment-success-title">Appointment Booked Successfully!</h3>
       <p class="appointment-success-subtitle" id="appointmentSuccessSub">
-        Your complete project dossier has been generated and opened in your chosen platform.
+        Your project details have been formatted and loaded for instant connect.
       </p>
 
       <!-- Summary Preview Card -->
       <div class="appointment-summary-card" id="appointmentSummaryCard"></div>
 
-      <div style="text-align: center; margin-top: 1.75rem;">
+      <!-- Action Button Row: Copy Dossier + Done Button -->
+      <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem;">
+        <button class="btn btn-secondary btn-md" id="btnCopyAppointmentDossier" style="width: 100%; justify-content: center; font-weight: 700;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          <span id="copyBtnText">Copy Full Project Details</span>
+        </button>
+
         <button class="btn btn-primary btn-lg" id="btnDoneAppointment" style="width: 100%; justify-content: center;">
           <span>Done & Return to Website</span>
         </button>

@@ -6,22 +6,12 @@
 class BookingManager {
   constructor() {
     this.selectedProjectType = 'Talking Head';
+    this.lastGeneratedDossier = '';
     this.init();
   }
 
   init() {
     this.bindEvents();
-    this.setDefaultDate();
-  }
-
-  setDefaultDate() {
-    const dateInput = document.getElementById('bookPreferredDateIST');
-    if (dateInput) {
-      const tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      dateInput.value = tomorrow.toISOString().split('T')[0];
-      dateInput.min = new Date().toISOString().split('T')[0];
-    }
   }
 
   // Navigate directly to Book Appointment tab
@@ -52,8 +42,7 @@ class BookingManager {
     const name = (document.getElementById('bookClientName')?.value || '').trim();
     const channel = (document.getElementById('bookChannelName')?.value || '').trim();
     const email = (document.getElementById('bookClientEmail')?.value || '').trim();
-    const date = document.getElementById('bookPreferredDateIST')?.value || 'Flexible Date';
-    const slot = document.getElementById('bookPreferredSlotIST')?.value || '05:00 PM IST';
+    const slot = document.getElementById('bookPreferredSlotIST')?.value || 'Flexible / Anytime (IST)';
     const refLink = (document.getElementById('bookRefLink')?.value || '').trim();
     const footageLink = (document.getElementById('bookFootageLink')?.value || '').trim();
     const whatsapp = (document.getElementById('bookWhatsAppNum')?.value || '').trim();
@@ -66,7 +55,6 @@ class BookingManager {
       name,
       channel,
       email,
-      date,
       slot,
       refLink,
       footageLink,
@@ -83,19 +71,23 @@ class BookingManager {
     const clientName = d.name || 'Creator / Founder';
     const channelName = d.channel || 'Not specified';
     const email = d.email || 'Not provided';
-    const timeSlot = `${d.date} (${d.slot})`;
-    const ref = d.refLink ? `\n🔗 Reference Link: ${d.refLink}` : '';
-    const footage = d.footageLink ? `\n📦 Raw Footage Link: ${d.footageLink}` : '';
-    const wa = d.whatsapp ? `\n💬 WhatsApp: ${d.whatsapp}` : '';
-    const ig = d.instagram ? `\n📸 Instagram: ${d.instagram}` : '';
-    const dc = d.discord ? `\n🎮 Discord: ${d.discord}` : '';
-    const vision = d.details ? `\n\n📝 Project Details & Vision:\n${d.details}` : '\n\n📝 Project Details:\nLooking forward to discussing video editing requirements, retention hooks, and pacing.';
+    const timeSlot = d.slot || 'Flexible / Anytime (IST)';
+    const ref = d.refLink ? `• Reference Link: ${d.refLink}` : '• Reference Link: Not provided';
+    const footage = d.footageLink ? `\n• Raw Footage Link: ${d.footageLink}` : '\n• Raw Footage: Will share during discussion';
+    const wa = `• WhatsApp: ${d.whatsapp}`;
+    const ig = `• Instagram: ${d.instagram}`;
+    const dc = `• Discord: ${d.discord}`;
+    const vision = d.details ? `\n• Project Details & Vision:\n${d.details}` : '\n• Project Details:\nLooking forward to discussing video editing requirements, retention hooks, and pacing.';
 
-    return `🎬 NEW APPOINTMENT BOOKING — CREATIVE VIBE\n\n👤 Client Name: ${clientName}\n📺 Page / Channel: ${channelName}\n📧 Email: ${email}\n🎯 Project Niche: ${d.projectType}\n⏰ Preferred Slot (IST): ${timeSlot}${ref}${footage}${wa}${ig}${dc}${vision}`;
+    const dossier = `*NEW APPOINTMENT BOOKING — CREATIVE VIBE*\n\n• Client Name: ${clientName}\n• Page / Channel: ${channelName}\n• Email: ${email}\n• Project Niche: ${d.projectType}\n• Preferred Time (IST): ${timeSlot}\n${ref}${footage}\n\n${wa}\n${ig}\n${dc}\n${vision}`;
+
+    this.lastGeneratedDossier = dossier;
+    return dossier;
   }
 
   validateForm() {
     const d = this.getBookingData();
+    
     if (!d.name) {
       if (window.showToast) window.showToast('Please enter your Name', 'error');
       document.getElementById('bookClientName')?.focus();
@@ -106,9 +98,34 @@ class BookingManager {
       document.getElementById('bookChannelName')?.focus();
       return false;
     }
-    if (!d.email || !d.email.includes('@')) {
+    if (!d.email || !d.email.includes('@') || !d.email.includes('.')) {
       if (window.showToast) window.showToast('Please enter a valid Email Address', 'error');
       document.getElementById('bookClientEmail')?.focus();
+      return false;
+    }
+    if (!d.refLink) {
+      if (window.showToast) window.showToast('Please enter a Reference Video Link', 'error');
+      document.getElementById('bookRefLink')?.focus();
+      return false;
+    }
+    if (!d.whatsapp) {
+      if (window.showToast) window.showToast('Please enter your WhatsApp Number', 'error');
+      document.getElementById('bookWhatsAppNum')?.focus();
+      return false;
+    }
+    if (!d.instagram) {
+      if (window.showToast) window.showToast('Please enter your Instagram Username', 'error');
+      document.getElementById('bookInstaUser')?.focus();
+      return false;
+    }
+    if (!d.discord) {
+      if (window.showToast) window.showToast('Please enter your Discord Username', 'error');
+      document.getElementById('bookDiscordUser')?.focus();
+      return false;
+    }
+    if (!d.details) {
+      if (window.showToast) window.showToast('Please describe your Project Scope & Video Vision', 'error');
+      document.getElementById('bookProjectDetails')?.focus();
       return false;
     }
     return true;
@@ -123,7 +140,7 @@ class BookingManager {
     const d = this.getBookingData();
 
     if (subText) {
-      subText.innerHTML = `Your complete project dossier has been generated and loaded in <strong>${platformName}</strong>. ${platformNote}`;
+      subText.innerHTML = `Your project dossier has been formatted for <strong>${platformName}</strong>.<br><span style="font-size: 0.85rem; color: var(--accent-sage); font-weight: 700;">${platformNote}</span>`;
     }
 
     if (summaryCard) {
@@ -145,37 +162,29 @@ class BookingManager {
           <span class="summary-value">${d.email}</span>
         </div>
         <div class="summary-row-item">
-          <span class="summary-label">Preferred Time (IST)</span>
-          <span class="summary-value">${d.date} (${d.slot})</span>
+          <span class="summary-label">Preferred Slot (IST)</span>
+          <span class="summary-value">${d.slot}</span>
         </div>
-        ${d.whatsapp ? `
-          <div class="summary-row-item">
-            <span class="summary-label">WhatsApp</span>
-            <span class="summary-value">${d.whatsapp}</span>
-          </div>
-        ` : ''}
-        ${d.instagram ? `
-          <div class="summary-row-item">
-            <span class="summary-label">Instagram</span>
-            <span class="summary-value">${d.instagram}</span>
-          </div>
-        ` : ''}
-        ${d.discord ? `
-          <div class="summary-row-item">
-            <span class="summary-label">Discord</span>
-            <span class="summary-value">${d.discord}</span>
-          </div>
-        ` : ''}
-        ${d.refLink ? `
-          <div class="summary-row-item">
-            <span class="summary-label">Reference</span>
-            <span class="summary-value" style="font-size: 0.78rem; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${d.refLink}</span>
-          </div>
-        ` : ''}
+        <div class="summary-row-item">
+          <span class="summary-label">WhatsApp</span>
+          <span class="summary-value">${d.whatsapp}</span>
+        </div>
+        <div class="summary-row-item">
+          <span class="summary-label">Instagram</span>
+          <span class="summary-value">${d.instagram}</span>
+        </div>
+        <div class="summary-row-item">
+          <span class="summary-label">Discord</span>
+          <span class="summary-value">${d.discord}</span>
+        </div>
+        <div class="summary-row-item">
+          <span class="summary-label">Reference</span>
+          <span class="summary-value" style="font-size: 0.78rem; max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${d.refLink}</span>
+        </div>
         ${d.footageLink ? `
           <div class="summary-row-item">
             <span class="summary-label">Raw Footage</span>
-            <span class="summary-value" style="font-size: 0.78rem; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${d.footageLink}</span>
+            <span class="summary-value" style="font-size: 0.78rem; max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${d.footageLink}</span>
           </div>
         ` : ''}
       `;
@@ -187,16 +196,33 @@ class BookingManager {
     // Clear form inputs
     const form = document.getElementById('pageBookingForm');
     if (form) form.reset();
-    this.setDefaultDate();
+  }
+
+  copyDossierToClipboard() {
+    const textToCopy = this.lastGeneratedDossier || this.buildFormattedMessage();
+    if (!textToCopy) return;
+
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      const copyBtnText = document.getElementById('copyBtnText');
+      if (copyBtnText) {
+        copyBtnText.textContent = '✓ Details Copied to Clipboard!';
+        setTimeout(() => {
+          copyBtnText.textContent = 'Copy Full Project Details';
+        }, 2200);
+      }
+      if (window.showToast) window.showToast('📋 Project details copied to clipboard!', 'success');
+    }).catch(() => {
+      if (window.showToast) window.showToast('Project details ready to copy', 'info');
+    });
   }
 
   // 1. WhatsApp Booking
   sendViaWhatsApp() {
     if (!this.validateForm()) return;
     const rawMsg = this.buildFormattedMessage();
-    const waUrl = `https://wa.me/919193905629?text=${encodeURIComponent(rawMsg)}`;
+    const waUrl = `https://api.whatsapp.com/send?phone=919193905629&text=${encodeURIComponent(rawMsg)}`;
     window.open(waUrl, '_blank');
-    this.showSuccessModal('WhatsApp', 'Hit send on WhatsApp to instantly connect with Creative Vibe!');
+    this.showSuccessModal('WhatsApp', 'Hit send on WhatsApp to instantly connect with Creative Vibe (+91 91939 05629).');
   }
 
   // 2. Instagram DM Booking
@@ -204,17 +230,17 @@ class BookingManager {
     if (!this.validateForm()) return;
     const rawMsg = this.buildFormattedMessage();
 
-    // Copy formatted details to clipboard for instant pasting in DM
+    // Automatically copy details into clipboard
     navigator.clipboard.writeText(rawMsg).then(() => {
       if (window.showToast) {
-        window.showToast('📋 Project details copied! Opening Instagram DM (@creavibe.studios)...', 'success');
+        window.showToast('📋 Project details copied! Opening Instagram DM...', 'success');
       }
     }).catch(() => {});
 
     setTimeout(() => {
-      window.open('https://www.instagram.com/creavibe.studios', '_blank');
-      this.showSuccessModal('Instagram', 'Project dossier copied to clipboard! Paste it directly into @creavibe.studios DM.');
-    }, 400);
+      window.open('https://www.instagram.com/creavibe.studios/', '_blank');
+      this.showSuccessModal('Instagram', 'Project details copied to your clipboard! Simply paste (Ctrl+V / Long-Press) into @creavibe.studios DM.');
+    }, 300);
   }
 
   // 3. Discord Booking
@@ -222,16 +248,28 @@ class BookingManager {
     if (!this.validateForm()) return;
     const rawMsg = this.buildFormattedMessage();
     const discordHandle = '@creavibe.studios';
+    const clipContent = `Discord Contact: ${discordHandle}\n\n${rawMsg}`;
 
-    navigator.clipboard.writeText(`Discord: ${discordHandle}\n\n${rawMsg}`).then(() => {
+    // Automatically copy to clipboard
+    navigator.clipboard.writeText(clipContent).then(() => {
       if (window.showToast) {
-        window.showToast(`📋 Copied Discord handle '${discordHandle}' & project details! Opening Discord...`, 'success');
+        window.showToast(`📋 Copied Discord handle '${discordHandle}' & details!`, 'success');
       }
     }).catch(() => {});
 
+    // Try opening Discord Desktop App protocol, with fallback
+    const discordAppUrl = 'discord://';
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = discordAppUrl;
+    document.body.appendChild(iframe);
+    setTimeout(() => {
+      document.body.removeChild(iframe);
+    }, 1500);
+
     setTimeout(() => {
       window.open('https://discord.com/app', '_blank');
-      this.showSuccessModal('Discord', 'Project dossier copied to clipboard! Paste it in DM to @creavibe.studios.');
+      this.showSuccessModal('Discord', 'Discord username (@creavibe.studios) & project details copied! Paste it in DM or send a friend request.');
     }, 400);
   }
 
@@ -241,9 +279,20 @@ class BookingManager {
     const d = this.getBookingData();
     const rawMsg = this.buildFormattedMessage();
     const subject = `Appointment Booking: ${d.projectType} - ${d.name} (${d.channel})`;
-    const mailUrl = `mailto:creavibe.studios@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(rawMsg)}`;
-    window.location.href = mailUrl;
-    this.showSuccessModal('Gmail', 'Draft email pre-filled with your complete project details opened in your email client.');
+
+    // Direct Web Gmail Compose URL (Works universally on PC, Laptop, Mac, and Mobile browsers with all fields pre-loaded)
+    const webGmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=creavibe.studios@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(rawMsg)}`;
+    
+    // Open Web Gmail composer in new tab
+    const newTab = window.open(webGmailUrl, '_blank');
+    
+    // Fallback if popup blocker or native mail preferred
+    if (!newTab || newTab.closed || typeof newTab.closed === 'undefined') {
+      const mailtoUrl = `mailto:creavibe.studios@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(rawMsg)}`;
+      window.location.href = mailtoUrl;
+    }
+
+    this.showSuccessModal('Gmail', 'Draft email pre-filled with all project details opened in Gmail. Just hit send!');
   }
 
   bindEvents() {
@@ -289,6 +338,12 @@ class BookingManager {
         e.preventDefault();
         this.sendViaWhatsApp();
       });
+    }
+
+    // Success Modal: Copy Dossier Button
+    const copyDossierBtn = document.getElementById('btnCopyAppointmentDossier');
+    if (copyDossierBtn) {
+      copyDossierBtn.addEventListener('click', () => this.copyDossierToClipboard());
     }
 
     // Success Modal Close buttons
