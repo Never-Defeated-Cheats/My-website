@@ -55,8 +55,8 @@ function switchTab(tabId) {
   });
 
   // Close mobile nav if open
-  const navList = document.querySelector('.nav-links-list');
-  if (navList) navList.classList.remove('mobile-open');
+  const navTabsGroup = document.getElementById('navTabsGroup');
+  if (navTabsGroup) navTabsGroup.classList.remove('mobile-open');
 
   // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -254,12 +254,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 4. Mobile Nav Toggle
-  const mobileToggle = document.getElementById('mobileNavToggle');
-  const navList = document.querySelector('.nav-links-list');
-  if (mobileToggle && navList) {
-    mobileToggle.addEventListener('click', () => {
-      navList.classList.toggle('mobile-open');
+  // 4. Mobile Nav Toggle & Outside Click Handler
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const navTabsGroup = document.getElementById('navTabsGroup');
+
+  if (mobileMenuBtn && navTabsGroup) {
+    mobileMenuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navTabsGroup.classList.toggle('mobile-open');
+      if (window.soundFX) window.soundFX.playPop();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!navTabsGroup.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+        navTabsGroup.classList.remove('mobile-open');
+      }
     });
   }
 
