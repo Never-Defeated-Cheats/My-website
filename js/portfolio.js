@@ -99,7 +99,7 @@ class PortfolioManager {
     return `
       <div class="marquee-card-vertical" data-ytid="${v.ytId}" data-title="${v.title}" data-client="${v.client}" data-format="9:16" data-views="${v.views}">
         <div class="marquee-video-frame">
-          <iframe class="marquee-video-iframe" src="${embedSrc}" title="${v.title}" allow="autoplay; encrypted-media" tabindex="-1"></iframe>
+          <iframe class="marquee-video-iframe" src="${embedSrc}" title="Vertical Edit" allow="autoplay; encrypted-media" tabindex="-1"></iframe>
         </div>
         <div class="marquee-card-overlay">
           <div class="marquee-badge-top">
@@ -109,13 +109,6 @@ class PortfolioManager {
               <svg class="sound-icon-active" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
               <span>Audio</span>
             </span>
-          </div>
-          <div class="marquee-card-bottom">
-            <h4 class="marquee-card-title">${v.title}</h4>
-            <div class="marquee-card-meta">
-              <span>Client: ${v.client || 'Creative Vibe'}</span>
-              <span>• ${v.views || 'Viral'}</span>
-            </div>
           </div>
         </div>
       </div>
@@ -128,7 +121,7 @@ class PortfolioManager {
     return `
       <div class="marquee-card-horizontal" data-ytid="${v.ytId}" data-title="${v.title}" data-client="${v.client}" data-format="16:9" data-views="${v.views}">
         <div class="marquee-video-frame">
-          <iframe class="marquee-video-iframe" src="${embedSrc}" title="${v.title}" allow="autoplay; encrypted-media" tabindex="-1"></iframe>
+          <iframe class="marquee-video-iframe" src="${embedSrc}" title="Horizontal Edit" allow="autoplay; encrypted-media" tabindex="-1"></iframe>
         </div>
         <div class="marquee-card-overlay">
           <div class="marquee-badge-top">
@@ -138,13 +131,6 @@ class PortfolioManager {
               <svg class="sound-icon-active" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
               <span>Audio</span>
             </span>
-          </div>
-          <div class="marquee-card-bottom">
-            <h4 class="marquee-card-title">${v.title}</h4>
-            <div class="marquee-card-meta">
-              <span>Client: ${v.client || 'Creative Vibe'}</span>
-              <span>• ${v.duration || v.views || '1080p'}</span>
-            </div>
           </div>
         </div>
       </div>
@@ -363,12 +349,12 @@ class PortfolioManager {
     }
 
     if (this.modalTitle) this.modalTitle.textContent = video.title || 'Video Showcase';
-    if (this.modalSub) this.modalSub.textContent = `Client: ${video.client || 'Creative Vibe'} • Format: ${video.aspectRatio || '16:9'} • ${video.views || ''}`;
+    if (this.modalSub) this.modalSub.textContent = `${video.aspectRatio || '16:9'} Format • High Retention Edit`;
 
     if (this.iframeContainer) {
       this.iframeContainer.innerHTML = `
         <iframe 
-          src="https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1&playsinline=1" 
+          src="https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&controls=0&modestbranding=1&rel=0&iv_load_policy=3&showinfo=0&disablekb=1&playsinline=1" 
           title="${video.title || 'Video Player'}" 
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
           allowfullscreen>
