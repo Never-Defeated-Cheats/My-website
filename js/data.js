@@ -2,7 +2,7 @@
    CREATIVE VIBE - DEFAULT DATA & LOCALSTORAGE SYNC
    ========================================================================== */
 
-const STORAGE_KEY = 'CREATIVE_VIBE_DATA_V8';
+const STORAGE_KEY = 'CREATIVE_VIBE_DATA_V9';
 
 const DEFAULT_PORTFOLIO_DATA = {
   profile: {
@@ -10,11 +10,11 @@ const DEFAULT_PORTFOLIO_DATA = {
     brandTitle: "Freelance Video Editor",
     tagline: "Crafting High-Retention Stories, Cinematic Documentaries & Viral Motion Graphics",
     bio: "Hey, I'm Creative Vibe — a full-stack freelance video editor helping top YouTubers, SaaS brands, and creators turn raw footage into high-converting visual masterpieces.",
-    email: "creavibe.studios@gmail.com",
-    adminEmail: "creavibe.studios@gmail.com",
+    email: "creative_vibe@creavibestudios.in",
+    adminEmail: "creative_vibe@creavibestudios.in",
     whatsapp: "+919193905629",
     instagram: "https://www.instagram.com/creavibe.studios",
-    discord: "@creavibe.studios",
+    discord: "https://discord.gg/QHKAcSNDxD",
     youtube: "https://youtube.com/@creavibe.studios",
     twitter: "https://twitter.com/creavibe",
     adminPin: "1234",
@@ -357,7 +357,7 @@ const DEFAULT_PORTFOLIO_DATA = {
       price: "$9.99 - $19.99",
       minPrice: "$9.99",
       maxPrice: "$19.99",
-      period: "per minute of footage",
+      period: "per minute of video",
       rangeNote: "Min – Max standard bracket (90% of edits)",
       desc: "Seamless rhythm for In Real Life vlogs, travel films, speed ramps, neo-color grades, and atmospheric environmental audio.",
       features: [

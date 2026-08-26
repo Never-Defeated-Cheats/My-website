@@ -147,18 +147,26 @@ window.renderReviewsLive = () => {
 
   data.reviews.forEach(r => {
     const numRating = typeof r.rating === 'number' ? r.rating : 4.9;
-    const fullStars = Math.floor(numRating);
-    const hasHalf = (numRating % 1) >= 0.4;
     
     let starsHtml = '';
-    for (let i = 0; i < fullStars; i++) {
-      starsHtml += '<span class="star filled">★</span>';
-    }
-    if (hasHalf && fullStars < 5) {
-      starsHtml += '<span class="star half">★</span>';
-    }
-    while ((starsHtml.match(/★/g) || []).length < 5) {
-      starsHtml += '<span class="star empty">★</span>';
+    for (let i = 1; i <= 5; i++) {
+      let fillPercent = 0;
+      if (numRating >= i) {
+        fillPercent = 100;
+      } else if (numRating > i - 1) {
+        fillPercent = Math.round((numRating - (i - 1)) * 100);
+      } else {
+        fillPercent = 0;
+      }
+
+      if (fillPercent === 100) {
+        starsHtml += '<span class="star filled">★</span>';
+      } else if (fillPercent === 0) {
+        starsHtml += '<span class="star empty">★</span>';
+      } else {
+        // Exact percentage gradient fill (e.g. 70% full, 30% empty for 4.7)
+        starsHtml += `<span class="star partial" style="background: linear-gradient(90deg, #f59e0b 0%, #f59e0b ${fillPercent}%, #d1d5db ${fillPercent}%, #d1d5db 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;">★</span>`;
+      }
     }
 
     html += `

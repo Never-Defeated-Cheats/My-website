@@ -268,28 +268,32 @@ class BookingManager {
     }, 1500);
 
     setTimeout(() => {
-      window.open('https://discord.com/app', '_blank');
-      this.showSuccessModal('Discord', 'Discord username (@creavibe.studios) & project details copied! Paste it in DM or send a friend request.');
+      window.open('https://discord.gg/QHKAcSNDxD', '_blank');
+      this.showSuccessModal('Discord', 'Discord invite (https://discord.gg/QHKAcSNDxD) & project details copied! Join our server or paste in DM.');
     }, 400);
   }
 
-  // 4. Gmail Booking
+  // 4. Gmail Booking (Native App on Mobile, Web Compose on Desktop)
   sendViaGmail() {
     if (!this.validateForm()) return;
     const d = this.getBookingData();
     const rawMsg = this.buildFormattedMessage();
     const subject = `Appointment Booking: ${d.projectType} - ${d.name} (${d.channel})`;
+    const targetEmail = 'creative_vibe@creavibestudios.in';
 
-    // Direct Web Gmail Compose URL (Works universally on PC, Laptop, Mac, and Mobile browsers with all fields pre-loaded)
-    const webGmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=creavibe.studios@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(rawMsg)}`;
-    
-    // Open Web Gmail composer in new tab
-    const newTab = window.open(webGmailUrl, '_blank');
-    
-    // Fallback if popup blocker or native mail preferred
-    if (!newTab || newTab.closed || typeof newTab.closed === 'undefined') {
-      const mailtoUrl = `mailto:creavibe.studios@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(rawMsg)}`;
+    const isMobile = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || (window.innerWidth <= 768 && ('ontouchstart' in window || navigator.maxTouchPoints > 0));
+
+    if (isMobile) {
+      // On mobile (Android & iOS), direct mailto intent triggers the native Gmail / Mail App immediately!
+      const mailtoUrl = `mailto:${targetEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(rawMsg)}`;
       window.location.href = mailtoUrl;
+    } else {
+      // On desktop, open Gmail Web Composer in a new tab with fallback to mailto
+      const webGmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${targetEmail}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(rawMsg)}`;
+      const newTab = window.open(webGmailUrl, '_blank');
+      if (!newTab || newTab.closed || typeof newTab.closed === 'undefined') {
+        window.location.href = `mailto:${targetEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(rawMsg)}`;
+      }
     }
 
     this.showSuccessModal('Gmail', 'Draft email pre-filled with all project details opened in Gmail. Just hit send!');
