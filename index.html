@@ -879,6 +879,9 @@
       position: relative;
       overflow: hidden;
       transition: all var(--transition-smooth);
+      max-width: 1180px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .niche-stream-block:hover {
@@ -2499,10 +2502,11 @@
       overflow: hidden;
       padding: 1.5rem 0;
       width: 100%;
-      max-width: 100%;
+      max-width: 1140px;
+      margin: 0 auto;
       border-radius: var(--radius-xl);
-      mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.25) 2.5%, #000000 8.5%, #000000 91.5%, rgba(0, 0, 0, 0.25) 97.5%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.25) 2.5%, #000000 8.5%, #000000 91.5%, rgba(0, 0, 0, 0.25) 97.5%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.15) 3%, #000000 12%, #000000 88%, rgba(0, 0, 0, 0.15) 97%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.15) 3%, #000000 12%, #000000 88%, rgba(0, 0, 0, 0.15) 97%, transparent 100%);
     }
 
     /* Soft edge blend overlays for cinematic in/out smooth transitions */
@@ -2512,7 +2516,7 @@
       position: absolute;
       top: 0;
       bottom: 0;
-      width: 80px;
+      width: 100px;
       pointer-events: none;
       z-index: 15;
     }
@@ -2520,21 +2524,21 @@
     /* Home Page Blend into section background */
     #tab-home .recent-edits-container::before {
       left: 0;
-      background: linear-gradient(to right, #ffffff 0%, rgba(255, 255, 255, 0.85) 30%, rgba(255, 255, 255, 0) 100%);
+      background: linear-gradient(to right, #ffffff 0%, rgba(255, 255, 255, 0.85) 35%, rgba(255, 255, 255, 0) 100%);
     }
     #tab-home .recent-edits-container::after {
       right: 0;
-      background: linear-gradient(to left, #ffffff 0%, rgba(255, 255, 255, 0.85) 30%, rgba(255, 255, 255, 0) 100%);
+      background: linear-gradient(to left, #ffffff 0%, rgba(255, 255, 255, 0.85) 35%, rgba(255, 255, 255, 0) 100%);
     }
 
     /* Work Page Blend into card background */
     #tab-work .recent-edits-container::before {
       left: 0;
-      background: linear-gradient(to right, #ffffff 0%, rgba(255, 255, 255, 0.85) 30%, rgba(255, 255, 255, 0) 100%);
+      background: linear-gradient(to right, #ffffff 0%, rgba(255, 255, 255, 0.85) 35%, rgba(255, 255, 255, 0) 100%);
     }
     #tab-work .recent-edits-container::after {
       right: 0;
-      background: linear-gradient(to left, #ffffff 0%, rgba(255, 255, 255, 0.85) 30%, rgba(255, 255, 255, 0) 100%);
+      background: linear-gradient(to left, #ffffff 0%, rgba(255, 255, 255, 0.85) 35%, rgba(255, 255, 255, 0) 100%);
     }
 
     .marquee-row-wrapper {
@@ -2562,16 +2566,17 @@
       display: flex;
       gap: 1.25rem;
       width: max-content;
+      will-change: transform;
     }
 
     /* Track 1: Vertical 9:16 - Moves Right to Left */
     .marquee-track-vertical {
-      animation: marqueeScrollLeft 42s linear infinite;
+      animation: marqueeScrollLeft 45s linear infinite;
     }
 
     /* Track 2: Horizontal 16:9 - Moves Left to Right */
     .marquee-track-horizontal {
-      animation: marqueeScrollRight 45s linear infinite;
+      animation: marqueeScrollRight 48s linear infinite;
     }
 
     .marquee-track:hover {
@@ -2580,11 +2585,11 @@
 
     @keyframes marqueeScrollLeft {
       0% { transform: translateX(0); }
-      100% { transform: translateX(-33.333%); }
+      100% { transform: translateX(-50%); }
     }
 
     @keyframes marqueeScrollRight {
-      0% { transform: translateX(-33.333%); }
+      0% { transform: translateX(-50%); }
       100% { transform: translateX(0); }
     }
 

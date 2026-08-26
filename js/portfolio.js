@@ -23,6 +23,17 @@ class PortfolioManager {
     this.bindEvents();
   }
 
+  // Helper to build robust infinite marquee array with seamless 50%/50% wrap
+  buildSeamlessLoop(items, minLength = 16) {
+    if (!items || !items.length) return [];
+    let base = [...items];
+    let half = [...base];
+    while (half.length < minLength) {
+      half = half.concat(base);
+    }
+    return half.concat(half);
+  }
+
   // =========================================================================
   // 1. RECENT EDITS DUAL-ROW INFINITE SLIDERS (HOME PAGE)
   // =========================================================================
@@ -34,13 +45,11 @@ class PortfolioManager {
     const edits = window.CREATIVE_VIBE_VIDEOS ? window.CREATIVE_VIBE_VIDEOS.getRecentEdits() : { vertical: [], horizontal: [] };
 
     // 1. Top Row: Vertical Videos (9:16 Shorts/Reels)
-    const vertList = edits.vertical || [];
-    const vertLoop = vertList.length > 0 ? [...vertList, ...vertList] : [];
+    const vertLoop = this.buildSeamlessLoop(edits.vertical || []);
     vertContainer.innerHTML = vertLoop.map(v => this.buildVerticalMarqueeCardHtml(v)).join('');
 
     // 2. Bottom Row: Horizontal Videos (16:9 Long-form)
-    const horizList = edits.horizontal || [];
-    const horizLoop = horizList.length > 0 ? [...horizList, ...horizList] : [];
+    const horizLoop = this.buildSeamlessLoop(edits.horizontal || []);
     horizContainer.innerHTML = horizLoop.map(v => this.buildHorizontalMarqueeCardHtml(v)).join('');
 
     // Bind Hover (Unmute Audio) & Click (Open Big Screen) on Recent Edits cards
@@ -61,8 +70,8 @@ class PortfolioManager {
     for (const [key, niche] of Object.entries(niches)) {
       const vertList = niche.vertical || [];
       const horizList = niche.horizontal || [];
-      const vertLoop = vertList.length > 0 ? [...vertList, ...vertList] : [];
-      const horizLoop = horizList.length > 0 ? [...horizList, ...horizList] : [];
+      const vertLoop = this.buildSeamlessLoop(vertList);
+      const horizLoop = this.buildSeamlessLoop(horizList);
 
       html += `
         <section class="niche-stream-block reveal" id="niche-block-${key}">
