@@ -110,9 +110,6 @@ class PortfolioManager {
               <span>Audio</span>
             </span>
           </div>
-          <div class="marquee-play-center" title="Click to open big screen">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          </div>
           <div class="marquee-card-bottom">
             <h4 class="marquee-card-title">${v.title}</h4>
             <div class="marquee-card-meta">
@@ -135,15 +132,12 @@ class PortfolioManager {
         </div>
         <div class="marquee-card-overlay">
           <div class="marquee-badge-top">
-            <span class="format-pill">🎬 16:9 Cinema</span>
+            <span class="format-pill">🎬 16:9 Longform</span>
             <span class="sound-status-pill">
               <svg class="sound-icon-muted" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="23" x2="23" y2="17"></line></svg>
               <svg class="sound-icon-active" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
               <span>Audio</span>
             </span>
-          </div>
-          <div class="marquee-play-center" title="Click to open big screen">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           </div>
           <div class="marquee-card-bottom">
             <h4 class="marquee-card-title">${v.title}</h4>
