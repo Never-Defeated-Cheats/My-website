@@ -68,6 +68,7 @@ function switchTab(tabId) {
   setTimeout(() => {
     if (typeof initScrollReveal === 'function') initScrollReveal();
     if (tabId === 'home' && typeof animateCounters === 'function') animateCounters();
+    if (tabId === 'work' && window.portfolioManager) window.portfolioManager.closeNicheDetail();
     if (tabId === 'book-call' && window.bookingManager) window.bookingManager.syncUserAuthFields();
   }, 100);
 }

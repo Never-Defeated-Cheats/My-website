@@ -2,7 +2,7 @@
    CREATIVE VIBE - DEFAULT DATA & LOCALSTORAGE SYNC
    ========================================================================== */
 
-const STORAGE_KEY = 'CREATIVE_VIBE_DATA_V3';
+const STORAGE_KEY = 'CREATIVE_VIBE_DATA_V5';
 
 const DEFAULT_PORTFOLIO_DATA = {
   profile: {
@@ -316,34 +316,121 @@ const DEFAULT_PORTFOLIO_DATA = {
     {
       id: "rev-1",
       clientName: "Marcus Vance",
-      email: "marcus.vance@aerotech.io",
-      channel: "AeroTech Insights (450K Subs) • Mini Documentaries",
+      channel: "AeroTech Insights (480K Subs) • Mini Documentaries",
       rating: 5,
       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80",
       text: "Creative Vibe completely transformed our documentary series. Our average 30-day retention spiked from 38% to 68.4%, and our Starship video hit 1.2M views. Pacing, kinetic maps, and immersive sound design are top tier.",
-      date: "3 days ago",
+      date: "2 days ago",
       verifiedGoogle: true
     },
     {
       id: "rev-2",
       clientName: "Sarah Chen",
-      email: "sarah@taskpulse.app",
-      channel: "Founder at TaskPulse SaaS • 3D UI & Product Launch",
+      channel: "Founder at TaskPulse SaaS • 3D UI Explainer",
       rating: 5,
       avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=150&q=80",
       text: "We needed a 90-second launch video that explained our dev tool clearly without boring users. The 3D isometric animation and sound sync were flawless. We secured over 14,000 beta signups in week one.",
-      date: "1 week ago",
+      date: "4 days ago",
       verifiedGoogle: true
     },
     {
       id: "rev-3",
       clientName: "Devon Brooks",
-      email: "devon@brookscreative.tv",
       channel: "Devon Vlogs (1.2M Subs) • Travel & Lifestyle",
       rating: 5,
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80",
       text: "Turnaround is fast, communication is effortless, and the music choices elevate raw camera footage to cinema grade. Working with Creative Vibe feels like having a dedicated Netflix post-production editor.",
+      date: "1 week ago",
+      verifiedGoogle: true
+    },
+    {
+      id: "rev-4",
+      clientName: "Liam Thorne",
+      channel: "The Mindset Blueprint Podcast (320K Subs)",
+      rating: 5,
+      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80",
+      text: "Best editor I've worked with in 4 years of podcasting. He knows exactly where to cut dead air, inserts relevant B-roll at the right retention drop-off marks, and masterfully mixes vocal clarity.",
+      date: "1 week ago",
+      verifiedGoogle: true
+    },
+    {
+      id: "rev-5",
+      clientName: "Aarav Patel",
+      channel: "Crypto & Fintech Daily (650K Subs)",
+      rating: 5,
+      avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&q=80",
+      text: "My Shorts went from averaging 20k views to pulling 400k+ consistently. The Hormozi caption animations, sound effects, and pattern interrupts keep viewers hooked until the last second.",
       date: "2 weeks ago",
+      verifiedGoogle: true
+    },
+    {
+      id: "rev-6",
+      clientName: "Elena Rostova",
+      channel: "Creative Director, Studio Lumina",
+      rating: 5,
+      avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80",
+      text: "We handed over 150GB of chaotic raw footage for a high-profile client brand film. Creative Vibe delivered a pristine rough cut in 48 hours that required zero fundamental revisions. Exceptional taste.",
+      date: "2 weeks ago",
+      verifiedGoogle: true
+    },
+    {
+      id: "rev-7",
+      clientName: "Jason Miller",
+      channel: "CEO, FlowMetric Analytics SaaS",
+      rating: 5,
+      avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=150&q=80",
+      text: "The SaaS product explainer video generated a 3.8x conversion bump on our landing page. The smooth zoom-ins on product features and typography hits made our complex software feel simple and irresistible.",
+      date: "3 weeks ago",
+      verifiedGoogle: true
+    },
+    {
+      id: "rev-8",
+      clientName: "Maya Lin",
+      channel: "Nomad Chronicles • 4K Travel Films",
+      rating: 5,
+      avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80",
+      text: "The DaVinci Resolve color grading on my Iceland vlog was breathtaking. He matched drone footage with Sony A7SIII logs effortlessly. Audio design with wind and footsteps brought the footage to life.",
+      date: "3 weeks ago",
+      verifiedGoogle: true
+    },
+    {
+      id: "rev-9",
+      clientName: "Kavita Sharma",
+      channel: "Finance & Investing Uncut (890K Subs)",
+      rating: 5,
+      avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80",
+      text: "Finding an editor who understands finance charts and timing is nearly impossible. Creative Vibe adds custom kinetic graphics that make dry balance sheets look cinematic and exciting.",
+      date: "1 month ago",
+      verifiedGoogle: true
+    },
+    {
+      id: "rev-10",
+      clientName: "Toby Jenkins",
+      channel: "Gaming & Pop Culture Breakdown (740K Subs)",
+      rating: 5,
+      avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=150&q=80",
+      text: "Fast cuts without feeling overwhelming. The sound design hits are punchy, memes are well-timed, and copyright-safe music curation saved me countless hours. 10/10 recommendation.",
+      date: "1 month ago",
+      verifiedGoogle: true
+    },
+    {
+      id: "rev-11",
+      clientName: "Dr. Julian Hayes",
+      channel: "Health & Longevity Lab Podcast",
+      rating: 5,
+      avatar: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=150&q=80",
+      text: "Our interview retention jumped past the 15-minute mark for the first time. The multi-cam switching and subtle visual callouts for medical terms kept audience engagement remarkably steady.",
+      date: "1 month ago",
+      verifiedGoogle: true
+    },
+    {
+      id: "rev-12",
+      clientName: "Chloe Dubois",
+      channel: "E-Commerce Brand Founder (LumaSkin)",
+      rating: 5,
+      avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=150&q=80",
+      text: "Our TikTok and Reels ad ROAS went from 1.8x to 4.2x after switching to Creative Vibe for our vertical hooks. The speed, energy, and visual polish paid for itself on day three.",
+      date: "1 month ago",
       verifiedGoogle: true
     }
   ]
