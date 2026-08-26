@@ -36,24 +36,23 @@ class PortfolioManager {
 
     // 1. Top Row: Vertical Videos (9:16 Shorts/Reels)
     const vertList = edits.vertical || [];
-    const vertLoop = [...vertList, ...vertList, ...vertList];
+    const vertLoop = vertList.length > 0 ? [...vertList, ...vertList] : [];
     vertContainer.innerHTML = vertLoop.map(v => this.buildVerticalMarqueeCardHtml(v)).join('');
 
-    // 2. Bottom Row: Horizontal Videos (16:9 Long-form/Cinema)
+    // 2. Bottom Row: Horizontal Videos (16:9 Long-form)
     const horizList = edits.horizontal || [];
-    const horizLoop = [...horizList, ...horizList, ...horizList];
+    const horizLoop = horizList.length > 0 ? [...horizList, ...horizList] : [];
     horizContainer.innerHTML = horizLoop.map(v => this.buildHorizontalMarqueeCardHtml(v)).join('');
 
     // Bind Hover (Unmute Audio) & Click (Open Big Screen) on all cards
     document.querySelectorAll('.marquee-card-vertical, .marquee-card-horizontal').forEach(card => {
-      // 1. Mouse Enter: Unmute Audio & Play with Sound on Hover
+      // 1. Mouse Enter: Smoothly Unmute Audio (without interrupting playback)
       card.addEventListener('mouseenter', () => {
         const iframe = card.querySelector('iframe');
         if (iframe && iframe.contentWindow) {
           try {
-            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'unMute', args: [] }), '*');
-            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'setVolume', args: [100] }), '*');
-            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: [] }), '*');
+            iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+            iframe.contentWindow.postMessage('{"event":"command","func":"setVolume","args":[100]}', '*');
           } catch (e) {}
         }
         card.classList.add('is-unmuted');
@@ -65,7 +64,7 @@ class PortfolioManager {
         const iframe = card.querySelector('iframe');
         if (iframe && iframe.contentWindow) {
           try {
-            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'mute', args: [] }), '*');
+            iframe.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
           } catch (e) {}
         }
         card.classList.remove('is-unmuted');
@@ -78,7 +77,7 @@ class PortfolioManager {
         const iframe = card.querySelector('iframe');
         if (iframe && iframe.contentWindow) {
           try {
-            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'mute', args: [] }), '*');
+            iframe.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
           } catch (e) {}
         }
         card.classList.remove('is-unmuted');
@@ -94,12 +93,12 @@ class PortfolioManager {
   }
 
   buildVerticalMarqueeCardHtml(v) {
-    const embedSrc = `https://www.youtube-nocookie.com/embed/${v.ytId}?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=${v.ytId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1`;
+    const embedSrc = `https://www.youtube-nocookie.com/embed/${v.ytId}?autoplay=1&mute=1&loop=1&playlist=${v.ytId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1`;
 
     return `
       <div class="marquee-card-vertical" data-ytid="${v.ytId}" data-title="${v.title}" data-client="${v.client}" data-format="9:16" data-views="${v.views}">
         <div class="marquee-video-frame">
-          <iframe class="marquee-video-iframe" src="${embedSrc}" title="Vertical Edit" allow="autoplay; encrypted-media" tabindex="-1"></iframe>
+          <iframe class="marquee-video-iframe" src="${embedSrc}" title="Vertical Edit" allow="autoplay; encrypted-media; gyroscope; picture-in-picture" tabindex="-1"></iframe>
         </div>
         <div class="marquee-card-overlay">
           <div class="marquee-badge-top">
@@ -116,12 +115,12 @@ class PortfolioManager {
   }
 
   buildHorizontalMarqueeCardHtml(v) {
-    const embedSrc = `https://www.youtube-nocookie.com/embed/${v.ytId}?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=${v.ytId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1`;
+    const embedSrc = `https://www.youtube-nocookie.com/embed/${v.ytId}?autoplay=1&mute=1&loop=1&playlist=${v.ytId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1`;
 
     return `
       <div class="marquee-card-horizontal" data-ytid="${v.ytId}" data-title="${v.title}" data-client="${v.client}" data-format="16:9" data-views="${v.views}">
         <div class="marquee-video-frame">
-          <iframe class="marquee-video-iframe" src="${embedSrc}" title="Horizontal Edit" allow="autoplay; encrypted-media" tabindex="-1"></iframe>
+          <iframe class="marquee-video-iframe" src="${embedSrc}" title="Horizontal Edit" allow="autoplay; encrypted-media; gyroscope; picture-in-picture" tabindex="-1"></iframe>
         </div>
         <div class="marquee-card-overlay">
           <div class="marquee-badge-top">

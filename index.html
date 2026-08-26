@@ -1645,12 +1645,12 @@
     }
 
     .calm-modal-box {
-      background: var(--bg-card);
+      background: #000000;
       border-radius: var(--radius-xl);
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-hover);
+      border: 1.5px solid rgba(83, 117, 104, 0.45);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 35px rgba(83, 117, 104, 0.25);
       width: 100%;
-      max-width: 920px;
+      max-width: 960px;
       position: relative;
       overflow: hidden;
       display: flex;
@@ -1658,48 +1658,73 @@
     }
 
     .calm-modal-box.is-vertical {
-      max-width: 420px;
+      max-width: 440px;
     }
 
     .modal-frame-box {
       width: 100%;
       aspect-ratio: 16 / 9;
-      background: #000;
+      background: #000000;
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-xl);
     }
 
     .calm-modal-box.is-vertical .modal-frame-box {
       aspect-ratio: 9 / 16;
-      max-height: 75vh;
+      max-height: 82vh;
+      height: 82vh;
     }
 
+    /* Clean YouTube Player in Modal: Zoom 115% to hide top title bar and channel name */
     .modal-frame-box iframe {
-      width: 100%;
-      height: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 114%;
+      height: 114%;
+      transform: translate(-50%, -50%);
       border: none;
+      background: #000000;
+    }
+
+    .calm-modal-box.is-vertical .modal-frame-box iframe {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 135%;
+      height: 135%;
+      transform: translate(-50%, -50%);
+      border: none;
+      background: #000000;
     }
 
     .modal-close-icon {
       position: absolute;
       top: 1rem;
       right: 1rem;
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      background: #ffffff;
-      border: 1px solid var(--border-subtle);
-      color: var(--text-heading);
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 10;
+      z-index: 100;
+      font-size: 1.1rem;
+      font-weight: 700;
       transition: all var(--transition-smooth);
     }
 
     .modal-close-icon:hover {
-      background: #fee2e2;
-      color: #dc2626;
-      border-color: #fca5a5;
+      background: #dc2626;
+      color: #ffffff;
+      border-color: #ef4444;
+      transform: scale(1.1);
     }
 
     /* Forms */
@@ -2690,21 +2715,12 @@
 
 
   <!-- ====================================================================
-       MODAL 1: UNIVERSAL VIDEO PLAYER (16:9 & 9:16 YOUTUBE)
+       MODAL 1: UNIVERSAL VIDEO PLAYER (PURE 100% CLEAN VIDEO SCREEN)
        ==================================================================== -->
   <div class="calm-modal-backdrop" id="videoPlayerModal">
     <div class="calm-modal-box">
       <button class="modal-close-icon" id="modalCloseBtn" title="Close">✕</button>
       <div class="modal-frame-box" id="modalIframeBox"></div>
-      <div style="padding: 1.25rem 1.5rem; background: var(--bg-card); display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-subtle);">
-        <div>
-          <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-heading);" id="modalVideoTitle">Video Title</h3>
-          <p style="font-size: 0.84rem; color: var(--text-muted); margin-top: 2px;" id="modalVideoSub">Category • Client</p>
-        </div>
-        <button class="btn btn-primary btn-sm" data-open-booking="true">
-          <span>Book Similar Edit</span>
-        </button>
-      </div>
     </div>
   </div>
 
