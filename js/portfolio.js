@@ -36,7 +36,6 @@ class PortfolioManager {
 
     // 1. Top Row: Vertical Videos (9:16 Shorts/Reels)
     const vertList = edits.vertical || [];
-    // Duplicate array for seamless infinite marquee loop
     const vertLoop = [...vertList, ...vertList, ...vertList];
     vertContainer.innerHTML = vertLoop.map(v => this.buildVerticalMarqueeCardHtml(v)).join('');
 
@@ -45,9 +44,45 @@ class PortfolioManager {
     const horizLoop = [...horizList, ...horizList, ...horizList];
     horizContainer.innerHTML = horizLoop.map(v => this.buildHorizontalMarqueeCardHtml(v)).join('');
 
-    // Bind click events on all marquee cards to play video with sound
+    // Bind Hover (Unmute Audio) & Click (Open Big Screen) on all cards
     document.querySelectorAll('.marquee-card-vertical, .marquee-card-horizontal').forEach(card => {
-      card.addEventListener('click', () => {
+      // 1. Mouse Enter: Unmute Audio & Play with Sound on Hover
+      card.addEventListener('mouseenter', () => {
+        const iframe = card.querySelector('iframe');
+        if (iframe && iframe.contentWindow) {
+          try {
+            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'unMute', args: [] }), '*');
+            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'setVolume', args: [100] }), '*');
+            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: [] }), '*');
+          } catch (e) {}
+        }
+        card.classList.add('is-unmuted');
+        if (window.soundFX) window.soundFX.playHover();
+      });
+
+      // 2. Mouse Leave: Mute Audio back to silent background playback
+      card.addEventListener('mouseleave', () => {
+        const iframe = card.querySelector('iframe');
+        if (iframe && iframe.contentWindow) {
+          try {
+            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'mute', args: [] }), '*');
+          } catch (e) {}
+        }
+        card.classList.remove('is-unmuted');
+      });
+
+      // 3. Click: Open in Full Screen Player Modal with Audio
+      card.addEventListener('click', (e) => {
+        e.stopPropagation();
+        // Mute preview before opening modal
+        const iframe = card.querySelector('iframe');
+        if (iframe && iframe.contentWindow) {
+          try {
+            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'mute', args: [] }), '*');
+          } catch (e) {}
+        }
+        card.classList.remove('is-unmuted');
+
         const ytId = card.getAttribute('data-ytid');
         const title = card.getAttribute('data-title');
         const client = card.getAttribute('data-client');
@@ -59,21 +94,30 @@ class PortfolioManager {
   }
 
   buildVerticalMarqueeCardHtml(v) {
+    const embedSrc = `https://www.youtube-nocookie.com/embed/${v.ytId}?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=${v.ytId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1`;
+
     return `
       <div class="marquee-card-vertical" data-ytid="${v.ytId}" data-title="${v.title}" data-client="${v.client}" data-format="9:16" data-views="${v.views}">
-        <img src="${v.thumbnail}" alt="${v.title}" class="marquee-card-thumb" loading="lazy">
+        <div class="marquee-video-frame">
+          <iframe class="marquee-video-iframe" src="${embedSrc}" title="${v.title}" allow="autoplay; encrypted-media" tabindex="-1"></iframe>
+        </div>
         <div class="marquee-card-overlay">
           <div class="marquee-badge-top">
             <span class="format-pill">⚡ 9:16 Short</span>
-            <span style="opacity: 0.9;">${v.views || 'Viral'}</span>
+            <span class="sound-status-pill">
+              <svg class="sound-icon-muted" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="23" x2="23" y2="17"></line></svg>
+              <svg class="sound-icon-active" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+              <span>Audio</span>
+            </span>
           </div>
-          <div class="marquee-play-center">
+          <div class="marquee-play-center" title="Click to open big screen">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           </div>
           <div class="marquee-card-bottom">
             <h4 class="marquee-card-title">${v.title}</h4>
             <div class="marquee-card-meta">
               <span>Client: ${v.client || 'Creative Vibe'}</span>
+              <span>• ${v.views || 'Viral'}</span>
             </div>
           </div>
         </div>
@@ -82,22 +126,30 @@ class PortfolioManager {
   }
 
   buildHorizontalMarqueeCardHtml(v) {
+    const embedSrc = `https://www.youtube-nocookie.com/embed/${v.ytId}?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=${v.ytId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1`;
+
     return `
       <div class="marquee-card-horizontal" data-ytid="${v.ytId}" data-title="${v.title}" data-client="${v.client}" data-format="16:9" data-views="${v.views}">
-        <img src="${v.thumbnail}" alt="${v.title}" class="marquee-card-thumb" loading="lazy">
+        <div class="marquee-video-frame">
+          <iframe class="marquee-video-iframe" src="${embedSrc}" title="${v.title}" allow="autoplay; encrypted-media" tabindex="-1"></iframe>
+        </div>
         <div class="marquee-card-overlay">
           <div class="marquee-badge-top">
             <span class="format-pill">🎬 16:9 Cinema</span>
-            <span style="opacity: 0.9;">${v.duration || v.views || 'HD'}</span>
+            <span class="sound-status-pill">
+              <svg class="sound-icon-muted" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="23" x2="23" y2="17"></line></svg>
+              <svg class="sound-icon-active" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+              <span>Audio</span>
+            </span>
           </div>
-          <div class="marquee-play-center">
+          <div class="marquee-play-center" title="Click to open big screen">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           </div>
           <div class="marquee-card-bottom">
             <h4 class="marquee-card-title">${v.title}</h4>
             <div class="marquee-card-meta">
               <span>Client: ${v.client || 'Creative Vibe'}</span>
-              <span>• ${v.views || 'Featured'}</span>
+              <span>• ${v.duration || v.views || '1080p'}</span>
             </div>
           </div>
         </div>

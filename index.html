@@ -2029,6 +2029,25 @@
       z-index: 10;
     }
 
+    .marquee-video-frame {
+      position: absolute;
+      inset: -5px;
+      width: calc(100% + 10px);
+      height: calc(100% + 10px);
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .marquee-video-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      pointer-events: none;
+      transform: scale(1.05);
+      background: #000;
+    }
+
     .marquee-card-thumb {
       width: 100%;
       height: 100%;
@@ -2036,26 +2055,23 @@
       transition: transform 0.4s ease;
       display: block;
     }
-    .marquee-card-vertical:hover .marquee-card-thumb,
-    .marquee-card-horizontal:hover .marquee-card-thumb {
-      transform: scale(1.08);
-    }
 
     .marquee-card-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.45) 100%);
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.08) 50%, rgba(0, 0, 0, 0.5) 100%);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       padding: 0.85rem;
       color: #ffffff;
       transition: background 0.3s ease;
+      z-index: 2;
     }
 
     .marquee-card-vertical:hover .marquee-card-overlay,
     .marquee-card-horizontal:hover .marquee-card-overlay {
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.5) 100%);
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.55) 100%);
     }
 
     .marquee-badge-top {
@@ -2074,6 +2090,46 @@
       font-size: 0.7rem;
       font-weight: 700;
       backdrop-filter: blur(4px);
+    }
+
+    /* Sound Pill Indicator on Marquee Cards */
+    .sound-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-full);
+      background: rgba(17, 24, 39, 0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+
+    .sound-status-pill .sound-icon-active {
+      display: none;
+      color: #34d399;
+    }
+    .sound-status-pill .sound-icon-muted {
+      display: inline-block;
+      color: #9ca3af;
+    }
+
+    .marquee-card-vertical.is-unmuted .sound-status-pill,
+    .marquee-card-horizontal.is-unmuted .sound-status-pill {
+      background: #059669;
+      border-color: #34d399;
+      box-shadow: 0 0 12px rgba(52, 211, 153, 0.6);
+    }
+    .marquee-card-vertical.is-unmuted .sound-status-pill .sound-icon-active,
+    .marquee-card-horizontal.is-unmuted .sound-status-pill .sound-icon-active {
+      display: inline-block;
+    }
+    .marquee-card-vertical.is-unmuted .sound-status-pill .sound-icon-muted,
+    .marquee-card-horizontal.is-unmuted .sound-status-pill .sound-icon-muted {
+      display: none;
     }
 
     .marquee-play-center {
