@@ -1,25 +1,21 @@
 /* ==========================================================================
-   CREATIVE VIBE - DIRECT MULTI-PLATFORM BOOKING & SCHEDULER
-   Direct chat & booking integration: WhatsApp, Instagram, Discord, Gmail
+   CREATIVE VIBE - DIRECT MULTI-PLATFORM APPOINTMENT BOOKING & SCHEDULER
+   Direct chat & appointment integration: WhatsApp, Instagram, Discord, Gmail
    ========================================================================== */
 
 class BookingManager {
   constructor() {
-    this.selectedProjectType = 'YouTube Long-Form';
-    this.selectedTimeSlot = '05:00 PM EST';
-    this.selectedBudget = '$500 - $1,500';
-
+    this.selectedProjectType = 'Talking Head';
     this.init();
   }
 
   init() {
     this.bindEvents();
     this.setDefaultDate();
-    this.syncUserAuthFields();
   }
 
   setDefaultDate() {
-    const dateInput = document.getElementById('bookDate') || document.getElementById('bookDatePage');
+    const dateInput = document.getElementById('bookPreferredDateIST');
     if (dateInput) {
       const tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
@@ -28,17 +24,7 @@ class BookingManager {
     }
   }
 
-  syncUserAuthFields() {
-    if (window.authManager && window.authManager.isLoggedIn()) {
-      const u = window.authManager.getUser();
-      const nameInputs = document.querySelectorAll('#bookName, #bookNamePage');
-      const emailInputs = document.querySelectorAll('#bookEmail, #bookEmailPage');
-      nameInputs.forEach(i => { if (i && !i.value) i.value = u.name; });
-      emailInputs.forEach(i => { if (i && !i.value) i.value = u.email; });
-    }
-  }
-
-  // Navigate directly to Book a Call tab
+  // Navigate directly to Book Appointment tab
   navigateToBookingTab(preselectedPlan = null) {
     if (preselectedPlan) {
       this.selectedProjectType = preselectedPlan;
@@ -47,14 +33,15 @@ class BookingManager {
     if (typeof window.switchTab === 'function') {
       window.switchTab('book-call');
     }
-    this.syncUserAuthFields();
   }
 
   highlightSelectedPill(val) {
     const pills = document.querySelectorAll('.pill-select-opt[data-value]');
     pills.forEach(p => {
-      if (p.getAttribute('data-value') === val) {
+      const pVal = p.getAttribute('data-value');
+      if (pVal === val || p.textContent.includes(val)) {
         p.classList.add('selected');
+        this.selectedProjectType = pVal;
       } else {
         p.classList.remove('selected');
       }
@@ -62,37 +49,145 @@ class BookingManager {
   }
 
   getBookingData() {
-    const name = (document.getElementById('bookNamePage')?.value || document.getElementById('bookName')?.value || '').trim();
-    const email = (document.getElementById('bookEmailPage')?.value || document.getElementById('bookEmail')?.value || '').trim();
-    const date = document.getElementById('bookDatePage')?.value || document.getElementById('bookDate')?.value || 'Flexible';
-    const time = this.selectedTimeSlot;
-    const projectType = this.selectedProjectType;
-    const budget = this.selectedBudget;
-    const refLink = (document.getElementById('bookRefLinkPage')?.value || document.getElementById('bookRefLink')?.value || '').trim();
-    const notes = (document.getElementById('bookNotesPage')?.value || document.getElementById('bookNotes')?.value || '').trim();
+    const name = (document.getElementById('bookClientName')?.value || '').trim();
+    const channel = (document.getElementById('bookChannelName')?.value || '').trim();
+    const email = (document.getElementById('bookClientEmail')?.value || '').trim();
+    const date = document.getElementById('bookPreferredDateIST')?.value || 'Flexible Date';
+    const slot = document.getElementById('bookPreferredSlotIST')?.value || '05:00 PM IST';
+    const refLink = (document.getElementById('bookRefLink')?.value || '').trim();
+    const footageLink = (document.getElementById('bookFootageLink')?.value || '').trim();
+    const whatsapp = (document.getElementById('bookWhatsAppNum')?.value || '').trim();
+    const instagram = (document.getElementById('bookInstaUser')?.value || '').trim();
+    const discord = (document.getElementById('bookDiscordUser')?.value || '').trim();
+    const details = (document.getElementById('bookProjectDetails')?.value || '').trim();
+    const projectType = this.selectedProjectType || 'Talking Head';
 
-    return { name, email, date, time, projectType, budget, refLink, notes };
+    return {
+      name,
+      channel,
+      email,
+      date,
+      slot,
+      refLink,
+      footageLink,
+      whatsapp,
+      instagram,
+      discord,
+      details,
+      projectType
+    };
   }
 
   buildFormattedMessage() {
-    const data = this.getBookingData();
-    const clientName = data.name || 'Creator / Founder';
-    const clientEmail = data.email || 'Not provided';
-    const details = data.notes || 'Looking forward to discussing video editing requirements and pacing.';
-    const ref = data.refLink ? `\n🔗 Reference / Raw Footage: ${data.refLink}` : '';
+    const d = this.getBookingData();
+    const clientName = d.name || 'Creator / Founder';
+    const channelName = d.channel || 'Not specified';
+    const email = d.email || 'Not provided';
+    const timeSlot = `${d.date} (${d.slot})`;
+    const ref = d.refLink ? `\n🔗 Reference Link: ${d.refLink}` : '';
+    const footage = d.footageLink ? `\n📦 Raw Footage Link: ${d.footageLink}` : '';
+    const wa = d.whatsapp ? `\n💬 WhatsApp: ${d.whatsapp}` : '';
+    const ig = d.instagram ? `\n📸 Instagram: ${d.instagram}` : '';
+    const dc = d.discord ? `\n🎮 Discord: ${d.discord}` : '';
+    const vision = d.details ? `\n\n📝 Project Details & Vision:\n${d.details}` : '\n\n📝 Project Details:\nLooking forward to discussing video editing requirements, retention hooks, and pacing.';
 
-    return `Hey Creative Vibe! 👋\n\nI would like to discuss a video editing project.\n\n👤 Name: ${clientName}\n📧 Email: ${clientEmail}\n🎬 Project Type: ${data.projectType}\n💰 Budget: ${data.budget}\n📅 Preferred Slot: ${data.date} (${data.time})${ref}\n📝 Project Details: ${details}`;
+    return `🎬 NEW APPOINTMENT BOOKING — CREATIVE VIBE\n\n👤 Client Name: ${clientName}\n📺 Page / Channel: ${channelName}\n📧 Email: ${email}\n🎯 Project Niche: ${d.projectType}\n⏰ Preferred Slot (IST): ${timeSlot}${ref}${footage}${wa}${ig}${dc}${vision}`;
   }
 
   validateForm() {
-    const data = this.getBookingData();
-    if (!data.name) {
-      if (window.showToast) window.showToast('Please enter your Name or Channel Name', 'error');
-      const input = document.getElementById('bookNamePage') || document.getElementById('bookName');
-      if (input) input.focus();
+    const d = this.getBookingData();
+    if (!d.name) {
+      if (window.showToast) window.showToast('Please enter your Name', 'error');
+      document.getElementById('bookClientName')?.focus();
+      return false;
+    }
+    if (!d.channel) {
+      if (window.showToast) window.showToast('Please enter your Page / Channel Name', 'error');
+      document.getElementById('bookChannelName')?.focus();
+      return false;
+    }
+    if (!d.email || !d.email.includes('@')) {
+      if (window.showToast) window.showToast('Please enter a valid Email Address', 'error');
+      document.getElementById('bookClientEmail')?.focus();
       return false;
     }
     return true;
+  }
+
+  showSuccessModal(platformName, platformNote) {
+    const modal = document.getElementById('appointmentSuccessModal');
+    const summaryCard = document.getElementById('appointmentSummaryCard');
+    const subText = document.getElementById('appointmentSuccessSub');
+    if (!modal) return;
+
+    const d = this.getBookingData();
+
+    if (subText) {
+      subText.innerHTML = `Your complete project dossier has been generated and loaded in <strong>${platformName}</strong>. ${platformNote}`;
+    }
+
+    if (summaryCard) {
+      summaryCard.innerHTML = `
+        <div class="summary-row-item">
+          <span class="summary-label">Client Name</span>
+          <span class="summary-value">${d.name}</span>
+        </div>
+        <div class="summary-row-item">
+          <span class="summary-label">Page / Channel</span>
+          <span class="summary-value">${d.channel}</span>
+        </div>
+        <div class="summary-row-item">
+          <span class="summary-label">Project Niche</span>
+          <span class="summary-value">${d.projectType}</span>
+        </div>
+        <div class="summary-row-item">
+          <span class="summary-label">Email</span>
+          <span class="summary-value">${d.email}</span>
+        </div>
+        <div class="summary-row-item">
+          <span class="summary-label">Preferred Time (IST)</span>
+          <span class="summary-value">${d.date} (${d.slot})</span>
+        </div>
+        ${d.whatsapp ? `
+          <div class="summary-row-item">
+            <span class="summary-label">WhatsApp</span>
+            <span class="summary-value">${d.whatsapp}</span>
+          </div>
+        ` : ''}
+        ${d.instagram ? `
+          <div class="summary-row-item">
+            <span class="summary-label">Instagram</span>
+            <span class="summary-value">${d.instagram}</span>
+          </div>
+        ` : ''}
+        ${d.discord ? `
+          <div class="summary-row-item">
+            <span class="summary-label">Discord</span>
+            <span class="summary-value">${d.discord}</span>
+          </div>
+        ` : ''}
+        ${d.refLink ? `
+          <div class="summary-row-item">
+            <span class="summary-label">Reference</span>
+            <span class="summary-value" style="font-size: 0.78rem; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${d.refLink}</span>
+          </div>
+        ` : ''}
+        ${d.footageLink ? `
+          <div class="summary-row-item">
+            <span class="summary-label">Raw Footage</span>
+            <span class="summary-value" style="font-size: 0.78rem; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${d.footageLink}</span>
+          </div>
+        ` : ''}
+      `;
+    }
+
+    modal.classList.add('active');
+    if (window.soundFX) window.soundFX.playPop();
+
+    // Clear form inputs
+    const form = document.getElementById('pageBookingForm');
+    if (form) form.reset();
+    this.setDefaultDate();
   }
 
   // 1. WhatsApp Booking
@@ -101,7 +196,7 @@ class BookingManager {
     const rawMsg = this.buildFormattedMessage();
     const waUrl = `https://wa.me/919193905629?text=${encodeURIComponent(rawMsg)}`;
     window.open(waUrl, '_blank');
-    if (window.showToast) window.showToast('🚀 Opening WhatsApp with your project details...', 'success');
+    this.showSuccessModal('WhatsApp', 'Hit send on WhatsApp to instantly connect with Creative Vibe!');
   }
 
   // 2. Instagram DM Booking
@@ -118,6 +213,7 @@ class BookingManager {
 
     setTimeout(() => {
       window.open('https://www.instagram.com/creavibe.studios', '_blank');
+      this.showSuccessModal('Instagram', 'Project dossier copied to clipboard! Paste it directly into @creavibe.studios DM.');
     }, 400);
   }
 
@@ -135,22 +231,23 @@ class BookingManager {
 
     setTimeout(() => {
       window.open('https://discord.com/app', '_blank');
+      this.showSuccessModal('Discord', 'Project dossier copied to clipboard! Paste it in DM to @creavibe.studios.');
     }, 400);
   }
 
   // 4. Gmail Booking
   sendViaGmail() {
     if (!this.validateForm()) return;
-    const data = this.getBookingData();
+    const d = this.getBookingData();
     const rawMsg = this.buildFormattedMessage();
-    const subject = `Video Editing Inquiry - ${data.projectType} (${data.name || 'New Client'})`;
+    const subject = `Appointment Booking: ${d.projectType} - ${d.name} (${d.channel})`;
     const mailUrl = `mailto:creavibe.studios@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(rawMsg)}`;
     window.location.href = mailUrl;
-    if (window.showToast) window.showToast('✉️ Opening Gmail draft with pre-filled details...', 'success');
+    this.showSuccessModal('Gmail', 'Draft email pre-filled with your complete project details opened in your email client.');
   }
 
   bindEvents() {
-    // Intercept all "data-open-booking" triggers to switch to Book a Call tab
+    // Intercept all "data-open-booking" triggers to switch to Book Appointment tab
     document.querySelectorAll('[data-open-booking]').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -168,25 +265,9 @@ class BookingManager {
           pill.classList.add('selected');
         }
         this.selectedProjectType = pill.getAttribute('data-value');
+        if (window.soundFX) window.soundFX.playPop();
       });
     });
-
-    // Budget pill selection
-    document.querySelectorAll('.budget-pill-opt').forEach(pill => {
-      pill.addEventListener('click', () => {
-        document.querySelectorAll('.budget-pill-opt').forEach(p => p.classList.remove('selected'));
-        pill.classList.add('selected');
-        this.selectedBudget = pill.getAttribute('data-budget');
-      });
-    });
-
-    // Time Slot select on page
-    const timeSelect = document.getElementById('bookTimeSelectPage') || document.getElementById('bookTimeSelect');
-    if (timeSelect) {
-      timeSelect.addEventListener('change', () => {
-        this.selectedTimeSlot = timeSelect.value;
-      });
-    }
 
     // Platform Action Buttons
     const btnWhatsApp = document.getElementById('bookPlatformWhatsApp');
@@ -201,12 +282,38 @@ class BookingManager {
     const btnGmail = document.getElementById('bookPlatformGmail');
     if (btnGmail) btnGmail.addEventListener('click', () => this.sendViaGmail());
 
-    // Page Form Submit (Default to WhatsApp if clicked primary submit)
+    // Page Form Submit (Default to WhatsApp if user hits Enter in inputs)
     const pageForm = document.getElementById('pageBookingForm');
     if (pageForm) {
       pageForm.addEventListener('submit', (e) => {
         e.preventDefault();
         this.sendViaWhatsApp();
+      });
+    }
+
+    // Success Modal Close buttons
+    const successModal = document.getElementById('appointmentSuccessModal');
+    const closeBtn = document.getElementById('closeAppointmentSuccessBtn');
+    const doneBtn = document.getElementById('btnDoneAppointment');
+
+    if (closeBtn && successModal) {
+      closeBtn.addEventListener('click', () => {
+        successModal.classList.remove('active');
+      });
+    }
+    if (doneBtn && successModal) {
+      doneBtn.addEventListener('click', () => {
+        successModal.classList.remove('active');
+        if (typeof window.switchTab === 'function') {
+          window.switchTab('home');
+        }
+      });
+    }
+    if (successModal) {
+      successModal.addEventListener('click', (e) => {
+        if (e.target === successModal) {
+          successModal.classList.remove('active');
+        }
       });
     }
   }

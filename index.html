@@ -91,16 +91,16 @@
     /* Layout */
     .container {
       width: 100%;
-      max-width: 1180px;
+      max-width: 1340px;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 1.75rem;
     }
 
     .container-narrow {
       width: 100%;
-      max-width: 860px;
+      max-width: 960px;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 1.75rem;
     }
 
     /* Headings */
@@ -168,7 +168,7 @@
     }
 
     .nav-bar {
-      max-width: 1180px;
+      max-width: 1340px;
       margin: 0 auto;
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
@@ -2162,23 +2162,74 @@
     }
 
     /* --------------------------------------------------------------------------
-       BOOKING PAGE & DIRECT PLATFORM CHAT BUTTONS
+       BOOKING PAGE & DIRECT PLATFORM CONNECT
        -------------------------------------------------------------------------- */
     .booking-card-main {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-xl);
-      padding: 2.75rem;
-      box-shadow: var(--shadow-soft);
+      padding: 2.75rem 2.5rem;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04);
       position: relative;
+    }
+
+    .form-fieldset-wrap {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 1.6rem;
+      margin-bottom: 1.5rem;
+      transition: all var(--transition-smooth);
+    }
+
+    .form-fieldset-wrap:focus-within {
+      border-color: rgba(83, 117, 104, 0.45);
+      box-shadow: 0 4px 18px rgba(83, 117, 104, 0.08);
+      background: #ffffff;
+    }
+
+    .form-fieldset-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-heading);
+      margin-bottom: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    .form-step-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--accent-sage);
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .form-row-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .form-row-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.1rem;
     }
 
     .platform-booking-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
+      gap: 1.1rem;
       margin-top: 1.25rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1.25rem;
     }
 
     .platform-btn {
@@ -2186,7 +2237,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      padding: 1.25rem 1rem;
+      padding: 1.35rem 1rem;
       border-radius: var(--radius-lg);
       background: var(--bg-subtle);
       border: 1.5px solid var(--border-subtle);
@@ -2195,11 +2246,12 @@
       transition: all var(--transition-smooth);
       position: relative;
       overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
     }
 
     .platform-btn .platform-icon-wrap {
-      width: 48px;
-      height: 48px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -2209,7 +2261,7 @@
     }
 
     .platform-btn .platform-name {
-      font-size: 0.95rem;
+      font-size: 0.98rem;
       font-weight: 800;
       color: var(--text-heading);
       margin-bottom: 0.2rem;
@@ -2229,11 +2281,11 @@
     .platform-btn.whatsapp:hover {
       border-color: #25D366;
       background: #ffffff;
-      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.18);
-      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(37, 211, 102, 0.22);
+      transform: translateY(-4px);
     }
     .platform-btn.whatsapp:hover .platform-icon-wrap {
-      transform: scale(1.1);
+      transform: scale(1.12);
       background: #25D366;
       color: #ffffff;
     }
@@ -2246,11 +2298,11 @@
     .platform-btn.instagram:hover {
       border-color: #E1306C;
       background: #ffffff;
-      box-shadow: 0 8px 24px rgba(225, 48, 108, 0.18);
-      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(225, 48, 108, 0.22);
+      transform: translateY(-4px);
     }
     .platform-btn.instagram:hover .platform-icon-wrap {
-      transform: scale(1.1);
+      transform: scale(1.12);
       background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
       color: #ffffff;
     }
@@ -2263,11 +2315,11 @@
     .platform-btn.discord:hover {
       border-color: #5865F2;
       background: #ffffff;
-      box-shadow: 0 8px 24px rgba(88, 101, 242, 0.18);
-      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(88, 101, 242, 0.22);
+      transform: translateY(-4px);
     }
     .platform-btn.discord:hover .platform-icon-wrap {
-      transform: scale(1.1);
+      transform: scale(1.12);
       background: #5865F2;
       color: #ffffff;
     }
@@ -2280,11 +2332,11 @@
     .platform-btn.gmail:hover {
       border-color: #EA4335;
       background: #ffffff;
-      box-shadow: 0 8px 24px rgba(234, 67, 53, 0.18);
-      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(234, 67, 53, 0.22);
+      transform: translateY(-4px);
     }
     .platform-btn.gmail:hover .platform-icon-wrap {
-      transform: scale(1.1);
+      transform: scale(1.12);
       background: #EA4335;
       color: #ffffff;
     }
@@ -2293,9 +2345,9 @@
       display: flex;
       align-items: center;
       text-align: center;
-      margin: 2rem 0 1.5rem;
-      color: var(--text-light);
-      font-size: 0.8rem;
+      margin: 2.25rem 0 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.82rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -2309,15 +2361,101 @@
       padding: 0 1rem;
     }
 
-    @media (max-width: 900px) {
-      .platform-booking-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    /* Appointment Confirmation Modal */
+    .appointment-success-box {
+      background: #ffffff;
+      border-radius: 28px;
+      width: 100%;
+      max-width: 580px;
+      padding: 2.75rem 2.25rem 2.25rem;
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.25), 0 0 30px rgba(83, 117, 104, 0.15);
+      position: relative;
+      animation: modalPop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      text-align: center;
+      max-height: 90vh;
+      overflow-y: auto;
     }
-    @media (max-width: 540px) {
-      .platform-booking-grid {
-        grid-template-columns: 1fr;
-      }
+
+    .success-icon-orbit {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 1.25rem;
+      border-radius: 50%;
+      background: #ecfdf5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+      position: relative;
+    }
+
+    .success-check-badge {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: badgeBounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes badgeBounce {
+      0% { transform: scale(0.5); }
+      70% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    .appointment-success-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text-heading);
+      margin-bottom: 0.4rem;
+    }
+
+    .appointment-success-subtitle {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 1.75rem;
+    }
+
+    .appointment-summary-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.4rem;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .summary-row-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.88rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 1px dashed rgba(228, 233, 240, 0.9);
+    }
+
+    .summary-row-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .summary-label {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .summary-value {
+      color: var(--text-heading);
+      font-weight: 700;
+      text-align: right;
+    }
       .booking-card-main {
         padding: 1.5rem;
       }
@@ -2594,15 +2732,36 @@
       color: var(--text-muted);
     }
 
-    /* Responsive */
+    /* --------------------------------------------------------------------------
+       MULTI-DEVICE RESPONSIVE SYSTEM (PC, ULTRAWIDE, MAC, LAPTOP, TABLET, MOBILE)
+       -------------------------------------------------------------------------- */
+    @media (min-width: 1440px) {
+      .container { max-width: 1380px; }
+      .container-narrow { max-width: 980px; }
+      .nav-bar { max-width: 1380px; }
+      .hero-main-heading { font-size: 3.5rem; }
+    }
+
+    @media (max-width: 1200px) {
+      .pricing-boxes-grid { grid-template-columns: repeat(2, 1fr); }
+      .reviews-stream-grid { grid-template-columns: repeat(3, 1fr); }
+      .platform-booking-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media (max-width: 1024px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; }
+      .hero-badge-wrap { justify-content: center; }
+      .hero-btn-row { justify-content: center; }
       .hero-stats-bar { justify-content: center; }
+      .showreel-card { max-width: 600px; margin: 0 auto; }
+      .reviews-stream-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid-layout { grid-template-columns: 1fr 1fr; gap: 2rem; }
     }
 
     @media (max-width: 768px) {
-      .site-header { top: 0.5rem; padding: 0 0.75rem; }
+      .site-header { top: 0.5rem; padding: 0 0.75rem; margin-bottom: 1.5rem; }
       .nav-bar { padding: 0.55rem 1rem; }
+      
       .nav-tabs-group {
         position: fixed;
         top: 4.75rem;
@@ -2610,24 +2769,53 @@
         right: 1rem;
         background: #ffffff;
         border: 1px solid var(--border-subtle);
-        box-shadow: var(--shadow-hover);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
         border-radius: var(--radius-lg);
         flex-direction: column;
-        padding: 1rem;
-        gap: 0.5rem;
+        padding: 1.25rem 1rem;
+        gap: 0.65rem;
         display: none;
+        z-index: 1100;
+        animation: modalPop 0.25s ease-out;
       }
       .nav-tabs-group.mobile-open { display: flex; }
       .mobile-menu-btn { display: flex; }
-      .hero-main-heading { font-size: 2.3rem; }
-      .grid-horizontal { grid-template-columns: 1fr; }
-      .grid-vertical { grid-template-columns: repeat(2, 1fr); }
-      .footer-grid-layout { grid-template-columns: 1fr; }
+
+      .hero-main-heading { font-size: 2.25rem; }
+      .hero-btn-row { flex-direction: column; gap: 0.75rem; }
+      .hero-btn-row .btn { width: 100%; justify-content: center; }
+
+      .pricing-boxes-grid { grid-template-columns: 1fr; gap: 1.75rem; }
+      .reviews-stream-grid { grid-template-columns: 1fr; }
+      
+      .form-row-2col,
+      .form-row-3col {
+        grid-template-columns: 1fr;
+        gap: 0.95rem;
+      }
+
+      .form-fieldset-wrap { padding: 1.25rem 1.1rem; }
+      .booking-card-main { padding: 1.6rem 1.2rem; }
+      .platform-booking-grid { grid-template-columns: repeat(2, 1fr); gap: 0.85rem; }
+      .footer-grid-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom-line { flex-direction: column; gap: 0.5rem; text-align: center; }
+
+      .niche-archive-grid-horizontal { grid-template-columns: 1fr; }
+      .niche-archive-grid-vertical { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .niche-detail-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .niche-title-group { text-align: left !important; }
+      .niche-format-tabs { justify-content: flex-start; overflow-x: auto; padding-bottom: 0.5rem; }
     }
 
     @media (max-width: 480px) {
-      .grid-vertical { grid-template-columns: 1fr; }
-      .hero-main-heading { font-size: 1.95rem; }
+      .hero-main-heading { font-size: 1.85rem; }
+      .hero-stats-bar { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .platform-booking-grid { grid-template-columns: 1fr; }
+      .niche-archive-grid-vertical { grid-template-columns: 1fr; }
+      .appointment-success-box { padding: 2rem 1.25rem 1.5rem; }
+      .appointment-success-title { font-size: 1.35rem; }
+      .summary-row-item { flex-direction: column; align-items: flex-start; gap: 0.2rem; }
+      .summary-value { text-align: left; }
     }
   </style>
 </head>
@@ -2663,14 +2851,14 @@
           <li><button class="nav-tab-btn" data-tab="work">Work / Showreels</button></li>
           <li><button class="nav-tab-btn" data-tab="process">Process & Workflow</button></li>
           <li><button class="nav-tab-btn" data-tab="pricing">Pricing</button></li>
-          <li><button class="nav-tab-btn" data-tab="book-call">Book a Call</button></li>
+          <li><button class="nav-tab-btn" data-tab="book-call">Book Appointment</button></li>
         </ul>
 
         <!-- Nav Actions -->
         <div class="nav-actions">
           <!-- Book CTA -->
           <button class="btn btn-primary btn-sm" data-open-booking="true">
-            <span>Book a Call</span>
+            <span>Book Appointment</span>
           </button>
 
           <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">☰</button>
@@ -2703,7 +2891,7 @@
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </button>
                 <button class="btn btn-secondary btn-lg" data-open-booking="true">
-                  <span>Book a 1-on-1 Call</span>
+                  <span>Book an Appointment</span>
                 </button>
               </div>
 
@@ -2893,21 +3081,24 @@
 
 
     <!-- ====================================================================
-         TAB 5: BOOK A CALL & MULTI-PLATFORM DIRECT CONNECT
+         TAB 5: BOOK APPOINTMENT & MULTI-PLATFORM DIRECT CONNECT
          ==================================================================== -->
     <main id="tab-book-call" class="tab-page">
       <div class="container-narrow" style="padding-top: 2rem; padding-bottom: 5rem;">
-        <div class="section-head">
-          <span class="section-label">Let's Connect</span>
-          <h2 class="section-main-title">Book a 1-on-1 Discovery Call</h2>
-          <p class="section-description">Fill out your project details below and connect directly on your preferred platform with auto-typed details.</p>
+        <div class="section-head" style="text-align: center; margin-bottom: 3rem;">
+          <span class="section-label">Direct Project Booking</span>
+          <h2 class="section-main-title">Book an Appointment</h2>
+          <p class="section-description">Fill out your project details below and connect directly on your preferred platform with your complete dossier pre-loaded.</p>
         </div>
 
         <div class="booking-card-main">
           <form id="pageBookingForm">
-            <!-- Project Type Pills -->
-            <div class="form-group-field">
-              <label style="font-weight: 700;">1. Select Project Type</label>
+            <!-- 1. Select Niche / Project Type -->
+            <div class="form-group-field" style="margin-bottom: 1.75rem;">
+              <label style="font-weight: 800; font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span class="form-step-num">1</span>
+                <span>Select Project Niche *</span>
+              </label>
               <div class="pill-select-row">
                 <span class="pill-select-opt selected" data-value="Talking Head">🎙️ Talking Head</span>
                 <span class="pill-select-opt" data-value="Documentary style">🎬 Documentary style</span>
@@ -2918,94 +3109,136 @@
               </div>
             </div>
 
-            <!-- Client Name & Email -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
-              <div class="form-group-field">
-                <label for="bookNamePage" style="font-weight: 700;">Your Name / Channel Name *</label>
-                <input type="text" class="input-field" id="bookNamePage" placeholder="e.g. Alex Rivera or TechVision" required>
+            <!-- 2. Client & Channel Identity -->
+            <div class="form-fieldset-wrap">
+              <label class="form-fieldset-title">
+                <span class="form-step-num">2</span>
+                <span>Client & Channel Identity</span>
+              </label>
+              <div class="form-row-2col">
+                <div class="form-group-field">
+                  <label for="bookClientName">Your Name *</label>
+                  <input type="text" class="input-field" id="bookClientName" placeholder="e.g. Alex Rivera" required>
+                </div>
+                <div class="form-group-field">
+                  <label for="bookChannelName">Page / Channel Name *</label>
+                  <input type="text" class="input-field" id="bookChannelName" placeholder="e.g. TechVision YT / @alex.edits" required>
+                </div>
               </div>
-              <div class="form-group-field">
-                <label for="bookEmailPage" style="font-weight: 700;">Email Address *</label>
-                <input type="email" class="input-field" id="bookEmailPage" placeholder="e.g. alex@creator.com" required>
+
+              <div class="form-row-2col">
+                <div class="form-group-field">
+                  <label for="bookClientEmail">Email Address *</label>
+                  <input type="email" class="input-field" id="bookClientEmail" placeholder="e.g. alex@creator.com" required>
+                </div>
+                <div class="form-group-field">
+                  <label for="bookPreferredSlotIST">Preferred Time (IST) *</label>
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                    <input type="date" class="input-field" id="bookPreferredDateIST" required>
+                    <select class="input-field" id="bookPreferredSlotIST">
+                      <option value="11:00 AM IST">11:00 AM IST</option>
+                      <option value="02:00 PM IST">02:00 PM IST</option>
+                      <option value="05:00 PM IST" selected>05:00 PM IST</option>
+                      <option value="08:00 PM IST">08:00 PM IST</option>
+                      <option value="10:00 PM IST">10:00 PM IST</option>
+                      <option value="Flexible Timing">Flexible Timing</option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <!-- Date & Time Slot -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
-              <div class="form-group-field">
-                <label for="bookDatePage" style="font-weight: 700;">Preferred Date</label>
-                <input type="date" class="input-field" id="bookDatePage" required>
-              </div>
-              <div class="form-group-field">
-                <label for="bookTimeSelectPage" style="font-weight: 700;">Preferred Slot</label>
-                <select class="input-field" id="bookTimeSelectPage">
-                  <option value="11:00 AM EST">11:00 AM EST</option>
-                  <option value="02:00 PM EST">02:00 PM EST</option>
-                  <option value="05:00 PM EST" selected>05:00 PM EST</option>
-                  <option value="08:00 PM EST">08:00 PM EST</option>
-                </select>
+            <!-- 3. Footage & References -->
+            <div class="form-fieldset-wrap">
+              <label class="form-fieldset-title">
+                <span class="form-step-num">3</span>
+                <span>Footage & Style References</span>
+              </label>
+              <div class="form-row-2col">
+                <div class="form-group-field">
+                  <label for="bookRefLink">Reference Video / Style Benchmark (Optional)</label>
+                  <input type="url" class="input-field" id="bookRefLink" placeholder="e.g. https://youtube.com/watch?v=xxx">
+                </div>
+                <div class="form-group-field">
+                  <label for="bookFootageLink">Raw Footage Link (Optional)</label>
+                  <input type="url" class="input-field" id="bookFootageLink" placeholder="e.g. Google Drive, Dropbox, Frame.io, WeTransfer">
+                </div>
               </div>
             </div>
 
-            <!-- Reference Link -->
-            <div class="form-group-field">
-              <label for="bookRefLinkPage" style="font-weight: 700;">Reference Link / Raw Footage (Optional)</label>
-              <input type="url" class="input-field" id="bookRefLinkPage" placeholder="e.g. YouTube video, Google Drive, or Frame.io link">
+            <!-- 4. Social & Direct Handles -->
+            <div class="form-fieldset-wrap">
+              <label class="form-fieldset-title">
+                <span class="form-step-num">4</span>
+                <span>Direct Contact Handles (For Quick Coordination)</span>
+              </label>
+              <div class="form-row-3col">
+                <div class="form-group-field">
+                  <label for="bookWhatsAppNum">WhatsApp Number</label>
+                  <input type="text" class="input-field" id="bookWhatsAppNum" placeholder="e.g. +91 98765 43210">
+                </div>
+                <div class="form-group-field">
+                  <label for="bookInstaUser">Instagram Username</label>
+                  <input type="text" class="input-field" id="bookInstaUser" placeholder="e.g. @yourinstagram">
+                </div>
+                <div class="form-group-field">
+                  <label for="bookDiscordUser">Discord Username</label>
+                  <input type="text" class="input-field" id="bookDiscordUser" placeholder="e.g. username#1234">
+                </div>
+              </div>
             </div>
 
-            <!-- Project Details / Vision -->
-            <div class="form-group-field">
-              <label for="bookNotesPage" style="font-weight: 700;">Project Details / Video Vision</label>
-              <textarea class="input-field" id="bookNotesPage" rows="3" placeholder="Tell me about video length, pacing, turnaround deadline, or motion graphics requirements..."></textarea>
+            <!-- 5. Project Details & Vision -->
+            <div class="form-fieldset-wrap">
+              <label class="form-fieldset-title">
+                <span class="form-step-num">5</span>
+                <span>Project Scope & Video Vision</span>
+              </label>
+              <div class="form-group-field" style="margin-bottom: 0;">
+                <textarea class="input-field" id="bookProjectDetails" rows="3" placeholder="Tell me about video length, pacing style, turnaround deadline, special motion graphics or retention goals..."></textarea>
+              </div>
             </div>
 
             <!-- Direct Platform Selection Section -->
             <div class="booking-divider-tag">
-              <span>Choose Your Preferred Platform to Connect</span>
+              <span>Choose Your Preferred Platform to Book & Send Details</span>
             </div>
 
             <div class="platform-booking-grid">
               <!-- WhatsApp -->
-              <button type="button" class="platform-btn whatsapp" id="bookPlatformWhatsApp" title="Connect on WhatsApp">
+              <button type="button" class="platform-btn whatsapp" id="bookPlatformWhatsApp" title="Send details on WhatsApp">
                 <div class="platform-icon-wrap">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.54 1.861.855 2.796.857 3.18 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.767-5.768-5.767zm0 10.373c-.886 0-1.748-.239-2.493-.687l-.179-.106-1.854.486.495-1.808-.117-.186c-.495-.788-.756-1.704-.755-2.484 0-2.529 2.057-4.587 4.586-4.587 2.528 0 4.586 2.058 4.586 4.587 0 2.529-2.058 4.587-4.587 4.587z"/></svg>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.54 1.861.855 2.796.857 3.18 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.767-5.768-5.767zm0 10.373c-.886 0-1.748-.239-2.493-.687l-.179-.106-1.854.486.495-1.808-.117-.186c-.495-.788-.756-1.704-.755-2.484 0-2.529 2.057-4.587 4.586-4.587 2.528 0 4.586 2.058 4.586 4.587 0 2.529-2.058 4.587-4.587 4.587z"/></svg>
                 </div>
                 <div class="platform-name">WhatsApp</div>
                 <div class="platform-sub">+91 91939 05629</div>
               </button>
 
               <!-- Instagram -->
-              <button type="button" class="platform-btn instagram" id="bookPlatformInstagram" title="Connect on Instagram">
+              <button type="button" class="platform-btn instagram" id="bookPlatformInstagram" title="Send details on Instagram">
                 <div class="platform-icon-wrap">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                 </div>
                 <div class="platform-name">Instagram</div>
                 <div class="platform-sub">@creavibe.studios</div>
               </button>
 
               <!-- Discord -->
-              <button type="button" class="platform-btn discord" id="bookPlatformDiscord" title="Connect on Discord">
+              <button type="button" class="platform-btn discord" id="bookPlatformDiscord" title="Send details on Discord">
                 <div class="platform-icon-wrap">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
                 </div>
                 <div class="platform-name">Discord</div>
                 <div class="platform-sub">@creavibe.studios</div>
               </button>
 
               <!-- Gmail -->
-              <button type="button" class="platform-btn gmail" id="bookPlatformGmail" title="Connect on Gmail">
+              <button type="button" class="platform-btn gmail" id="bookPlatformGmail" title="Send details on Gmail">
                 <div class="platform-icon-wrap">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                 </div>
                 <div class="platform-name">Gmail</div>
                 <div class="platform-sub">creavibe.studios@gmail.com</div>
-              </button>
-            </div>
-
-            <div style="text-align: center;">
-              <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; justify-content: center; background: #25D366; border-color: #25D366; color: #ffffff;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.54 1.861.855 2.796.857 3.18 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.767-5.768-5.767zm0 10.373c-.886 0-1.748-.239-2.493-.687l-.179-.106-1.854.486.495-1.808-.117-.186c-.495-.788-.756-1.704-.755-2.484 0-2.529 2.057-4.587 4.586-4.587 2.528 0 4.586 2.058 4.586 4.587 0 2.529-2.058 4.587-4.587 4.587z"/></svg>
-                <span>Send Inquiry via WhatsApp (Instant Connect)</span>
               </button>
             </div>
           </form>
@@ -3042,7 +3275,7 @@
               <li><a href="#" data-tab="work">Work / Showreels</a></li>
               <li><a href="#" data-tab="process">Process & Workflow</a></li>
               <li><a href="#" data-tab="pricing">Pricing</a></li>
-              <li><a href="#" data-tab="book-call">Book a Call</a></li>
+              <li><a href="#" data-tab="book-call">Book Appointment</a></li>
             </ul>
           </div>
 
@@ -3081,70 +3314,31 @@
 
 
   <!-- ====================================================================
-       MODAL 2: INTERACTIVE "BOOK A CALL"
+       MODAL 2: APPOINTMENT SUCCESS CONFIRMATION MODAL
        ==================================================================== -->
-  <div class="calm-modal-backdrop" id="bookingModal">
-    <div class="calm-modal-box" style="max-width: 580px; padding: 2.25rem; max-height: 90vh; overflow-y: auto;">
-      <button class="modal-close-icon" id="bookingCloseBtn" title="Close">✕</button>
-      <div style="text-align: center; margin-bottom: 1.5rem;">
-        <span class="section-label">Let's Connect</span>
-        <h3 style="font-size: 1.6rem; font-weight: 800;">Book a Discovery Call</h3>
-        <p style="font-size: 0.9rem; color: var(--text-muted);">Share your video requirements and preferred slot.</p>
+  <div class="modal-overlay" id="appointmentSuccessModal">
+    <div class="appointment-success-box">
+      <button class="modal-close-btn" id="closeAppointmentSuccessBtn">✕</button>
+
+      <div class="success-icon-orbit">
+        <div class="success-check-badge">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
       </div>
 
-      <form id="bookingForm">
-        <div class="form-group-field">
-          <label>Project Type</label>
-          <div class="pill-select-row">
-            <span class="pill-select-opt selected" data-value="YouTube Long-Form">YouTube Long-Form</span>
-            <span class="pill-select-opt" data-value="Viral Shorts (9:16)">Viral Shorts (9:16)</span>
-            <span class="pill-select-opt" data-value="Documentary Video">Documentary</span>
-            <span class="pill-select-opt" data-value="SaaS / Motion Explainer">SaaS Explainer</span>
-          </div>
-        </div>
+      <h3 class="appointment-success-title">Appointment Booked Successfully!</h3>
+      <p class="appointment-success-subtitle" id="appointmentSuccessSub">
+        Your complete project dossier has been generated and opened in your chosen platform.
+      </p>
 
-        <div class="form-group-field">
-          <label for="bookName">Your Name / Channel Name *</label>
-          <input type="text" class="input-field" id="bookName" placeholder="e.g. Alex Rivera or TechVision" required>
-        </div>
+      <!-- Summary Preview Card -->
+      <div class="appointment-summary-card" id="appointmentSummaryCard"></div>
 
-        <div class="form-group-field">
-          <label for="bookEmail">Email Address *</label>
-          <input type="email" class="input-field" id="bookEmail" placeholder="e.g. alex@creator.com" required>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-          <div class="form-group-field">
-            <label for="bookDate">Preferred Date</label>
-            <input type="date" class="input-field" id="bookDate" required>
-          </div>
-          <div class="form-group-field">
-            <label>Preferred Time</label>
-            <select class="input-field" id="bookTimeSelect">
-              <option value="11:00 AM">11:00 AM EST</option>
-              <option value="02:00 PM">02:00 PM EST</option>
-              <option value="05:00 PM" selected>05:00 PM EST</option>
-              <option value="08:00 PM">08:00 PM EST</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-group-field">
-          <label for="bookRefLink">Reference Link / Raw Footage (Optional)</label>
-          <input type="url" class="input-field" id="bookRefLink" placeholder="e.g. YouTube or Google Drive link">
-        </div>
-
-        <div class="form-group-field">
-          <label for="bookNotes">Project Details</label>
-          <textarea class="input-field" id="bookNotes" rows="3" placeholder="Tell me about your video length, pacing, or timeline..."></textarea>
-        </div>
-
-        <div style="margin-top: 0.5rem;">
-          <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
-            <span>Confirm & Connect on WhatsApp / Email</span>
-          </button>
-        </div>
-      </form>
+      <div style="text-align: center; margin-top: 1.75rem;">
+        <button class="btn btn-primary btn-lg" id="btnDoneAppointment" style="width: 100%; justify-content: center;">
+          <span>Done & Return to Website</span>
+        </button>
+      </div>
     </div>
   </div>
 
