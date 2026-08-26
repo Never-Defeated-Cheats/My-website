@@ -74,7 +74,7 @@ function switchTab(tabId) {
 }
 window.switchTab = switchTab;
 
-// Render Live Pricing Section
+// Render Live Pricing Section (6 Curated Niches with Animated Glow Outlines)
 window.renderPricingLive = () => {
   const container = document.getElementById('pricingCardsGrid');
   if (!container) return;
@@ -84,14 +84,30 @@ window.renderPricingLive = () => {
 
   data.pricing.forEach(plan => {
     html += `
-      <div class="pricing-card ${plan.featured ? 'featured' : ''} reveal">
-        ${plan.badge ? `<div class="pricing-featured-badge">${plan.badge}</div>` : ''}
-        <h3 class="pricing-tier-name">${plan.name}</h3>
-        <p class="pricing-tier-desc">${plan.desc}</p>
-        <div class="pricing-price-box">
-          <span class="pricing-amount">${plan.price}</span>
-          <span class="pricing-period">/${plan.period}</span>
+      <div class="pricing-card ${plan.featured ? 'featured-card' : ''} reveal">
+        ${plan.badge ? `<div class="pricing-badge-pill ${plan.featured ? 'is-core' : ''}">${plan.badge}</div>` : ''}
+        
+        <div class="pricing-card-header">
+          <div class="pricing-icon-badge">${plan.icon || '🎬'}</div>
+          <div>
+            <h3 class="pricing-tier-name">${plan.name}</h3>
+            <span class="pricing-range-label">Standard Min – Max Bracket</span>
+          </div>
         </div>
+
+        <p class="pricing-tier-desc">${plan.desc}</p>
+
+        <div class="pricing-price-box">
+          <div class="pricing-range-main">
+            <span class="pricing-amount">${plan.price}</span>
+            <span class="pricing-period">/${plan.period}</span>
+          </div>
+          <div class="pricing-range-caption">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            <span>${plan.rangeNote || '90% of edits fall within this bracket'}</span>
+          </div>
+        </div>
+
         <ul class="pricing-features-list">
           ${plan.features.map(f => `
             <li class="pricing-feature-item">
@@ -100,8 +116,10 @@ window.renderPricingLive = () => {
             </li>
           `).join('')}
         </ul>
-        <button class="btn ${plan.featured ? 'btn-primary' : 'btn-secondary'}" data-open-booking="true" data-plan="${plan.name}">
-          Select ${plan.name}
+
+        <button class="btn pricing-cta-btn" data-open-booking="true" data-plan="${plan.name}">
+          <span>Book ${plan.name}</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
       </div>
     `;
@@ -113,6 +131,7 @@ window.renderPricingLive = () => {
     btn.addEventListener('click', () => {
       const plan = btn.getAttribute('data-plan');
       if (window.bookingManager) window.bookingManager.openBookingModal(plan);
+      if (window.soundFX) window.soundFX.playPop();
     });
   });
 };

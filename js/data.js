@@ -2,7 +2,7 @@
    CREATIVE VIBE - DEFAULT DATA & LOCALSTORAGE SYNC
    ========================================================================== */
 
-const STORAGE_KEY = 'CREATIVE_VIBE_DATA_V5';
+const STORAGE_KEY = 'CREATIVE_VIBE_DATA_V7';
 
 const DEFAULT_PORTFOLIO_DATA = {
   profile: {
@@ -261,53 +261,134 @@ const DEFAULT_PORTFOLIO_DATA = {
   ],
   pricing: [
     {
-      id: "price-shorts",
-      name: "Short-Form Viral Pack",
-      badge: "High Velocity",
-      price: "$499",
-      period: "per batch of 10 Reels",
-      desc: "Perfect for creators & brands scaling Instagram Reels, YouTube Shorts, & TikTok.",
+      id: "price-talking-head",
+      nicheKey: "talking-head",
+      icon: "🎙️",
+      name: "Talking Head",
+      badge: "🔥 Most Requested • High Volume",
+      price: "$19.99 - $29.99",
+      minPrice: "$19.99",
+      maxPrice: "$29.99",
+      period: "per reel / edit",
+      rangeNote: "Min – Max standard bracket (90% of edits)",
+      desc: "High-retention editing for personal brands, Alex Hormozi style kinetic subtitles, pattern interrupts, and punchy sound popups.",
       features: [
-        "10 High-Retention Vertical Videos (9:16)",
-        "Hormozi / Ali Abdaal animated subtitles",
-        "Dynamic sound design & SFX transitions",
-        "Hook optimization & pattern interrupts",
-        "24-48h turnaround per batch",
-        "Unlimited minor revisions"
+        "Dynamic kinetic subtitles & emoji overlays",
+        "Strategic pattern interrupts & punch zooms",
+        "Custom B-roll research & meme insertions",
+        "Broadcast vocal leveling & noise cleanup",
+        "24–48 Hours Turnaround",
+        "Unlimited minor revisions included"
       ],
       featured: false
     },
     {
-      id: "price-longform",
-      name: "YouTube & Documentary",
-      badge: "Most Popular",
-      price: "$1,200",
-      period: "per 4 long-form videos",
-      desc: "Full storytelling, custom motion graphics, pacing, and cinema color grade.",
+      id: "price-saas",
+      nicheKey: "saas-animations",
+      icon: "💻",
+      name: "SaaS Animations",
+      badge: "⭐ Core Expertise • Flagship Quality",
+      price: "$19.99 - $49.99",
+      minPrice: "$19.99",
+      maxPrice: "$49.99",
+      period: "per minute of video",
+      rangeNote: "Min – Max standard bracket (90% of edits)",
+      desc: "Primary specialization: 3D UI breakdowns, product demo animations, smooth cursor choreography, and high-conversion launch videos.",
       features: [
-        "4 Long-form edits (8-20 minutes each)",
-        "Advanced pacing & narrative structure",
-        "Custom kinetic typography & 3D maps",
-        "Pro sound mixing & Foley effects",
-        "High-CTR Thumbnail design included",
-        "Dedicated project manager on Slack"
+        "3D isometric UI & dashboard feature mockups",
+        "Smooth cursor tracking & auto-zoom choreography",
+        "Feature callout badges & glassmorphism overlays",
+        "Licensed commercial background music & SFX",
+        "High-converting launch video pacing",
+        "Full commercial usage rights worldwide"
       ],
       featured: true
     },
     {
-      id: "price-saas",
-      name: "SaaS & Motion Graphics",
-      badge: "Commercial",
-      price: "$850",
-      period: "per custom promo / explainer",
-      desc: "For tech startups and businesses needing high-converting launch & demo videos.",
+      id: "price-retention",
+      nicheKey: "retention-videos",
+      icon: "⚡",
+      name: "Retention videos (like MR. Beast)",
+      badge: "⚡ High Velocity • Hook Master",
+      price: "$29.99 - $49.99",
+      minPrice: "$29.99",
+      maxPrice: "$49.99",
+      period: "per minute of video",
+      rangeNote: "Min – Max standard bracket (90% of edits)",
+      desc: "Ultra high-velocity fast-cut storytelling, intense sound hits, 3D text popouts, countdown timers, and 90%+ audience retention hooks.",
       features: [
-        "60-90s Premium 4K Motion Explainer",
-        "Custom UI animations & isometric scenes",
-        "Professional voiceover sync & license music",
-        "Storyboard & script polishing included",
-        "Source files (AE / Premiere) delivered",
-        "Commercial usage rights worldwide"
+        "Zero dead-air fast-cut pacing formula",
+        "Intense layered SFX (risers, whooshes, impacts)",
+        "Custom 3D text popups, countdowns & arrows",
+        "Retention curve drop-off optimization",
+        "High-CTR Thumbnail concept design included",
+        "Priority 24-48h turnaround with dedicated Slack"
+      ],
+      featured: false
+    },
+    {
+      id: "price-documentary",
+      nicheKey: "documentary-style",
+      icon: "🎬",
+      name: "Documentary style",
+      badge: "🎬 Cinema & Long-Form Narrative",
+      price: "$9.99 - $19.99",
+      minPrice: "$9.99",
+      maxPrice: "$19.99",
+      period: "per minute of video",
+      rangeNote: "Min – Max standard bracket (90% of edits)",
+      desc: "Deep investigative storytelling, custom 2D/3D map animations, newspaper visual transitions, and orchestral sound design.",
+      features: [
+        "Narrative pacing & story hook architecture",
+        "Kinetic 3D map animations & visual charts",
+        "Archival footage restoration & textures",
+        "DaVinci Resolve film LUT & skin-tone grading",
+        "Multi-layered Foley & bass riser sound mix",
+        "4K Master Export with project stems"
+      ],
+      featured: false
+    },
+    {
+      id: "price-irl",
+      nicheKey: "irl",
+      icon: "✈️",
+      name: "IRL",
+      badge: "✈️ In Real Life & Travel Films",
+      price: "$9.99 - $19.99",
+      minPrice: "$9.99",
+      maxPrice: "$19.99",
+      period: "per minute of footage",
+      rangeNote: "Min – Max standard bracket (90% of edits)",
+      desc: "Seamless rhythm for In Real Life vlogs, travel films, speed ramps, neo-color grades, and atmospheric environmental audio.",
+      features: [
+        "Cinematic speed ramps & whip-pan transitions",
+        "Sony S-Log / GoPro / Drone log color matching",
+        "Atmospheric environmental Foley soundscapes",
+        "Upbeat music rhythm & beat-matched cuts",
+        "Dynamic location title cards & lower thirds",
+        "4K Ultra HD final master export"
+      ],
+      featured: false
+    },
+    {
+      id: "price-podcast",
+      nicheKey: "podcast",
+      icon: "🎧",
+      name: "Podcast",
+      badge: "🎙️ Studio Multicam & Clarity",
+      price: "$9.99 - $14.99",
+      minPrice: "$9.99",
+      maxPrice: "$14.99",
+      period: "per minute of episode",
+      rangeNote: "Min – Max standard bracket (90% of edits)",
+      desc: "Multi-camera angle switching, studio vocal mastering, dead-air trimming, dynamic zoom cutouts, and viral highlight clipping.",
+      features: [
+        "Seamless multi-camera angle switching",
+        "Broadcast vocal EQ, compression & de-essing",
+        "Automated dead-air & filler word trimming",
+        "Graphic lower thirds & speaker name tags",
+        "Bonus viral vertical clip (9:16) for Reels/Shorts",
+        "Full episode master + audio WAV stems"
       ],
       featured: false
     }
