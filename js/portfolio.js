@@ -44,28 +44,25 @@ class PortfolioManager {
     const horizLoop = horizList.length > 0 ? [...horizList, ...horizList] : [];
     horizContainer.innerHTML = horizLoop.map(v => this.buildHorizontalMarqueeCardHtml(v)).join('');
 
-    // Bind Hover (Unmute Audio) & Click (Open Big Screen) on all cards
+    // Bind Hover (Instant Audio/Video Play) & Click (Open Big Screen) on all cards
     document.querySelectorAll('.marquee-card-vertical, .marquee-card-horizontal').forEach(card => {
-      // 1. Mouse Enter: Smoothly Unmute Audio (without interrupting playback)
+      // 1. Mouse Enter: Instantly mount live video with sound on hover
       card.addEventListener('mouseenter', () => {
-        const iframe = card.querySelector('iframe');
-        if (iframe && iframe.contentWindow) {
-          try {
-            iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-            iframe.contentWindow.postMessage('{"event":"command","func":"setVolume","args":[100]}', '*');
-          } catch (e) {}
+        const ytId = card.getAttribute('data-ytid');
+        const slot = card.querySelector('.marquee-card-video-slot');
+        if (slot && !slot.hasChildNodes()) {
+          const embedUrl = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&mute=0&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1&enablejsapi=1`;
+          slot.innerHTML = `<iframe src="${embedUrl}" title="Live Preview" allow="autoplay; encrypted-media; gyroscope; picture-in-picture" tabindex="-1"></iframe>`;
         }
         card.classList.add('is-unmuted');
         if (window.soundFX) window.soundFX.playHover();
       });
 
-      // 2. Mouse Leave: Mute Audio back to silent background playback
+      // 2. Mouse Leave: Clean video slot and revert to silent HD poster
       card.addEventListener('mouseleave', () => {
-        const iframe = card.querySelector('iframe');
-        if (iframe && iframe.contentWindow) {
-          try {
-            iframe.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
-          } catch (e) {}
+        const slot = card.querySelector('.marquee-card-video-slot');
+        if (slot) {
+          slot.innerHTML = '';
         }
         card.classList.remove('is-unmuted');
       });
@@ -73,13 +70,8 @@ class PortfolioManager {
       // 3. Click: Open in Full Screen Player Modal with Audio
       card.addEventListener('click', (e) => {
         e.stopPropagation();
-        // Mute preview before opening modal
-        const iframe = card.querySelector('iframe');
-        if (iframe && iframe.contentWindow) {
-          try {
-            iframe.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
-          } catch (e) {}
-        }
+        const slot = card.querySelector('.marquee-card-video-slot');
+        if (slot) slot.innerHTML = '';
         card.classList.remove('is-unmuted');
 
         const ytId = card.getAttribute('data-ytid');
@@ -93,13 +85,12 @@ class PortfolioManager {
   }
 
   buildVerticalMarqueeCardHtml(v) {
-    const embedSrc = `https://www.youtube-nocookie.com/embed/${v.ytId}?autoplay=1&mute=1&loop=1&playlist=${v.ytId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1`;
+    const thumbUrl = v.thumbnail || `https://img.youtube.com/vi/${v.ytId}/hqdefault.jpg`;
 
     return `
       <div class="marquee-card-vertical" data-ytid="${v.ytId}" data-title="${v.title}" data-client="${v.client}" data-format="9:16" data-views="${v.views}">
-        <div class="marquee-video-frame">
-          <iframe class="marquee-video-iframe" src="${embedSrc}" title="Vertical Edit" allow="autoplay; encrypted-media; gyroscope; picture-in-picture" tabindex="-1"></iframe>
-        </div>
+        <img src="${thumbUrl}" alt="${v.title}" class="marquee-card-thumb" loading="lazy">
+        <div class="marquee-card-video-slot"></div>
         <div class="marquee-card-overlay">
           <div class="marquee-badge-top">
             <span class="format-pill">⚡ 9:16 Short</span>
@@ -115,13 +106,12 @@ class PortfolioManager {
   }
 
   buildHorizontalMarqueeCardHtml(v) {
-    const embedSrc = `https://www.youtube-nocookie.com/embed/${v.ytId}?autoplay=1&mute=1&loop=1&playlist=${v.ytId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1`;
+    const thumbUrl = v.thumbnail || `https://img.youtube.com/vi/${v.ytId}/hqdefault.jpg`;
 
     return `
       <div class="marquee-card-horizontal" data-ytid="${v.ytId}" data-title="${v.title}" data-client="${v.client}" data-format="16:9" data-views="${v.views}">
-        <div class="marquee-video-frame">
-          <iframe class="marquee-video-iframe" src="${embedSrc}" title="Horizontal Edit" allow="autoplay; encrypted-media; gyroscope; picture-in-picture" tabindex="-1"></iframe>
-        </div>
+        <img src="${thumbUrl}" alt="${v.title}" class="marquee-card-thumb" loading="lazy">
+        <div class="marquee-card-video-slot"></div>
         <div class="marquee-card-overlay">
           <div class="marquee-badge-top">
             <span class="format-pill">🎬 16:9 Longform</span>
@@ -353,7 +343,7 @@ class PortfolioManager {
     if (this.iframeContainer) {
       this.iframeContainer.innerHTML = `
         <iframe 
-          src="https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&controls=0&modestbranding=1&rel=0&iv_load_policy=3&showinfo=0&disablekb=1&playsinline=1" 
+          src="https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&controls=1&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1" 
           title="${video.title || 'Video Player'}" 
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
           allowfullscreen>

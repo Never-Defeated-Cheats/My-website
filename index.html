@@ -2017,7 +2017,7 @@
       position: relative;
       overflow: hidden;
       background: #0b0f0d;
-      border: 1.5px solid rgba(83, 117, 104, 0.4);
+      border: 1.5px solid rgba(83, 117, 104, 0.45);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12), 0 0 16px rgba(83, 117, 104, 0.16);
       cursor: pointer;
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -2040,7 +2040,7 @@
       position: relative;
       overflow: hidden;
       background: #0b0f0d;
-      border: 1.5px solid rgba(83, 117, 104, 0.4);
+      border: 1.5px solid rgba(83, 117, 104, 0.45);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12), 0 0 16px rgba(83, 117, 104, 0.16);
       cursor: pointer;
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -2054,37 +2054,41 @@
       z-index: 10;
     }
 
-    .marquee-video-frame {
+    /* HD Poster Cover Image (Zero red buttons, zero cut-off, zero watermark) */
+    .marquee-card-thumb {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none;
-      overflow: hidden;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
       z-index: 1;
-      border-radius: inherit;
-      background: #000000;
+    }
+    .marquee-card-vertical:hover .marquee-card-thumb,
+    .marquee-card-horizontal:hover .marquee-card-thumb {
+      transform: scale(1.06);
     }
 
-    .marquee-card-vertical .marquee-video-iframe {
+    /* Active Video Slot on Hover */
+    .marquee-card-video-slot {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 175%;
-      height: 175%;
-      transform: translate(-50%, -50%);
-      border: none;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
       pointer-events: none;
+      display: none;
       background: #000000;
     }
+    .marquee-card-vertical.is-unmuted .marquee-card-video-slot,
+    .marquee-card-horizontal.is-unmuted .marquee-card-video-slot {
+      display: block;
+    }
 
-    .marquee-card-horizontal .marquee-video-iframe {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 135%;
-      height: 135%;
-      transform: translate(-50%, -50%);
+    .marquee-card-video-slot iframe {
+      width: 100%;
+      height: 100%;
       border: none;
       pointer-events: none;
       background: #000000;
@@ -2099,7 +2103,7 @@
       padding: 0.75rem;
       color: #ffffff;
       transition: background 0.3s ease;
-      z-index: 2;
+      z-index: 3;
       pointer-events: none;
     }
 
