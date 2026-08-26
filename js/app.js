@@ -220,7 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.initBrand3D) window.initBrand3D();
   if (window.initPortfolio) window.initPortfolio();
   if (window.initBooking) window.initBooking();
-  if (window.initAdminCMS) window.initAdminCMS();
 
   // 2. Render dynamic parts
   window.renderPricingLive();

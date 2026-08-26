@@ -373,17 +373,11 @@ class AuthManager {
               <div class="dropdown-meta">
                 <div class="dropdown-name">${u.name}</div>
                 <div class="dropdown-email">${u.email}</div>
-                ${isAdminUser ? '<div class="dropdown-role-badge">✓ Portfolio Owner (Admin)</div>' : '<div class="dropdown-role-badge guest">✓ Verified Google Client</div>'}
+                <div class="dropdown-role-badge guest">✓ Verified Google Account</div>
               </div>
             </div>
             <div class="dropdown-divider"></div>
             <div class="dropdown-actions">
-              ${isAdminUser ? `
-                <button class="dropdown-item-btn admin-btn" id="dropdownOpenAdminBtn">
-                  <span>⚙️</span>
-                  <span>Admin CMS Dashboard</span>
-                </button>
-              ` : ''}
               <button class="dropdown-item-btn" id="dropdownWriteReviewBtn">
                 <span>✍️</span>
                 <span>Write a Verified Review</span>
@@ -446,14 +440,6 @@ class AuthManager {
       logoutBtn.addEventListener('click', () => this.logout());
     }
 
-    const adminBtn = document.getElementById('dropdownOpenAdminBtn');
-    if (adminBtn) {
-      adminBtn.addEventListener('click', () => {
-        dropdown.classList.remove('active');
-        if (window.adminCMS) window.adminCMS.openAdminModal();
-      });
-    }
-
     const reviewBtn = document.getElementById('dropdownWriteReviewBtn');
     if (reviewBtn) {
       reviewBtn.addEventListener('click', () => {
@@ -466,7 +452,7 @@ class AuthManager {
     if (bookBtn) {
       bookBtn.addEventListener('click', () => {
         dropdown.classList.remove('active');
-        if (window.bookingManager) window.bookingManager.openBookingModal();
+        if (typeof window.switchTab === 'function') window.switchTab('book-call');
       });
     }
   }

@@ -1,14 +1,14 @@
 /* ==========================================================================
-   CREATIVE VIBE - PORTFOLIO & VIDEO PLAYER CONTROLLER
-   Handles Categorized Streams, Horizontal (16:9) & Vertical (9:16),
-   YouTube parsing (unlisted/public), and Modal Playback
+   CREATIVE VIBE - DYNAMIC PORTFOLIO & RECENT EDITS SLIDER MANAGER
+   Loads videos directly from js/videos-config.js and handles
+   dual-row infinite marquee sliders, categories, and video player modal
    ========================================================================== */
 
 class PortfolioManager {
   constructor() {
     this.currentFilter = 'all';
     this.modal = document.getElementById('videoPlayerModal');
-    this.modalContainer = document.querySelector('.video-modal-container');
+    this.modalBox = document.querySelector('.calm-modal-box');
     this.iframeContainer = document.getElementById('modalIframeBox');
     this.modalTitle = document.getElementById('modalVideoTitle');
     this.modalSub = document.getElementById('modalVideoSub');
@@ -19,30 +19,112 @@ class PortfolioManager {
 
   init() {
     this.renderCategoryChips();
+    this.renderRecentEditsSliders();
     this.renderWorkStream();
-    this.renderFeaturedHomeVideos();
     this.bindEvents();
   }
 
-  // Parse YouTube URL to Video ID (handles regular, shorts, unlisted, youtu.be, embed)
-  static extractYouTubeId(url) {
-    if (!url) return '';
-    if (url.length === 11 && !url.includes('/') && !url.includes('.')) {
-      return url; // Already an ID
-    }
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|shorts\/)([^#&?]*).*/;
-    const match = url.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : '';
+  // =========================================================================
+  // 1. RECENT EDITS DUAL-ROW INFINITE SLIDERS (HOME PAGE)
+  // =========================================================================
+  renderRecentEditsSliders() {
+    const vertContainer = document.getElementById('recentVerticalMarquee');
+    const horizContainer = document.getElementById('recentHorizontalMarquee');
+    if (!vertContainer || !horizContainer) return;
+
+    const edits = window.CREATIVE_VIBE_VIDEOS ? window.CREATIVE_VIBE_VIDEOS.getRecentEdits() : { vertical: [], horizontal: [] };
+
+    // 1. Top Row: Vertical Videos (9:16 Shorts/Reels)
+    const vertList = edits.vertical || [];
+    // Duplicate array for seamless infinite marquee loop
+    const vertLoop = [...vertList, ...vertList, ...vertList];
+    vertContainer.innerHTML = vertLoop.map(v => this.buildVerticalMarqueeCardHtml(v)).join('');
+
+    // 2. Bottom Row: Horizontal Videos (16:9 Long-form/Cinema)
+    const horizList = edits.horizontal || [];
+    const horizLoop = [...horizList, ...horizList, ...horizList];
+    horizContainer.innerHTML = horizLoop.map(v => this.buildHorizontalMarqueeCardHtml(v)).join('');
+
+    // Bind click events on all marquee cards to play video with sound
+    document.querySelectorAll('.marquee-card-vertical, .marquee-card-horizontal').forEach(card => {
+      card.addEventListener('click', () => {
+        const ytId = card.getAttribute('data-ytid');
+        const title = card.getAttribute('data-title');
+        const client = card.getAttribute('data-client');
+        const format = card.getAttribute('data-format');
+        const views = card.getAttribute('data-views');
+        this.openVideoPlayer({ ytId, title, client, aspectRatio: format, views });
+      });
+    });
   }
 
+  buildVerticalMarqueeCardHtml(v) {
+    return `
+      <div class="marquee-card-vertical" data-ytid="${v.ytId}" data-title="${v.title}" data-client="${v.client}" data-format="9:16" data-views="${v.views}">
+        <img src="${v.thumbnail}" alt="${v.title}" class="marquee-card-thumb" loading="lazy">
+        <div class="marquee-card-overlay">
+          <div class="marquee-badge-top">
+            <span class="format-pill">⚡ 9:16 Short</span>
+            <span style="opacity: 0.9;">${v.views || 'Viral'}</span>
+          </div>
+          <div class="marquee-play-center">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="marquee-card-bottom">
+            <h4 class="marquee-card-title">${v.title}</h4>
+            <div class="marquee-card-meta">
+              <span>Client: ${v.client || 'Creative Vibe'}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  buildHorizontalMarqueeCardHtml(v) {
+    return `
+      <div class="marquee-card-horizontal" data-ytid="${v.ytId}" data-title="${v.title}" data-client="${v.client}" data-format="16:9" data-views="${v.views}">
+        <img src="${v.thumbnail}" alt="${v.title}" class="marquee-card-thumb" loading="lazy">
+        <div class="marquee-card-overlay">
+          <div class="marquee-badge-top">
+            <span class="format-pill">🎬 16:9 Cinema</span>
+            <span style="opacity: 0.9;">${v.duration || v.views || 'HD'}</span>
+          </div>
+          <div class="marquee-play-center">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="marquee-card-bottom">
+            <h4 class="marquee-card-title">${v.title}</h4>
+            <div class="marquee-card-meta">
+              <span>Client: ${v.client || 'Creative Vibe'}</span>
+              <span>• ${v.views || 'Featured'}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // =========================================================================
+  // 2. CATEGORIZED WORK STREAM (WORK / SHOWREELS TAB)
+  // =========================================================================
   renderCategoryChips() {
     const chipContainer = document.getElementById('workCategoryChips');
     if (!chipContainer) return;
 
-    const data = window.appData.getData();
+    const data = window.appData ? window.appData.getData() : null;
+    const categories = (data && data.categories) ? data.categories : [
+      { id: "documentary", name: "Documentaries", icon: "🎬" },
+      { id: "motion-graphics", name: "Motion Graphics", icon: "✨" },
+      { id: "saas", name: "SaaS Animations", icon: "💻" },
+      { id: "talking-head", name: "Talking Head", icon: "🎙️" },
+      { id: "vlogs", name: "Vlogs & Travel", icon: "✈️" },
+      { id: "shorts-reels", name: "Viral Shorts & Reels", icon: "⚡" }
+    ];
+
     let html = `<button class="filter-chip ${this.currentFilter === 'all' ? 'active' : ''}" data-cat="all">⚡ All Categories</button>`;
 
-    data.categories.forEach(cat => {
+    categories.forEach(cat => {
       const isSelected = this.currentFilter === cat.id ? 'active' : '';
       html += `<button class="filter-chip ${isSelected}" data-cat="${cat.id}">${cat.icon} ${cat.name}</button>`;
     });
@@ -75,23 +157,26 @@ class PortfolioManager {
     const container = document.getElementById('workStreamContainer');
     if (!container) return;
 
-    const data = window.appData.getData();
-    const categoriesToRender = this.currentFilter === 'all'
-      ? data.categories
-      : data.categories.filter(c => c.id === this.currentFilter);
+    const workVideos = window.CREATIVE_VIBE_VIDEOS ? window.CREATIVE_VIBE_VIDEOS.getWorkVideos() : {};
+    const data = window.appData ? window.appData.getData() : null;
+    const categories = (data && data.categories) ? data.categories : [
+      { id: "documentary", name: "Documentaries", icon: "🎬", description: "In-depth storytelling, deep sound design, pacing & cinematic grading." },
+      { id: "motion-graphics", name: "Motion Graphics", icon: "✨", description: "Dynamic kinetic typography, 3D element integration, and brand animations." },
+      { id: "saas", name: "SaaS Animations", icon: "💻", description: "Clean product demos, UI/UX breakdowns, and high-converting launch videos." },
+      { id: "talking-head", name: "Talking Head", icon: "🎙️", description: "Engaging podcast cuts, interviews, pattern interrupts & dynamic zooms." },
+      { id: "vlogs", name: "Vlogs & Travel", icon: "✈️", description: "Seamless rhythm, story progression, upbeat soundscapes & color flair." },
+      { id: "shorts-reels", name: "Viral Shorts & Reels", icon: "⚡", description: "High-energy pacing, sound pop cues, animated emoji overlays, and 90%+ retention hooks." }
+    ];
 
-    if (categoriesToRender.length === 0) {
-      container.innerHTML = `<div style="text-align:center; padding: 4rem 1rem; color: var(--text-muted);">No videos found in this category.</div>`;
-      return;
-    }
+    const categoriesToRender = this.currentFilter === 'all'
+      ? categories
+      : categories.filter(c => c.id === this.currentFilter);
 
     let streamHtml = '';
 
     categoriesToRender.forEach(cat => {
-      const catVideos = data.videos.filter(v => v.category === cat.id);
-      if (catVideos.length === 0 && this.currentFilter === 'all') return;
-
-      const isVerticalCategory = cat.id === 'shorts-reels' || catVideos.some(v => v.aspectRatio === '9:16');
+      const catVideos = workVideos[cat.id] || [];
+      const isVerticalCategory = cat.id === 'shorts-reels';
 
       streamHtml += `
         <section class="category-stream-block reveal" id="cat-block-${cat.id}">
@@ -118,8 +203,8 @@ class PortfolioManager {
 
           <div class="${isVerticalCategory ? 'video-grid-vertical' : 'video-grid-horizontal'}">
             ${catVideos.length > 0
-              ? catVideos.map(video => this.buildVideoCardHtml(video, isVerticalCategory)).join('')
-              : `<p style="grid-column:1/-1; padding: 1.5rem; background: var(--bg-subtle); border-radius: var(--radius-md); text-align: center; color: var(--text-muted);">No videos added to this category yet.</p>`
+              ? catVideos.map(video => this.buildWorkVideoCardHtml(video, isVerticalCategory)).join('')
+              : `<p style="grid-column:1/-1; padding: 1.5rem; background: var(--bg-subtle); border-radius: var(--radius-md); text-align: center; color: var(--text-muted);">No videos added to this category yet. Add links in js/videos-config.js.</p>`
             }
           </div>
         </section>
@@ -134,8 +219,12 @@ class PortfolioManager {
         if (window.soundFX) window.soundFX.playHover();
       });
       card.addEventListener('click', () => {
-        const vidId = card.getAttribute('data-video-id');
-        this.openVideoPlayer(vidId);
+        const ytId = card.getAttribute('data-ytid');
+        const title = card.getAttribute('data-title');
+        const client = card.getAttribute('data-client');
+        const format = card.getAttribute('data-format');
+        const views = card.getAttribute('data-views');
+        this.openVideoPlayer({ ytId, title, client, aspectRatio: format, views });
       });
     });
 
@@ -153,21 +242,17 @@ class PortfolioManager {
       });
     });
 
-    // Refresh scroll reveals
-    if (window.initScrollReveal) {
-      window.initScrollReveal();
-    }
+    if (window.initScrollReveal) window.initScrollReveal();
   }
 
-  buildVideoCardHtml(video, isVertical) {
+  buildWorkVideoCardHtml(video, isVertical) {
     const is916 = video.aspectRatio === '9:16' || isVertical;
-    const thumbUrl = video.thumbnail || `https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=600&q=80`;
 
     if (is916) {
       return `
-        <div class="video-card-vertical" data-video-id="${video.id}">
+        <div class="video-card-vertical" data-ytid="${video.ytId}" data-title="${video.title}" data-client="${video.client}" data-format="9:16" data-views="${video.views}">
           <div class="vertical-thumb-container">
-            <img src="${thumbUrl}" alt="${video.title}" class="card-thumb-img" loading="lazy">
+            <img src="${video.thumbnail}" alt="${video.title}" class="card-thumb-img" loading="lazy">
             <div class="card-play-overlay">
               <div class="card-play-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -187,9 +272,9 @@ class PortfolioManager {
     }
 
     return `
-      <div class="video-card-horizontal" data-video-id="${video.id}">
+      <div class="video-card-horizontal" data-ytid="${video.ytId}" data-title="${video.title}" data-client="${video.client}" data-format="16:9" data-views="${video.views}">
         <div class="card-thumb-container">
-          <img src="${thumbUrl}" alt="${video.title}" class="card-thumb-img" loading="lazy">
+          <img src="${video.thumbnail}" alt="${video.title}" class="card-thumb-img" loading="lazy">
           <div class="card-play-overlay">
             <div class="card-play-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -202,7 +287,7 @@ class PortfolioManager {
           </span>
         </div>
         <div class="card-info-body">
-          <span class="card-category-tag">${video.category.replace('-', ' ')}</span>
+          <span class="card-category-tag">${(video.category || '16:9').replace('-', ' ')}</span>
           <h4 class="card-video-title">${video.title}</h4>
           <p class="card-video-desc">${video.description}</p>
           <div class="card-meta-footer">
@@ -214,53 +299,31 @@ class PortfolioManager {
     `;
   }
 
-  renderFeaturedHomeVideos() {
-    const container = document.getElementById('homeFeaturedGrid');
-    if (!container) return;
-
-    const data = window.appData.getData();
-    const featuredVideos = data.videos.filter(v => v.isFeatured).slice(0, 3);
-    const regularFallback = featuredVideos.length > 0 ? featuredVideos : data.videos.slice(0, 3);
-
-    let html = '';
-    regularFallback.forEach(v => {
-      html += this.buildVideoCardHtml(v, v.aspectRatio === '9:16');
-    });
-
-    container.innerHTML = html;
-
-    container.querySelectorAll('.video-card-horizontal, .video-card-vertical').forEach(card => {
-      card.addEventListener('click', () => {
-        const vidId = card.getAttribute('data-video-id');
-        this.openVideoPlayer(vidId);
-      });
-    });
-  }
-
-  openVideoPlayer(videoId) {
-    const data = window.appData.getData();
-    const video = data.videos.find(v => v.id === videoId);
+  // =========================================================================
+  // 3. FULL VIDEO PLAYER MODAL (WITH SOUND / AUDIO)
+  // =========================================================================
+  openVideoPlayer(video) {
     if (!video) return;
 
-    const ytId = PortfolioManager.extractYouTubeId(video.youtubeUrl) || video.youtubeId || 'dQw4w9WgXcQ';
+    const ytId = video.ytId || 'dQw4w9WgXcQ';
     const is916 = video.aspectRatio === '9:16';
 
-    if (this.modalContainer) {
+    if (this.modalBox) {
       if (is916) {
-        this.modalContainer.classList.add('is-vertical');
+        this.modalBox.classList.add('is-vertical');
       } else {
-        this.modalContainer.classList.remove('is-vertical');
+        this.modalBox.classList.remove('is-vertical');
       }
     }
 
-    if (this.modalTitle) this.modalTitle.textContent = video.title;
-    if (this.modalSub) this.modalSub.textContent = `Client: ${video.client || 'Creative Vibe'} • Format: ${video.aspectRatio} • ${video.views || ''}`;
+    if (this.modalTitle) this.modalTitle.textContent = video.title || 'Video Showcase';
+    if (this.modalSub) this.modalSub.textContent = `Client: ${video.client || 'Creative Vibe'} • Format: ${video.aspectRatio || '16:9'} • ${video.views || ''}`;
 
     if (this.iframeContainer) {
       this.iframeContainer.innerHTML = `
         <iframe 
           src="https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1&playsinline=1" 
-          title="${video.title}" 
+          title="${video.title || 'Video Player'}" 
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
           allowfullscreen>
         </iframe>
@@ -308,11 +371,13 @@ class PortfolioManager {
     const heroShowreel = document.getElementById('heroShowreelCard');
     if (heroShowreel) {
       heroShowreel.addEventListener('click', () => {
-        const data = window.appData.getData();
-        const topVideo = data.videos.find(v => v.isFeatured) || data.videos[0];
-        if (topVideo) {
-          this.openVideoPlayer(topVideo.id);
-        }
+        this.openVideoPlayer({
+          ytId: 'dQw4w9WgXcQ',
+          title: 'Creative Vibe 2026 Showreel',
+          client: 'Creative Vibe Original',
+          aspectRatio: '16:9',
+          views: 'Showreel'
+        });
       });
     }
   }
