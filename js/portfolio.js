@@ -1,7 +1,10 @@
 /* ==========================================================================
    CREATIVE VIBE - HIGH-PERFORMANCE DYNAMIC PORTFOLIO & NICHES MANAGER
-   Native Hardware-Accelerated Video Engine (<0.5% CPU), Local & Direct Streams,
-   Zero YouTube Logos/Watermarks/Pause Overlays, and Pure Cinema Modal Player.
+   Dual-Layer Dynamic Adaptive Engine:
+   - Slider: 1.5MB Lightweight Micro-Clips for 60FPS Autoplay (<0.5% CPU)
+   - On Hover: Seamless Timestamp Shift to Full 4K/1080p Master Video + Unmuted Audio
+   - On Leave: Seamless Timestamp Shift back to Micro-Clip + Muted
+   - On Click: 1080p Master Cinema Player Modal
    ========================================================================== */
 
 class PortfolioManager {
@@ -95,7 +98,7 @@ class PortfolioManager {
     const horizLoop = this.buildSeamlessLoop(edits.horizontal || []);
     horizContainer.innerHTML = horizLoop.map(v => this.buildHorizontalMarqueeCardHtml(v)).join('');
 
-    // Bind Hover (Instant Audio) & Click (Open Pure Cinema Player)
+    // Bind Dual-Layer Adaptive Hover & Click Events
     this.bindMarqueeCardEvents(vertContainer);
     this.bindMarqueeCardEvents(horizContainer);
   }
@@ -336,13 +339,14 @@ class PortfolioManager {
       });
       card.addEventListener('click', () => {
         const sourceType = card.getAttribute('data-source-type');
-        const videoUrl = card.getAttribute('data-video-url');
+        const previewUrl = card.getAttribute('data-preview-url');
+        const masterUrl = card.getAttribute('data-master-url');
         const ytId = card.getAttribute('data-ytid');
         const title = card.getAttribute('data-title');
         const client = card.getAttribute('data-client');
         const format = card.getAttribute('data-format');
         const views = card.getAttribute('data-views');
-        this.openVideoPlayer({ sourceType, videoUrl, ytId, title, client, aspectRatio: format, views });
+        this.openVideoPlayer({ sourceType, previewUrl, masterUrl, ytId, title, client, aspectRatio: format, views });
       });
     });
 
@@ -367,13 +371,14 @@ class PortfolioManager {
   }
 
   // =========================================================================
-  // 4. CLEAN NATIVE VIDEO CARD BUILDERS (0% WATERMARKS & 60 FPS)
+  // 4. DUAL-LAYER CARD BUILDERS (LIGHTWEIGHT MICRO-CLIP IN SLIDER)
   // =========================================================================
   buildVerticalMarqueeCardHtml(v) {
     let mediaHtml = '';
     if (v.sourceType === 'direct') {
+      // In Slider: Load lightweight preview micro-clip (1.5MB)
       mediaHtml = `
-        <video class="marquee-native-video" src="${v.videoUrl}" autoplay loop muted playsinline preload="auto"></video>
+        <video class="marquee-native-video" src="${v.previewUrl}" autoplay loop muted playsinline preload="auto"></video>
       `;
     } else {
       const embedSrc = `https://www.youtube-nocookie.com/embed/${v.ytId}?autoplay=1&mute=1&loop=1&playlist=${v.ytId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&cc_load_policy=0&cc_lang_pref=off&hl=en`;
@@ -381,7 +386,7 @@ class PortfolioManager {
     }
 
     return `
-      <div class="marquee-card-vertical" data-source-type="${v.sourceType}" data-video-url="${v.videoUrl}" data-ytid="${v.ytId || ''}" data-title="${v.title}" data-client="${v.client}" data-format="9:16" data-views="${v.views}">
+      <div class="marquee-card-vertical" data-source-type="${v.sourceType}" data-preview-url="${v.previewUrl}" data-master-url="${v.masterUrl || v.previewUrl}" data-ytid="${v.ytId || ''}" data-title="${v.title}" data-client="${v.client}" data-format="9:16" data-views="${v.views}">
         <div class="marquee-video-frame">
           ${mediaHtml}
         </div>
@@ -392,8 +397,9 @@ class PortfolioManager {
   buildHorizontalMarqueeCardHtml(v) {
     let mediaHtml = '';
     if (v.sourceType === 'direct') {
+      // In Slider: Load lightweight preview micro-clip (1.5MB)
       mediaHtml = `
-        <video class="marquee-native-video" src="${v.videoUrl}" autoplay loop muted playsinline preload="auto"></video>
+        <video class="marquee-native-video" src="${v.previewUrl}" autoplay loop muted playsinline preload="auto"></video>
       `;
     } else {
       const embedSrc = `https://www.youtube-nocookie.com/embed/${v.ytId}?autoplay=1&mute=1&loop=1&playlist=${v.ytId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&cc_load_policy=0&cc_lang_pref=off&hl=en`;
@@ -401,7 +407,7 @@ class PortfolioManager {
     }
 
     return `
-      <div class="marquee-card-horizontal" data-source-type="${v.sourceType}" data-video-url="${v.videoUrl}" data-ytid="${v.ytId || ''}" data-title="${v.title}" data-client="${v.client}" data-format="16:9" data-views="${v.views}">
+      <div class="marquee-card-horizontal" data-source-type="${v.sourceType}" data-preview-url="${v.previewUrl}" data-master-url="${v.masterUrl || v.previewUrl}" data-ytid="${v.ytId || ''}" data-title="${v.title}" data-client="${v.client}" data-format="16:9" data-views="${v.views}">
         <div class="marquee-video-frame">
           ${mediaHtml}
         </div>
@@ -412,7 +418,7 @@ class PortfolioManager {
   buildGridCardHorizontal(v) {
     const thumbUrl = v.thumbnail || `https://img.youtube.com/vi/${v.ytId || 'dQw4w9WgXcQ'}/hqdefault.jpg`;
     return `
-      <div class="video-card-horiz" data-source-type="${v.sourceType}" data-video-url="${v.videoUrl}" data-ytid="${v.ytId || ''}" data-title="${v.title}" data-client="${v.client}" data-format="16:9" data-views="${v.views}">
+      <div class="video-card-horiz" data-source-type="${v.sourceType}" data-preview-url="${v.previewUrl}" data-master-url="${v.masterUrl || v.previewUrl}" data-ytid="${v.ytId || ''}" data-title="${v.title}" data-client="${v.client}" data-format="16:9" data-views="${v.views}">
         <div class="thumb-holder-169">
           <img src="${thumbUrl}" alt="${v.title}" loading="lazy">
           <div class="play-hover-overlay">
@@ -438,7 +444,7 @@ class PortfolioManager {
   buildGridCardVertical(v) {
     const thumbUrl = v.thumbnail || `https://img.youtube.com/vi/${v.ytId || 'dQw4w9WgXcQ'}/hqdefault.jpg`;
     return `
-      <div class="video-card-vert" data-source-type="${v.sourceType}" data-video-url="${v.videoUrl}" data-ytid="${v.ytId || ''}" data-title="${v.title}" data-client="${v.client}" data-format="9:16" data-views="${v.views}">
+      <div class="video-card-vert" data-source-type="${v.sourceType}" data-preview-url="${v.previewUrl}" data-master-url="${v.masterUrl || v.previewUrl}" data-ytid="${v.ytId || ''}" data-title="${v.title}" data-client="${v.client}" data-format="9:16" data-views="${v.views}">
         <div class="thumb-holder-916">
           <img src="${thumbUrl}" alt="${v.title}" loading="lazy">
           <div class="play-hover-overlay">
@@ -457,14 +463,15 @@ class PortfolioManager {
   }
 
   // =========================================================================
-  // 5. SMOOTH HOVER AUDIO & MODAL CINEMA CONTROLS
+  // 5. DUAL-LAYER ADAPTIVE HOVER (SEAMLESS TIMESTAMP + UNMUTED SOUND)
   // =========================================================================
   bindMarqueeCardEvents(container) {
     if (!container) return;
 
     container.querySelectorAll('.marquee-card-vertical, .marquee-card-horizontal').forEach(card => {
       const sourceType = card.getAttribute('data-source-type');
-      const videoUrl = card.getAttribute('data-video-url');
+      const previewUrl = card.getAttribute('data-preview-url');
+      const masterUrl = card.getAttribute('data-master-url') || previewUrl;
       const ytId = card.getAttribute('data-ytid');
       const title = card.getAttribute('data-title');
       const client = card.getAttribute('data-client');
@@ -473,9 +480,16 @@ class PortfolioManager {
       const nativeVideo = card.querySelector('video');
       const iframe = card.querySelector('iframe');
 
-      // 1. Mouse Enter: Instant Unmuted Sound
+      // 1. Mouse Enter: Seamless Shift to Master Quality with Unmuted Audio at EXACT Duration
       card.addEventListener('mouseenter', () => {
-        if (nativeVideo) {
+        if (nativeVideo && masterUrl && masterUrl !== previewUrl) {
+          const currentTimestamp = nativeVideo.currentTime || 0;
+          nativeVideo.src = masterUrl;
+          nativeVideo.currentTime = currentTimestamp;
+          nativeVideo.muted = false;
+          nativeVideo.volume = 1.0;
+          nativeVideo.play().catch(() => {});
+        } else if (nativeVideo) {
           nativeVideo.muted = false;
           nativeVideo.volume = 1.0;
         } else if (iframe && iframe.contentWindow) {
@@ -488,9 +502,15 @@ class PortfolioManager {
         if (window.soundFX) window.soundFX.playHover();
       });
 
-      // 2. Mouse Leave: Mute Audio back to silent continuous video loop
+      // 2. Mouse Leave: Seamless Shift back to Lightweight Micro-Clip + Muted at EXACT Duration
       card.addEventListener('mouseleave', () => {
-        if (nativeVideo) {
+        if (nativeVideo && previewUrl && masterUrl !== previewUrl) {
+          const currentTimestamp = nativeVideo.currentTime || 0;
+          nativeVideo.muted = true;
+          nativeVideo.src = previewUrl;
+          nativeVideo.currentTime = currentTimestamp;
+          nativeVideo.play().catch(() => {});
+        } else if (nativeVideo) {
           nativeVideo.muted = true;
         } else if (iframe && iframe.contentWindow) {
           try {
@@ -500,7 +520,7 @@ class PortfolioManager {
         card.classList.remove('is-unmuted');
       });
 
-      // 3. Click: Open in Full Cinema Player Modal
+      // 3. Click: Open in Full Master 1080p/4K Cinema Player Modal
       card.addEventListener('click', (e) => {
         e.stopPropagation();
         if (nativeVideo) nativeVideo.muted = true;
@@ -508,13 +528,13 @@ class PortfolioManager {
           try { iframe.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*'); } catch (e) {}
         }
         card.classList.remove('is-unmuted');
-        this.openVideoPlayer({ sourceType, videoUrl, ytId, title, client, aspectRatio: format, views });
+        this.openVideoPlayer({ sourceType, previewUrl, masterUrl, ytId, title, client, aspectRatio: format, views });
       });
     });
   }
 
   // =========================================================================
-  // 6. PURE 100% CINEMA MODAL (ZERO CHANNEL TITLE / ZERO WATERMARKS)
+  // 6. PURE 100% CINEMA MODAL (FULL MASTER RESOLUTION)
   // =========================================================================
   openVideoPlayer(video) {
     if (!video) return;
@@ -530,12 +550,13 @@ class PortfolioManager {
     }
 
     if (this.modalTitle) this.modalTitle.textContent = video.title || 'Video Showcase';
-    if (this.modalSub) this.modalSub.textContent = `${video.aspectRatio || '16:9'} Format • High Retention Edit`;
+    if (this.modalSub) this.modalSub.textContent = `${video.aspectRatio || '16:9'} Format • Master Quality Edit`;
 
     if (this.iframeContainer) {
       if (video.sourceType === 'direct') {
+        const fullMasterSrc = video.masterUrl || video.previewUrl;
         this.iframeContainer.innerHTML = `
-          <video class="modal-native-video" src="${video.videoUrl}" autoplay controls playsinline></video>
+          <video class="modal-native-video" src="${fullMasterSrc}" autoplay controls playsinline></video>
         `;
       } else {
         const ytId = video.ytId || 'dQw4w9WgXcQ';
@@ -593,7 +614,7 @@ class PortfolioManager {
       heroShowreel.addEventListener('click', () => {
         this.openVideoPlayer({
           sourceType: 'direct',
-          videoUrl: 'assets/videos/long1.mp4',
+          masterUrl: 'assets/videos/long1.mp4',
           title: 'Creative Vibe 2026 Showreel',
           client: 'Creative Vibe Original',
           aspectRatio: '16:9',
