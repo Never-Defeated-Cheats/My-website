@@ -1,9 +1,10 @@
 /* ==========================================================================
    CREATIVE VIBE - HIGH-PERFORMANCE DYNAMIC PORTFOLIO & NICHES MANAGER
    Dual-Tier Adaptive Native Video Engine:
-   - Desktop & Mobile Hardware Optimized (< 0.2% CPU / < 2% GPU)
-   - Mobile Viewport Process Killer (Offscreen layout & video completely sleeping)
-   - Fast On-Hover Live Audio Unmute & Modal Cinema Player
+   - Instant 0ms Page-Load Video Hydration (preload="auto" & CDN preconnect)
+   - Background Streams & Animation Auto-Paused during Fullscreen Cinema Modal
+   - Background Streams & Animation Auto-Resumed on Modal Close
+   - Mobile Viewport Process Killer (Offscreen sleeping)
    ========================================================================== */
 
 class PortfolioManager {
@@ -44,8 +45,6 @@ class PortfolioManager {
 
   // =========================================================================
   // INDIVIDUAL CARD VIEWPORT VIRTUALIZER & MOBILE PROCESS KILLER
-  // On Mobile: Destroys offscreen layout process (content-visibility: hidden)
-  // On Desktop: Strictly pauses offscreen decoders (< 2% GPU load)
   // =========================================================================
   initCardLevelVirtualization() {
     if (!('IntersectionObserver' in window)) return;
@@ -84,7 +83,7 @@ class PortfolioManager {
       });
     }, {
       root: null,
-      rootMargin: isMobile ? '0px' : '20px 0px',
+      rootMargin: isMobile ? '0px' : '30px 0px',
       threshold: isMobile ? 0.2 : 0.05
     });
 
@@ -94,7 +93,7 @@ class PortfolioManager {
   }
 
   // =========================================================================
-  // 1. BEST EDITS DUAL-ROW INFINITE SLIDERS (HOME PAGE - NATIVE 60FPS)
+  // 1. BEST EDITS DUAL-ROW INFINITE SLIDERS (HOME PAGE - INSTANT AUTO-PLAY)
   // =========================================================================
   renderRecentEditsSliders() {
     const vertContainer = document.getElementById('recentVerticalMarquee');
@@ -111,11 +110,20 @@ class PortfolioManager {
     const horizLoop = this.buildSeamlessLoop(edits.horizontal || []);
     horizContainer.innerHTML = horizLoop.map(v => this.buildHorizontalMarqueeCardHtml(v)).join('');
 
+    // Instant Play on Initial Render without delay
+    const initialVideos = document.querySelectorAll('.recent-edits-container video');
+    initialVideos.forEach(v => {
+      try {
+        const p = v.play();
+        if (p !== undefined) p.catch(() => {});
+      } catch (e) {}
+    });
+
     // Bind Hover (Instant Audio) & Click (Open Cinema Player)
     this.bindMarqueeCardEvents(vertContainer);
     this.bindMarqueeCardEvents(horizContainer);
 
-    setTimeout(() => this.initCardLevelVirtualization(), 100);
+    this.initCardLevelVirtualization();
   }
 
   // =========================================================================
@@ -233,7 +241,7 @@ class PortfolioManager {
       });
     });
 
-    setTimeout(() => this.initCardLevelVirtualization(), 100);
+    this.initCardLevelVirtualization();
 
     if (window.initScrollReveal) window.initScrollReveal();
   }
@@ -359,7 +367,6 @@ class PortfolioManager {
       });
     });
 
-    // Scroll to top of tab smoothly
     const tabWork = document.getElementById('tab-work');
     if (tabWork) {
       tabWork.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -380,7 +387,7 @@ class PortfolioManager {
   }
 
   // =========================================================================
-  // 4. 100% PURE NATIVE VIDEO CARDS (CONTINUOUS 60FPS HARDWARE AUTO-PLAY)
+  // 4. 100% PURE NATIVE VIDEO CARDS (INSTANT 0MS PRELOAD="AUTO")
   // =========================================================================
   buildVerticalMarqueeCardHtml(v) {
     const streamSrc = v.previewUrl || v.videoUrl;
@@ -388,7 +395,7 @@ class PortfolioManager {
     return `
       <div class="marquee-card-vertical" data-video-url="${streamSrc}" data-master-url="${masterSrc}" data-title="${v.title}" data-client="${v.client}" data-format="9:16" data-views="${v.views}">
         <div class="marquee-video-frame">
-          <video class="marquee-native-video" src="${streamSrc}" autoplay loop muted playsinline preload="metadata" disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"></video>
+          <video class="marquee-native-video" src="${streamSrc}" autoplay loop muted playsinline preload="auto" disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"></video>
         </div>
       </div>
     `;
@@ -400,7 +407,7 @@ class PortfolioManager {
     return `
       <div class="marquee-card-horizontal" data-video-url="${streamSrc}" data-master-url="${masterSrc}" data-title="${v.title}" data-client="${v.client}" data-format="16:9" data-views="${v.views}">
         <div class="marquee-video-frame">
-          <video class="marquee-native-video" src="${streamSrc}" autoplay loop muted playsinline preload="metadata" disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"></video>
+          <video class="marquee-native-video" src="${streamSrc}" autoplay loop muted playsinline preload="auto" disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"></video>
         </div>
       </div>
     `;
@@ -513,7 +520,7 @@ class PortfolioManager {
   }
 
   // =========================================================================
-  // 6. PURE 100% CINEMA MODAL (ZERO WATERMARKS)
+  // 6. PURE 100% CINEMA MODAL (AUTO-PAUSES BACKGROUND STREAMS & ANIMATIONS)
   // =========================================================================
   openVideoPlayer(video) {
     if (!video) return;
@@ -530,6 +537,14 @@ class PortfolioManager {
 
     if (this.modalTitle) this.modalTitle.textContent = video.title || 'Video Showcase';
     if (this.modalSub) this.modalSub.textContent = `${video.aspectRatio || '16:9'} Format • Master Edit`;
+
+    // 1. Pause all background cards videos & marquee animations to free 100% GPU for Modal!
+    document.querySelectorAll('.marquee-track video').forEach(v => {
+      try { v.pause(); } catch (e) {}
+    });
+    document.querySelectorAll('.marquee-track').forEach(t => {
+      t.style.animationPlayState = 'paused';
+    });
 
     if (this.iframeContainer) {
       const srcToPlay = video.masterUrl || video.videoUrl;
@@ -552,6 +567,13 @@ class PortfolioManager {
       if (this.iframeContainer) {
         this.iframeContainer.innerHTML = '';
       }
+
+      // 2. Resume all background marquee animations & video streams smoothly!
+      document.querySelectorAll('.marquee-track').forEach(t => {
+        t.style.animationPlayState = 'running';
+      });
+      this.initCardLevelVirtualization();
+
       if (window.soundFX) window.soundFX.playClick();
     }
   }
