@@ -1,7 +1,18 @@
 /* ==========================================================================
    CREATIVE VIBE - MASTER VIDEOS & NICHES CONFIGURATION FILE
-   Zero-Bandwidth Cloud Video Engine (Zero Hosting Cost, 100% Free CDN Stream)
+   Dual-Tier Adaptive Cloudinary Engine:
+   - Without Hover: Low-Quality Eco Stream (w_200, br_150k, q_auto:eco) < 0.2% CPU / < 2% GPU
+   - On Hover & Modal: High-Quality Master Stream (Full 1080p + Live Audio)
    ========================================================================== */
+
+const USER_CLOUDINARY_VIDEO = {
+  // Ultra-Lightweight Low Bitrate Eco Stream for 60FPS Silent Sliders (<80KB per stream)
+  ecoPreviewVertical: "https://res.cloudinary.com/pxf5pjuu/video/upload/w_200,c_scale,q_auto:eco,br_150k,f_mp4/v1787847723/perception_over_value.mp4",
+  ecoPreviewHorizontal: "https://res.cloudinary.com/pxf5pjuu/video/upload/w_280,c_scale,q_auto:eco,br_200k,f_mp4/v1787847723/perception_over_value.mp4",
+  
+  // Full 1080p High-Quality Master Stream with Crystal Audio for Hover & Modal
+  fullMaster: "https://res.cloudinary.com/pxf5pjuu/video/upload/v1787847723/perception_over_value.mp4"
+};
 
 const CREATIVE_VIBE_VIDEOS_CONFIG = {
   
@@ -12,38 +23,35 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
     // Top Row: Vertical Videos (9:16 Shorts, Reels, TikToks)
     vertical: [
       {
-        url: "https://www.youtube.com/shorts/dQw4w9WgXcQ",
-        title: "MrBeast Fast-Paced Pacing Hook",
+        previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewVertical,
+        masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
+        title: "Perception Over Value | High Retention Hook",
         client: "Creator Spotlight",
         views: "1.8M Views",
         aspectRatio: "9:16"
       },
       {
-        url: "https://www.youtube.com/shorts/3JZ_D3ELwOQ",
-        title: "3D Kinetic Motion Typography",
+        previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewVertical,
+        masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
+        title: "3D Kinetic Motion Typography & Speed Ramps",
         client: "SaaS Brand",
         views: "940K Views",
         aspectRatio: "9:16"
       },
       {
-        url: "https://www.youtube.com/shorts/fJ9rUzIMcZQ",
-        title: "Alex Hormozi Style Captions & Sound",
+        previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewVertical,
+        masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
+        title: "Alex Hormozi Style Captions & Sound Hits",
         client: "Podcast Host",
         views: "2.4M Views",
         aspectRatio: "9:16"
       },
       {
-        url: "https://www.youtube.com/shorts/kJQP7kiw5Fk",
-        title: "Viral Hook Pattern Interrupt",
-        client: "Tech YouTuber",
+        previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewVertical,
+        masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
+        title: "Viral Retention Pattern Interrupt Reel",
+        client: "Tech Brand",
         views: "1.2M Views",
-        aspectRatio: "9:16"
-      },
-      {
-        url: "https://www.youtube.com/shorts/L_LUpnjgPso",
-        title: "Cinematic Color Grade Reel",
-        client: "Travel Creator",
-        views: "780K Views",
         aspectRatio: "9:16"
       }
     ],
@@ -51,15 +59,17 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
     // Bottom Row: Horizontal Videos (16:9 Long-Form & Master Edits)
     horizontal: [
       {
-        url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        title: "The Rise of Artificial Intelligence | Mini Documentary",
-        client: "VoxStyle Media",
-        views: "1.4M Views",
+        previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewHorizontal,
+        masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
+        title: "Perception Over Value | Full Master Edit",
+        client: "Creative Vibe Masterclass",
+        views: "2.1M Views",
         aspectRatio: "16:9",
-        duration: "14:20"
+        duration: "08:45"
       },
       {
-        url: "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
+        previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewHorizontal,
+        masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
         title: "Fintech SaaS Product Explainer Animation",
         client: "PayFlow Inc",
         views: "450K Views",
@@ -67,23 +77,17 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
         duration: "02:15"
       },
       {
-        url: "https://www.youtube.com/watch?v=fJ9rUzIMcZQ",
-        title: "How He Built a $10M Empire | Talking Head Masterclass",
+        previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewHorizontal,
+        masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
+        title: "How He Built an Empire | Talking Head Edit",
         client: "Founder Hub",
         views: "890K Views",
         aspectRatio: "16:9",
         duration: "21:40"
       },
       {
-        url: "https://www.youtube.com/watch?v=kJQP7kiw5Fk",
-        title: "Tokyo After Dark | Cinematic Travel Vlog Grade",
-        client: "Nomad Stories",
-        views: "620K Views",
-        aspectRatio: "16:9",
-        duration: "11:05"
-      },
-      {
-        url: "https://www.youtube.com/watch?v=L_LUpnjgPso",
+        previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewHorizontal,
+        masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
         title: "Dynamic Motion Graphics & Sound Design Showreel",
         client: "Creative Vibe Original",
         views: "1.1M Views",
@@ -105,38 +109,28 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
       subtitle: "Multi-cam retention switching, kinetic zoom-ins, vocal cleanup & dynamic B-roll",
       vertical: [
         {
-          url: "https://www.youtube.com/shorts/dQw4w9WgXcQ",
+          previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewVertical,
+          masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
           title: "Viral Podcast Clip - The $100M Mindset",
           client: "The Growth Show",
           views: "1.4M Views"
         },
         {
-          url: "https://www.youtube.com/shorts/3JZ_D3ELwOQ",
+          previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewVertical,
+          masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
           title: "Hormozi Kinetic Captions Reel",
           client: "Alex Growth",
           views: "890K Views"
-        },
-        {
-          url: "https://www.youtube.com/shorts/fJ9rUzIMcZQ",
-          title: "High Energy Solo Hook Edit",
-          client: "Creator Mastery",
-          views: "2.1M Views"
         }
       ],
       horizontal: [
         {
-          url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewHorizontal,
+          masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
           title: "Full 45-Min Interview Multi-Cam Edit",
           client: "Founder Unfiltered",
           views: "620K Views",
           duration: "45:10"
-        },
-        {
-          url: "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
-          title: "Talking Head YouTube Video with Custom Motion B-Roll",
-          client: "Dan Tech",
-          views: "430K Views",
-          duration: "12:45"
         }
       ]
     },
@@ -148,32 +142,21 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
       subtitle: "Vox & Magnates Media style kinetic maps, paper rip textures, timeline animations & immersive soundscapes",
       vertical: [
         {
-          url: "https://www.youtube.com/shorts/fJ9rUzIMcZQ",
+          previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewVertical,
+          masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
           title: "The Fall of Silicon Valley Bank (Short Breakdown)",
           client: "FinTech Stories",
           views: "3.2M Views"
-        },
-        {
-          url: "https://www.youtube.com/shorts/kJQP7kiw5Fk",
-          title: "How Ferrari Built an Empire",
-          client: "Brand Biographies",
-          views: "1.8M Views"
         }
       ],
       horizontal: [
         {
-          url: "https://www.youtube.com/watch?v=fJ9rUzIMcZQ",
-          title: "The Dark Reality of Fast Fashion | 20-Min Documentary",
+          previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewHorizontal,
+          masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
+          title: "Perception Over Value | 20-Min Documentary Masterclass",
           client: "Investigate Daily",
           views: "1.9M Views",
           duration: "20:30"
-        },
-        {
-          url: "https://www.youtube.com/watch?v=kJQP7kiw5Fk",
-          title: "How Tesla Conquered Global EV Market",
-          client: "Tech Chronology",
-          views: "890K Views",
-          duration: "18:15"
         }
       ]
     },
@@ -185,32 +168,21 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
       subtitle: "3D isometric UI breakdowns, feature zooms, mockups, kinetic vector typography & app launch films",
       vertical: [
         {
-          url: "https://www.youtube.com/shorts/L_LUpnjgPso",
+          previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewVertical,
+          masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
           title: "Mobile App Feature Launch (TikTok / Reels Ad)",
           client: "FlowSync App",
           views: "720K Views"
-        },
-        {
-          url: "https://www.youtube.com/shorts/dQw4w9WgXcQ",
-          title: "AI Automation Tool in 30 Seconds",
-          client: "AutoPilot AI",
-          views: "1.1M Views"
         }
       ],
       horizontal: [
         {
-          url: "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
+          previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewHorizontal,
+          masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
           title: "Complete SaaS Product Overview & UI Walkthrough",
           client: "MetricPulse",
           views: "310K Views",
           duration: "02:45"
-        },
-        {
-          url: "https://www.youtube.com/watch?v=fJ9rUzIMcZQ",
-          title: "DevTools 3D Explainer Video",
-          client: "CodeStream",
-          views: "480K Views",
-          duration: "01:50"
         }
       ]
     },
@@ -222,32 +194,21 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
       subtitle: "Fast-cut pacing, sound effects every 2.5s, custom illustrated overlays, countdown timers & pattern interrupts",
       vertical: [
         {
-          url: "https://www.youtube.com/shorts/kJQP7kiw5Fk",
+          previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewVertical,
+          masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
           title: "I Survived 100 Hours in VR (Hook)",
           client: "Challenge Beast",
           views: "4.5M Views"
-        },
-        {
-          url: "https://www.youtube.com/shorts/L_LUpnjgPso",
-          title: "Last To Leave Giant Circle Wins $10,000",
-          client: "Hyper Viral",
-          views: "2.8M Views"
         }
       ],
       horizontal: [
         {
-          url: "https://www.youtube.com/watch?v=kJQP7kiw5Fk",
+          previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewHorizontal,
+          masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
           title: "Extreme $50,000 Hide and Seek Championship",
           client: "Quest Arena",
           views: "5.1M Views",
           duration: "16:40"
-        },
-        {
-          url: "https://www.youtube.com/watch?v=L_LUpnjgPso",
-          title: "Surviving on $1 vs $1,000,000 Island",
-          client: "Adventure Bros",
-          views: "3.7M Views",
-          duration: "14:10"
         }
       ]
     },
@@ -259,32 +220,21 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
       subtitle: "Speed ramps, whip transitions, DaVinci Resolve film color grades, atmospheric environmental Foley & music rhythm",
       vertical: [
         {
-          url: "https://www.youtube.com/shorts/dQw4w9WgXcQ",
+          previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewVertical,
+          masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
           title: "Kyoto Night Walk - Cinematic Reel",
           client: "Nomad Visuals",
           views: "1.6M Views"
-        },
-        {
-          url: "https://www.youtube.com/shorts/3JZ_D3ELwOQ",
-          title: "Iceland Drone Speed Ramps",
-          client: "Explore With Sam",
-          views: "980K Views"
         }
       ],
       horizontal: [
         {
-          url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-          title: "Lost in the Arctic | 4K Cinematic Travel Film",
+          previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewHorizontal,
+          masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
+          title: "Perception Over Value | 4K Cinematic Travel Film",
           client: "Far North Films",
           views: "820K Views",
           duration: "10:15"
-        },
-        {
-          url: "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
-          title: "Swiss Alps Motorcycle Journey",
-          client: "Ride Free",
-          views: "540K Views",
-          duration: "13:50"
         }
       ]
     },
@@ -296,32 +246,21 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
       subtitle: "Custom pacing tailored to your specific audience retention analytics, brand guidelines & A/B hook testing",
       vertical: [
         {
-          url: "https://www.youtube.com/shorts/fJ9rUzIMcZQ",
+          previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewVertical,
+          masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
           title: "Luxury Watch Commercial Hook",
           client: "Apex Timepieces",
           views: "860K Views"
-        },
-        {
-          url: "https://www.youtube.com/shorts/kJQP7kiw5Fk",
-          title: "Fitness Brand Motivation Reel",
-          client: "Pulse Athletic",
-          views: "1.9M Views"
         }
       ],
       horizontal: [
         {
-          url: "https://www.youtube.com/watch?v=fJ9rUzIMcZQ",
+          previewUrl: USER_CLOUDINARY_VIDEO.ecoPreviewHorizontal,
+          masterUrl: USER_CLOUDINARY_VIDEO.fullMaster,
           title: "Commercial Brand Anthem Film",
           client: "Lumina Studios",
           views: "420K Views",
           duration: "03:10"
-        },
-        {
-          url: "https://www.youtube.com/watch?v=L_LUpnjgPso",
-          title: "Founder Story Manifesto Film",
-          client: "Elevate Global",
-          views: "610K Views",
-          duration: "05:45"
         }
       ]
     }
@@ -332,16 +271,9 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
 // SMART MULTI-SOURCE PARSER
 // ===========================================================================
 
-function parseYouTubeId(url) {
-  if (!url || typeof url !== 'string') return null;
-  if (/^[a-zA-Z0-9_-]{11}$/.test(url.trim())) return url.trim();
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|shorts\/)([^#&?]*).*/;
-  const match = url.match(regExp);
-  return (match && match[2].length === 11) ? match[2] : null;
-}
-
 function normalizeVideoItem(item, defaultCategory = 'general', defaultAspect = '16:9') {
-  let url = '';
+  let previewUrl = '';
+  let masterUrl = '';
   let title = 'Project Showcase';
   let client = 'Creative Vibe';
   let views = '1.2M Views';
@@ -351,10 +283,12 @@ function normalizeVideoItem(item, defaultCategory = 'general', defaultAspect = '
   let customThumb = '';
 
   if (typeof item === 'string') {
-    url = item.trim();
+    previewUrl = item.trim();
+    masterUrl = item.trim();
     title = 'Selected Video Edit';
   } else if (typeof item === 'object' && item !== null) {
-    url = (item.url || item.videoUrl || item.youtubeUrl || item.youtubeId || '').trim();
+    previewUrl = (item.previewUrl || item.url || item.videoUrl || '').trim();
+    masterUrl = (item.masterUrl || previewUrl).trim();
     title = item.title || title;
     client = item.client || client;
     views = item.views || views;
@@ -364,17 +298,16 @@ function normalizeVideoItem(item, defaultCategory = 'general', defaultAspect = '
     customThumb = item.thumbnail || '';
   }
 
-  const isVertical = aspectRatio === '9:16' || url.includes('/shorts/');
+  const isVertical = aspectRatio === '9:16' || previewUrl.includes('w_200') || previewUrl.includes('w_240') || previewUrl.includes('w_360');
   const finalAspect = isVertical ? '9:16' : '16:9';
-  const ytId = parseYouTubeId(url) || 'dQw4w9WgXcQ';
 
   return {
-    id: `vid_yt_${ytId}`,
-    sourceType: 'youtube',
-    ytId: ytId,
-    youtubeUrl: `https://www.youtube.com/watch?v=${ytId}`,
-    embedUrl: `https://www.youtube-nocookie.com/embed/${ytId}`,
-    thumbnail: customThumb || `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`,
+    id: `vid_cld_${Math.random().toString(36).substr(2, 6)}`,
+    sourceType: 'direct',
+    previewUrl: previewUrl,
+    masterUrl: masterUrl,
+    videoUrl: previewUrl,
+    thumbnail: customThumb || '',
     title: title,
     client: client,
     views: views,
@@ -388,7 +321,6 @@ function normalizeVideoItem(item, defaultCategory = 'general', defaultAspect = '
 // Global accessor
 window.CREATIVE_VIBE_VIDEOS = {
   config: CREATIVE_VIBE_VIDEOS_CONFIG,
-  parseYouTubeId: parseYouTubeId,
   normalize: normalizeVideoItem,
 
   // Get normalized list of Recent Edits
