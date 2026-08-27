@@ -64,13 +64,14 @@ function switchTab(tabId) {
   // Play audio
   if (window.soundFX) window.soundFX.playPop();
 
-  // Re-trigger scroll reveals & counter animations
+  // Re-trigger scroll reveals, lazy tab activations & counter animations
   setTimeout(() => {
     if (typeof initScrollReveal === 'function') initScrollReveal();
     if (tabId === 'home' && typeof animateCounters === 'function') animateCounters();
-    if (tabId === 'work' && window.portfolioManager) window.portfolioManager.closeNicheDetail();
+    if (tabId === 'work' && window.portfolioManager) window.portfolioManager.onWorkTabActivated();
+    if (window.portfolioManager) window.portfolioManager.onTabChanged(tabId);
     if (tabId === 'book-call' && window.bookingManager) window.bookingManager.syncUserAuthFields();
-  }, 100);
+  }, 50);
 }
 window.switchTab = switchTab;
 

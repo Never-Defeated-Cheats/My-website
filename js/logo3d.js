@@ -93,6 +93,10 @@ class Brand3DManager {
   }
 
   animateThree() {
+    if (document.hidden) {
+      this.animId = setTimeout(() => this.animateThree(), 1000);
+      return;
+    }
     this.animId = requestAnimationFrame(() => this.animateThree());
 
     if (this.mesh) {
