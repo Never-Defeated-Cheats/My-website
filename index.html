@@ -2274,6 +2274,21 @@
       background: #000000;
     }
 
+    .modal-native-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #000000;
+      border-radius: inherit;
+    }
+
+    .calm-modal-box.is-vertical .modal-native-video {
+      aspect-ratio: 9 / 16;
+      object-fit: cover;
+      max-height: 86vh;
+    }
+
     .modal-close-icon {
       position: absolute;
       top: 1rem;
@@ -2831,6 +2846,16 @@
     .marquee-video-frame iframe {
       width: 100%;
       height: 100%;
+      border: none;
+      background: #000000;
+      pointer-events: none;
+    }
+
+    .marquee-native-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
       border: none;
       background: #000000;
       pointer-events: none;

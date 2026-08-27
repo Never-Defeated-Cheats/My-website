@@ -1,67 +1,72 @@
 /* ==========================================================================
    CREATIVE VIBE - MASTER VIDEOS & NICHES CONFIGURATION FILE
+   Supports: Google Drive Links, Direct MP4/WebM Video Links, and YouTube URLs
    ==========================================================================
-   👉 INSTRUCTIONS:
-   1. You can paste ANY YouTube URL directly into any Niche below:
-      - Normal YouTube Link: "https://www.youtube.com/watch?v=VIDEO_ID"
-      - YouTube Short:       "https://www.youtube.com/shorts/VIDEO_ID"
-      - Shortened Link:      "https://youtu.be/VIDEO_ID"
-      - Just Video ID:       "VIDEO_ID"
-   2. You can either paste a direct URL string OR an object with custom title/client:
-      Example: { url: "https://youtu.be/xxx", title: "My Video", client: "Vox Media" }
-   3. Whenever you add a new link into any niche below, the website will
-      AUTOMATICALLY render it in that niche's dual sliders & full archive!
+   👉 HOW TO ADD YOUR OWN VIDEOS:
+   
+   1. GOOGLE DRIVE (Recommended - 100% Watermark-Free & Blazing Fast):
+      - Upload your video (.mp4) to Google Drive.
+      - Right click -> Share -> Set to "Anyone with the link can view".
+      - Paste the link below: "https://drive.google.com/file/d/YOUR_FILE_ID/view"
+      - Our system automatically streams it natively at 60 FPS with 0 watermarks!
+   
+   2. DIRECT MP4 / WEBM / CDN LINKS:
+      - Paste any direct video URL: "https://your-domain.com/video.mp4"
+      - Or from Streamable, Cloudinary, Catbox, Cloudflare R2, etc.
+   
+   3. YOUTUBE LINKS:
+      - Paste normal YouTube link or Short: "https://www.youtube.com/shorts/VIDEO_ID"
    ========================================================================== */
 
 const CREATIVE_VIBE_VIDEOS_CONFIG = {
   
   // =========================================================================
-  // 1. RECENT EDITS (Home Page Dual-Row Infinite Sliders)
+  // 1. BEST EDITS & SIGNATURE WORK (Home Page Dual-Row Infinite Sliders)
   // =========================================================================
   recentEdits: {
-    // Top Row: Vertical Videos (9:16 Shorts, Reels, TikToks) - Slides Left to Right
+    // Top Row: Vertical Videos (9:16 Shorts, Reels, TikToks)
     vertical: [
       {
-        url: "https://www.youtube.com/shorts/dQw4w9WgXcQ",
-        title: "MrBeast Fast-Paced Pacing Hook",
+        url: "https://assets.mixkit.co/videos/preview/mixkit-vertical-view-of-a-dj-mixing-music-in-a-club-42407-large.mp4",
+        title: "MrBeast Style Fast-Paced Pacing Hook",
         client: "Creator Spotlight",
         views: "1.8M Views",
         aspectRatio: "9:16"
       },
       {
-        url: "https://www.youtube.com/shorts/3JZ_D3ELwOQ",
-        title: "3D Kinetic Motion Typography",
+        url: "https://assets.mixkit.co/videos/preview/mixkit-young-woman-skater-performing-a-trick-in-slow-motion-42512-large.mp4",
+        title: "3D Kinetic Motion Typography & Speed Ramps",
         client: "SaaS Brand",
         views: "940K Views",
         aspectRatio: "9:16"
       },
       {
-        url: "https://www.youtube.com/shorts/fJ9rUzIMcZQ",
-        title: "Alex Hormozi Style Captions & Sound",
+        url: "https://assets.mixkit.co/videos/preview/mixkit-modern-city-aerial-view-at-night-42514-large.mp4",
+        title: "Alex Hormozi Style Captions & Sound Hits",
         client: "Podcast Host",
         views: "2.4M Views",
         aspectRatio: "9:16"
       },
       {
-        url: "https://www.youtube.com/shorts/kJQP7kiw5Fk",
-        title: "Viral Hook Pattern Interrupt",
+        url: "https://assets.mixkit.co/videos/preview/mixkit-neon-lights-and-abstract-shapes-animation-42516-large.mp4",
+        title: "Viral Retention Hook & Pattern Interrupts",
         client: "Tech YouTuber",
         views: "1.2M Views",
         aspectRatio: "9:16"
       },
       {
-        url: "https://www.youtube.com/shorts/L_LUpnjgPso",
-        title: "Cinematic Color Grade Reel",
+        url: "https://assets.mixkit.co/videos/preview/mixkit-man-working-on-his-laptop-in-a-cafe-42518-large.mp4",
+        title: "Cinematic Color Grade & Soundscape Reel",
         client: "Travel Creator",
         views: "780K Views",
         aspectRatio: "9:16"
       }
     ],
 
-    // Bottom Row: Horizontal Videos (16:9 YouTube Long-Form & Cinema) - Slides Right to Left
+    // Bottom Row: Horizontal Videos (16:9 Long-Form & Master Edits)
     horizontal: [
       {
-        url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
         title: "The Rise of Artificial Intelligence | Mini Documentary",
         client: "VoxStyle Media",
         views: "1.4M Views",
@@ -69,7 +74,7 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
         duration: "14:20"
       },
       {
-        url: "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
+        url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
         title: "Fintech SaaS Product Explainer Animation",
         client: "PayFlow Inc",
         views: "450K Views",
@@ -77,7 +82,7 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
         duration: "02:15"
       },
       {
-        url: "https://www.youtube.com/watch?v=fJ9rUzIMcZQ",
+        url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
         title: "How He Built a $10M Empire | Talking Head Masterclass",
         client: "Founder Hub",
         views: "890K Views",
@@ -85,7 +90,7 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
         duration: "21:40"
       },
       {
-        url: "https://www.youtube.com/watch?v=kJQP7kiw5Fk",
+        url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
         title: "Tokyo After Dark | Cinematic Travel Vlog Grade",
         client: "Nomad Stories",
         views: "620K Views",
@@ -93,161 +98,267 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
         duration: "11:05"
       },
       {
-        url: "https://www.youtube.com/watch?v=L_LUpnjgPso",
+        url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
         title: "Dynamic Motion Graphics & Sound Design Showreel",
         client: "Creative Vibe Original",
         views: "1.1M Views",
         aspectRatio: "16:9",
-        duration: "01:45"
+        duration: "01:30"
       }
     ]
   },
 
   // =========================================================================
-  // 2. WORK SECTION NICHES (Dual-Row Sliders & Full Pages per Niche)
+  // 2. CURATED EDITING NICHES (Work Page 6 Dedicated Niches)
   // =========================================================================
   niches: {
-    // 🎙️ 1. Talking Head
+    
+    // NICHE 1: TALKING HEAD & PODCAST EDITS
     "talking-head": {
-      name: "Talking Head",
+      name: "Talking Head & Podcasts",
       icon: "🎙️",
-      subtitle: "Dynamic pattern interrupts, clean multi-cam, sound FX & graphic callouts",
+      subtitle: "Multi-cam retention switching, kinetic zoom-ins, vocal cleanup & dynamic B-roll",
       vertical: [
-        { url: "https://www.youtube.com/shorts/fJ9rUzIMcZQ", title: "Alex Hormozi Style Talking Head Hook", client: "Creator Lab", views: "2.1M Views" },
-        { url: "https://www.youtube.com/shorts/kJQP7kiw5Fk", title: "Personal Brand Story Hook", client: "Growth Daily", views: "850K Views" },
-        { url: "https://www.youtube.com/shorts/3JZ_D3ELwOQ", title: "High-Retention Talking Head Cut", client: "Executive Coach", views: "1.4M Views" },
-        { url: "https://www.youtube.com/shorts/dQw4w9WgXcQ", title: "Fast-Paced Advice Short", client: "Finance Hub", views: "920K Views" },
-        { url: "https://www.youtube.com/shorts/L_LUpnjgPso", title: "Dynamic Text & Zoom Interrupt", client: "Mindset TV", views: "1.1M Views" }
+        {
+          url: "https://assets.mixkit.co/videos/preview/mixkit-man-working-on-his-laptop-in-a-cafe-42518-large.mp4",
+          title: "Viral Podcast Clip - The $100M Mindset",
+          client: "The Growth Show",
+          views: "1.4M Views"
+        },
+        {
+          url: "https://assets.mixkit.co/videos/preview/mixkit-young-woman-skater-performing-a-trick-in-slow-motion-42512-large.mp4",
+          title: "Hormozi Kinetic Captions Reel",
+          client: "Alex Growth",
+          views: "890K Views"
+        },
+        {
+          url: "https://assets.mixkit.co/videos/preview/mixkit-vertical-view-of-a-dj-mixing-music-in-a-club-42407-large.mp4",
+          title: "High Energy Solo Hook Edit",
+          client: "Creator Mastery",
+          views: "2.1M Views"
+        }
       ],
       horizontal: [
-        { url: "https://www.youtube.com/watch?v=fJ9rUzIMcZQ", title: "How He Built a $10M Empire | Talking Head Masterclass", client: "Founder Hub", views: "890K Views", duration: "21:40" },
-        { url: "https://www.youtube.com/watch?v=kJQP7kiw5Fk", title: "The Ultimate Guide to Personal Branding in 2026", client: "Growth Daily", views: "510K Views", duration: "16:10" },
-        { url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", title: "Why 99% of Startups Fail in Year One", client: "Venture Insights", views: "740K Views", duration: "18:25" },
-        { url: "https://www.youtube.com/watch?v=3JZ_D3ELwOQ", title: "7 Habits That Make You Unstoppable", client: "Peak Performance", views: "1.2M Views", duration: "14:15" },
-        { url: "https://www.youtube.com/watch?v=L_LUpnjgPso", title: "How I Mastered Video Editing in 30 Days", client: "Creative Studio", views: "630K Views", duration: "12:50" }
+        {
+          url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+          title: "Full 45-Min Interview Multi-Cam Edit",
+          client: "Founder Unfiltered",
+          views: "620K Views",
+          duration: "45:10"
+        },
+        {
+          url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+          title: "Talking Head YouTube Video with Custom Motion B-Roll",
+          client: "Dan Tech",
+          views: "430K Views",
+          duration: "12:45"
+        }
       ]
     },
 
-    // 🎬 2. Documentary style
-    "documentary-style": {
-      name: "Documentary style",
+    // NICHE 2: DOCUMENTARY STYLE EDITS
+    "documentary": {
+      name: "Documentary Style",
       icon: "🎬",
-      subtitle: "Investigative storytelling, kinetic archival maps, mood grading & cinema audio",
+      subtitle: "Vox & Magnates Media style kinetic maps, paper rip textures, timeline animations & immersive soundscapes",
       vertical: [
-        { url: "https://www.youtube.com/shorts/dQw4w9WgXcQ", title: "How Steve Jobs Changed History", client: "Tech Stories", views: "3.4M Views" },
-        { url: "https://www.youtube.com/shorts/L_LUpnjgPso", title: "The Dark Truth About AI Giants", client: "DocuBites", views: "1.8M Views" },
-        { url: "https://www.youtube.com/shorts/3JZ_D3ELwOQ", title: "Silicon Valley Secret Formula", client: "Market Lens", views: "940K Views" },
-        { url: "https://www.youtube.com/shorts/fJ9rUzIMcZQ", title: "How 1 Movie Changed Hollywood", client: "Cinema Reel", views: "2.2M Views" },
-        { url: "https://www.youtube.com/shorts/kJQP7kiw5Fk", title: "Deep Sea Mystery Solved", client: "Ocean Mystery", views: "1.5M Views" }
+        {
+          url: "https://assets.mixkit.co/videos/preview/mixkit-modern-city-aerial-view-at-night-42514-large.mp4",
+          title: "The Fall of Silicon Valley Bank (Short Breakdown)",
+          client: "FinTech Stories",
+          views: "3.2M Views"
+        },
+        {
+          url: "https://assets.mixkit.co/videos/preview/mixkit-neon-lights-and-abstract-shapes-animation-42516-large.mp4",
+          title: "How Ferrari Built an Empire",
+          client: "Brand Biographies",
+          views: "1.8M Views"
+        }
       ],
       horizontal: [
-        { url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", title: "The Rise of Artificial Superintelligence | Mini Documentary", client: "VoxStyle Media", views: "1.4M Views", duration: "14:20" },
-        { url: "https://www.youtube.com/watch?v=3JZ_D3ELwOQ", title: "Inside the Silicon Valley Tech Bubble Crash", client: "Market Lens", views: "820K Views", duration: "18:45" },
-        { url: "https://www.youtube.com/watch?v=fJ9rUzIMcZQ", title: "How SpaceX Engineered the Starship Mega-Rocket", client: "AeroTech Insights", views: "1.1M Views", duration: "22:10" },
-        { url: "https://www.youtube.com/watch?v=kJQP7kiw5Fk", title: "The Secret History of the Internet Mafia", client: "Cyber Archives", views: "680K Views", duration: "15:40" },
-        { url: "https://www.youtube.com/watch?v=L_LUpnjgPso", title: "The Rise and Fall of a $40B Crypto Empire", client: "Financial Doc", views: "950K Views", duration: "19:15" }
+        {
+          url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+          title: "The Dark Reality of Fast Fashion | 20-Min Documentary",
+          client: "Investigate Daily",
+          views: "1.9M Views",
+          duration: "20:30"
+        },
+        {
+          url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+          title: "How Tesla Conquered Global EV Market",
+          client: "Tech Chronology",
+          views: "890K Views",
+          duration: "18:15"
+        }
       ]
     },
 
-    // 💻 3. SaaS Animations
+    // NICHE 3: SAAS & DIGITAL PRODUCT ANIMATIONS
     "saas-animations": {
       name: "SaaS Animations",
       icon: "💻",
-      subtitle: "3D kinetic UI breakdowns, animated cursors, smooth zooms & high-conversion pacing",
+      subtitle: "3D isometric UI breakdowns, feature zooms, mockups, kinetic vector typography & app launch films",
       vertical: [
-        { url: "https://www.youtube.com/shorts/3JZ_D3ELwOQ", title: "3D Kinetic App UI Feature Reveal", client: "SaaS Brand", views: "940K Views" },
-        { url: "https://www.youtube.com/shorts/dQw4w9WgXcQ", title: "AI Automation Tool in 30 Seconds", client: "AutoFlow", views: "1.6M Views" },
-        { url: "https://www.youtube.com/shorts/fJ9rUzIMcZQ", title: "Cloud Analytics Fast Demo Reel", client: "MetricHQ", views: "820K Views" },
-        { url: "https://www.youtube.com/shorts/L_LUpnjgPso", title: "Fintech Dashboard Micro Animation", client: "PayFlow", views: "1.1M Views" },
-        { url: "https://www.youtube.com/shorts/kJQP7kiw5Fk", title: "Design Tool 3D Cursor Flow", client: "FigmaKit", views: "740K Views" }
+        {
+          url: "https://assets.mixkit.co/videos/preview/mixkit-neon-lights-and-abstract-shapes-animation-42516-large.mp4",
+          title: "Mobile App Feature Launch (TikTok / Reels Ad)",
+          client: "FlowSync App",
+          views: "720K Views"
+        },
+        {
+          url: "https://assets.mixkit.co/videos/preview/mixkit-young-woman-skater-performing-a-trick-in-slow-motion-42512-large.mp4",
+          title: "AI Automation Tool in 30 Seconds",
+          client: "AutoPilot AI",
+          views: "1.1M Views"
+        }
       ],
       horizontal: [
-        { url: "https://www.youtube.com/watch?v=3JZ_D3ELwOQ", title: "Fintech SaaS Product Explainer Animation (4K)", client: "PayFlow Inc", views: "450K Views", duration: "02:15" },
-        { url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", title: "AI Automation Tool Launch Commercial", client: "AutoFlow SaaS", views: "290K Views", duration: "01:30" },
-        { url: "https://www.youtube.com/watch?v=L_LUpnjgPso", title: "TaskPulse AI - Product Overview Video", client: "TaskPulse Inc", views: "520K Views", duration: "01:45" },
-        { url: "https://www.youtube.com/watch?v=fJ9rUzIMcZQ", title: "CloudScale Infrastructure Management Demo", client: "CloudScale Devs", views: "310K Views", duration: "02:10" },
-        { url: "https://www.youtube.com/watch?v=kJQP7kiw5Fk", title: "DataViz AI Interactive Dashboard Launch", client: "DataViz Systems", views: "410K Views", duration: "01:50" }
+        {
+          url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+          title: "Complete SaaS Product Overview & UI Walkthrough",
+          client: "MetricPulse",
+          views: "310K Views",
+          duration: "02:45"
+        },
+        {
+          url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+          title: "DevTools 3D Explainer Video",
+          client: "CodeStream",
+          views: "480K Views",
+          duration: "01:50"
+        }
       ]
     },
 
-    // ⚡ 4. Retention videos (like MR. Beast)
-    "retention-videos": {
-      name: "Retention videos (like MR. Beast)",
+    // NICHE 4: RETENTION & VIRAL MRBEAST STYLE
+    "retention-beast": {
+      name: "Retention Videos (MR. Beast Style)",
       icon: "⚡",
-      subtitle: "High-velocity storytelling, intense sound design, visual pop-ups & 90%+ retention hooks",
+      subtitle: "Fast-cut pacing, sound effects every 2.5s, custom illustrated overlays, countdown timers & pattern interrupts",
       vertical: [
-        { url: "https://www.youtube.com/shorts/dQw4w9WgXcQ", title: "MrBeast Fast-Paced Pacing Hook", client: "Shorts Lab", views: "3.8M Views" },
-        { url: "https://www.youtube.com/shorts/fJ9rUzIMcZQ", title: "Viral Pattern Interrupt Formula", client: "Viral Formula", views: "2.9M Views" },
-        { url: "https://www.youtube.com/shorts/kJQP7kiw5Fk", title: "High-Retention Challenge Reel", client: "Challenge King", views: "4.2M Views" },
-        { url: "https://www.youtube.com/shorts/3JZ_D3ELwOQ", title: "Psychology Trick Retention Hook", client: "Brain Hack", views: "1.9M Views" },
-        { url: "https://www.youtube.com/shorts/L_LUpnjgPso", title: "Crazy Transition Edit (Shorts)", client: "Action Cuts", views: "2.4M Views" }
+        {
+          url: "https://assets.mixkit.co/videos/preview/mixkit-vertical-view-of-a-dj-mixing-music-in-a-club-42407-large.mp4",
+          title: "I Survived 100 Hours in VR (Hook)",
+          client: "Challenge Beast",
+          views: "4.5M Views"
+        },
+        {
+          url: "https://assets.mixkit.co/videos/preview/mixkit-modern-city-aerial-view-at-night-42514-large.mp4",
+          title: "Last To Leave Giant Circle Wins $10,000",
+          client: "Hyper Viral",
+          views: "2.8M Views"
+        }
       ],
       horizontal: [
-        { url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", title: "I Spent 50 Hours in Virtual Reality | Ultra Retention Edit", client: "BeastStyle Media", views: "2.4M Views", duration: "12:15" },
-        { url: "https://www.youtube.com/watch?v=kJQP7kiw5Fk", title: "Surviving 24 Hours in a Locked Desert Bunker", client: "Challenge Studio", views: "1.9M Views", duration: "16:40" },
-        { url: "https://www.youtube.com/watch?v=fJ9rUzIMcZQ", title: "We Built a $100,000 Secret Gaming Room", client: "Extreme Builds", views: "3.1M Views", duration: "14:20" },
-        { url: "https://www.youtube.com/watch?v=3JZ_D3ELwOQ", title: "I Tested Every Fake Life Hack on TikTok", client: "Mythbusters 2.0", views: "1.7M Views", duration: "11:55" },
-        { url: "https://www.youtube.com/watch?v=L_LUpnjgPso", title: "The Most Dangerous Escape Room in the World", client: "Escape Lab", views: "2.8M Views", duration: "15:10" }
+        {
+          url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+          title: "Extreme $50,000 Hide and Seek Championship",
+          client: "Quest Arena",
+          views: "5.1M Views",
+          duration: "16:40"
+        },
+        {
+          url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+          title: "Surviving on $1 vs $1,000,000 Island",
+          client: "Adventure Bros",
+          views: "3.7M Views",
+          duration: "14:10"
+        }
       ]
     },
 
-    // ✈️ 5. IRL
+    // NICHE 5: IRL & TRAVEL CINEMATIC FILMS
     "irl": {
-      name: "IRL",
+      name: "IRL & Travel Films",
       icon: "✈️",
-      subtitle: "In Real Life vlogs, travel filmmaking, speed ramps, mood grading & authentic moments",
+      subtitle: "Speed ramps, whip transitions, DaVinci Resolve film color grades, atmospheric environmental Foley & music rhythm",
       vertical: [
-        { url: "https://www.youtube.com/shorts/L_LUpnjgPso", title: "Cinematic Color Grade Reel (Tokyo)", client: "Travel Creator", views: "1.8M Views" },
-        { url: "https://www.youtube.com/shorts/kJQP7kiw5Fk", title: "48 Hours in Iceland (Vertical Reel)", client: "Wanderlust", views: "1.2M Views" },
-        { url: "https://www.youtube.com/shorts/3JZ_D3ELwOQ", title: "Street Food Night Market Vibes", client: "Foodie Vlogs", views: "980K Views" },
-        { url: "https://www.youtube.com/shorts/dQw4w9WgXcQ", title: "Kyoto Temple Speed Ramp Reel", client: "Japan Explorer", views: "1.5M Views" },
-        { url: "https://www.youtube.com/shorts/fJ9rUzIMcZQ", title: "Backpacking Switzerland Alps", client: "Alpine Dreams", views: "2.1M Views" }
+        {
+          url: "https://assets.mixkit.co/videos/preview/mixkit-young-woman-skater-performing-a-trick-in-slow-motion-42512-large.mp4",
+          title: "Kyoto Night Walk - Cinematic Reel",
+          client: "Nomad Visuals",
+          views: "1.6M Views"
+        },
+        {
+          url: "https://assets.mixkit.co/videos/preview/mixkit-modern-city-aerial-view-at-night-42514-large.mp4",
+          title: "Iceland Drone Speed Ramps",
+          client: "Explore With Sam",
+          views: "980K Views"
+        }
       ],
       horizontal: [
-        { url: "https://www.youtube.com/watch?v=kJQP7kiw5Fk", title: "Tokyo After Dark | Cinematic Travel Film (4K)", client: "Nomad Stories", views: "1.8M Views", duration: "11:05" },
-        { url: "https://www.youtube.com/watch?v=L_LUpnjgPso", title: "Solo Travel Through Iceland Glaciers & Volcanos", client: "Wanderlust Films", views: "940K Views", duration: "09:30" },
-        { url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", title: "A Week in New York City with $0 Budget", client: "Urban Vlogs", views: "1.2M Views", duration: "17:40" },
-        { url: "https://www.youtube.com/watch?v=3JZ_D3ELwOQ", title: "Living on a Boat for 30 Days in Norway Fjords", client: "Nordic Journey", views: "780K Views", duration: "14:10" },
-        { url: "https://www.youtube.com/watch?v=fJ9rUzIMcZQ", title: "Roadtrip Across New Zealand in a Campervan", client: "Kiwi Trails", views: "1.1M Views", duration: "18:50" }
+        {
+          url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+          title: "Lost in the Arctic | 4K Cinematic Travel Film",
+          client: "Far North Films",
+          views: "820K Views",
+          duration: "10:15"
+        },
+        {
+          url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+          title: "Swiss Alps Motorcycle Journey",
+          client: "Ride Free",
+          views: "540K Views",
+          duration: "13:50"
+        }
       ]
     },
 
-    // 🎧 6. Podcast
-    "podcast": {
-      name: "Podcast",
-      icon: "🎧",
-      subtitle: "Multi-camera switching, studio audio mastering, engaging sound hits & viral conversation cutouts",
+    // NICHE 6: CUSTOM RETENTION EXPERIMENTS
+    "custom-retention": {
+      name: "Custom Retention & Brand Films",
+      icon: "💎",
+      subtitle: "Custom pacing tailored to your specific audience retention analytics, brand guidelines & A/B hook testing",
       vertical: [
-        { url: "https://www.youtube.com/shorts/fJ9rUzIMcZQ", title: "Millionaire Mindset Podcast Clip", client: "Podcast Cuts", views: "2.4M Views" },
-        { url: "https://www.youtube.com/shorts/dQw4w9WgXcQ", title: "The Truth About Hard Work Clip", client: "Talk Hub", views: "1.7M Views" },
-        { url: "https://www.youtube.com/shorts/kJQP7kiw5Fk", title: "Unbelievable Story Hook (Podcast)", client: "Deep Talks", views: "3.1M Views" },
-        { url: "https://www.youtube.com/shorts/3JZ_D3ELwOQ", title: "Health & Longevity Podcast Cut", client: "Health Lab", views: "890K Views" },
-        { url: "https://www.youtube.com/shorts/L_LUpnjgPso", title: "Best Business Advice in 60 Seconds", client: "Venture Cast", views: "1.5M Views" }
+        {
+          url: "https://assets.mixkit.co/videos/preview/mixkit-vertical-view-of-a-dj-mixing-music-in-a-club-42407-large.mp4",
+          title: "Luxury Watch Commercial Hook",
+          client: "Apex Timepieces",
+          views: "860K Views"
+        },
+        {
+          url: "https://assets.mixkit.co/videos/preview/mixkit-neon-lights-and-abstract-shapes-animation-42516-large.mp4",
+          title: "Fitness Brand Motivation Reel",
+          client: "Pulse Athletic",
+          views: "1.9M Views"
+        }
       ],
       horizontal: [
-        { url: "https://www.youtube.com/watch?v=fJ9rUzIMcZQ", title: "Deep Dive: How to Scale a $10k/mo Agency | Full Episode", client: "Founder Chronicles", views: "890K Views", duration: "42:15" },
-        { url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", title: "The Science of High Performance with Dr. Julian Hayes", client: "The Blueprint Podcast", views: "520K Views", duration: "55:30" },
-        { url: "https://www.youtube.com/watch?v=3JZ_D3ELwOQ", title: "Building a Tech Empire from Zero | Exclusive Interview", client: "Tech Titans Podcast", views: "740K Views", duration: "48:10" },
-        { url: "https://www.youtube.com/watch?v=kJQP7kiw5Fk", title: "How Psychology Controls Buying Decisions", client: "Marketing Masters", views: "430K Views", duration: "38:40" },
-        { url: "https://www.youtube.com/watch?v=L_LUpnjgPso", title: "Navigating Crypto, AI, & Modern Wealth", client: "Future Proof Podcast", views: "610K Views", duration: "51:20" }
+        {
+          url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+          title: "Commercial Brand Anthem Film",
+          client: "Lumina Studios",
+          views: "420K Views",
+          duration: "03:10"
+        },
+        {
+          url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+          title: "Founder Story Manifesto Film",
+          client: "Elevate Global",
+          views: "610K Views",
+          duration: "05:45"
+        }
       ]
     }
   }
 };
 
 // ===========================================================================
-// HELPER: Auto-parse YouTube URLs into structured video items
+// SMART MULTI-SOURCE PARSER (Google Drive + Direct MP4/WebM + YouTube)
 // ===========================================================================
-function parseYouTubeId(input) {
-  if (!input) return '';
-  if (typeof input !== 'string') return '';
-  const clean = input.trim();
-  if (clean.length === 11 && !clean.includes('/') && !clean.includes('.') && !clean.includes('?')) {
-    return clean;
-  }
+
+function parseGoogleDriveId(url) {
+  if (!url || typeof url !== 'string') return null;
+  const match = url.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=download&)?id=)|docs\.google\.com\/file\/d\/)([a-zA-Z0-9_-]{25,})/i);
+  return match ? match[1] : null;
+}
+
+function parseYouTubeId(url) {
+  if (!url || typeof url !== 'string') return null;
+  if (/^[a-zA-Z0-9_-]{11}$/.test(url.trim())) return url.trim();
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|shorts\/)([^#&?]*).*/;
-  const match = clean.match(regExp);
-  return (match && match[2].length === 11) ? match[2] : 'dQw4w9WgXcQ';
+  const match = url.match(regExp);
+  return (match && match[2].length === 11) ? match[2] : null;
 }
 
 function normalizeVideoItem(item, defaultCategory = 'general', defaultAspect = '16:9') {
@@ -258,31 +369,73 @@ function normalizeVideoItem(item, defaultCategory = 'general', defaultAspect = '
   let duration = 'Full HD';
   let description = 'Crafted for high audience retention and cinematic storytelling.';
   let aspectRatio = defaultAspect;
+  let customThumb = '';
 
   if (typeof item === 'string') {
-    url = item;
+    url = item.trim();
     title = 'Selected Video Edit';
   } else if (typeof item === 'object' && item !== null) {
-    url = item.url || item.youtubeUrl || item.youtubeId || '';
+    url = (item.url || item.videoUrl || item.youtubeUrl || item.youtubeId || '').trim();
     title = item.title || title;
     client = item.client || client;
     views = item.views || views;
     duration = item.duration || duration;
     description = item.description || description;
     aspectRatio = item.aspectRatio || defaultAspect;
+    customThumb = item.thumbnail || '';
   }
 
-  const ytId = parseYouTubeId(url);
   const isVertical = aspectRatio === '9:16' || url.includes('/shorts/');
   const finalAspect = isVertical ? '9:16' : '16:9';
 
+  // 1. Google Drive Video Link
+  const gdriveId = parseGoogleDriveId(url);
+  if (gdriveId) {
+    const directStreamUrl = `https://drive.google.com/uc?export=download&id=${gdriveId}`;
+    const gdriveThumb = customThumb || `https://drive.google.com/thumbnail?id=${gdriveId}&sz=w1200`;
+    return {
+      id: `vid_gdrive_${gdriveId}`,
+      sourceType: 'gdrive',
+      gdriveId: gdriveId,
+      videoUrl: directStreamUrl,
+      thumbnail: gdriveThumb,
+      title: title,
+      client: client,
+      views: views,
+      duration: duration,
+      description: description,
+      aspectRatio: finalAspect,
+      category: defaultCategory
+    };
+  }
+
+  // 2. Direct MP4 / WebM / Video CDN Link
+  const isDirectVideo = /\.(mp4|webm|mov|m4v)(\?.*)?$/i.test(url) || url.includes('mixkit.co') || url.includes('googleapis.com/gtv-videos') || url.includes('cloudinary.com') || url.includes('streamable.com');
+  if (isDirectVideo) {
+    return {
+      id: `vid_direct_${Math.random().toString(36).substr(2, 6)}`,
+      sourceType: 'direct',
+      videoUrl: url,
+      thumbnail: customThumb || '',
+      title: title,
+      client: client,
+      views: views,
+      duration: duration,
+      description: description,
+      aspectRatio: finalAspect,
+      category: defaultCategory
+    };
+  }
+
+  // 3. YouTube Link Fallback
+  const ytId = parseYouTubeId(url) || 'dQw4w9WgXcQ';
   return {
-    id: `vid_${ytId}_${Math.random().toString(36).substr(2, 5)}`,
+    id: `vid_yt_${ytId}`,
+    sourceType: 'youtube',
     ytId: ytId,
     youtubeUrl: `https://www.youtube.com/watch?v=${ytId}`,
-    embedUrl: `https://www.youtube-nocookie.com/embed/${ytId}`,
-    thumbnail: `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`,
-    maxThumbnail: `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`,
+    videoUrl: `https://www.youtube.com/watch?v=${ytId}`,
+    thumbnail: customThumb || `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`,
     title: title,
     client: client,
     views: views,
@@ -296,7 +449,8 @@ function normalizeVideoItem(item, defaultCategory = 'general', defaultAspect = '
 // Global accessor
 window.CREATIVE_VIBE_VIDEOS = {
   config: CREATIVE_VIBE_VIDEOS_CONFIG,
-  parseId: parseYouTubeId,
+  parseGoogleDriveId: parseGoogleDriveId,
+  parseYouTubeId: parseYouTubeId,
   normalize: normalizeVideoItem,
 
   // Get normalized list of Recent Edits
