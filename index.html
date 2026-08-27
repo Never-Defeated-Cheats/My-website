@@ -2859,11 +2859,26 @@
       z-index: 1;
       border-radius: inherit;
       background: #000000;
+      pointer-events: none;
     }
 
-    .marquee-video-frame iframe {
+    .marquee-card-vertical .marquee-video-frame iframe {
+      position: absolute;
+      top: -65px;
+      left: -50%;
+      width: 200%;
+      height: calc(100% + 130px);
+      border: none;
+      background: #000000;
+      pointer-events: none;
+    }
+
+    .marquee-card-horizontal .marquee-video-frame iframe {
+      position: absolute;
+      top: -65px;
+      left: 0;
       width: 100%;
-      height: 100%;
+      height: calc(100% + 130px);
       border: none;
       background: #000000;
       pointer-events: none;
