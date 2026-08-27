@@ -1470,38 +1470,29 @@
     .review-rating-row {
       display: flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.6rem;
       margin-bottom: 0.65rem;
     }
 
-    .star-rating {
-      color: #f59e0b;
-      font-size: 0.9rem;
-      letter-spacing: 2px;
+    .star-rating-svg-wrap {
       display: inline-flex;
       align-items: center;
+      gap: 3px;
     }
 
-    .star-rating .star.filled {
-      color: #f59e0b;
-    }
-
-    .star-rating .star.half {
-      color: #f59e0b;
-    }
-
-    .star-rating .star.empty {
-      color: #d1d5db;
+    .star-svg-icon {
+      display: inline-block;
+      filter: drop-shadow(0 1px 2px rgba(245, 158, 11, 0.25));
     }
 
     .rating-num-badge {
-      font-size: 0.76rem;
+      font-size: 0.8rem;
       font-weight: 800;
       color: var(--text-heading);
       background: var(--bg-subtle);
       border: 1px solid var(--border-subtle);
-      padding: 0.1rem 0.35rem;
-      border-radius: 5px;
+      padding: 0.15rem 0.45rem;
+      border-radius: 6px;
       line-height: 1;
     }
 
@@ -2436,94 +2427,89 @@
 
     .platform-btn {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      text-align: center;
-      padding: 1.35rem 1rem;
+      text-align: left;
+      padding: 1.25rem 1.4rem;
       border-radius: var(--radius-lg);
-      background: var(--bg-subtle);
+      background: var(--bg-card);
       border: 1.5px solid var(--border-subtle);
       cursor: pointer;
       text-decoration: none;
-      transition: all var(--transition-smooth);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
       overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+      gap: 1.15rem;
     }
 
     .platform-btn .platform-icon-wrap {
       width: 52px;
       height: 52px;
-      border-radius: 50%;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 0.75rem;
+      flex-shrink: 0;
       transition: transform var(--transition-smooth), background var(--transition-smooth), color var(--transition-smooth);
     }
 
+    .platform-btn-info {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      min-width: 0;
+    }
+
     .platform-btn .platform-name {
-      font-size: 0.98rem;
+      font-size: 1.06rem;
       font-weight: 800;
       color: var(--text-heading);
       margin-bottom: 0.2rem;
+      line-height: 1.2;
     }
 
     .platform-btn .platform-sub {
-      font-size: 0.76rem;
+      font-size: 0.78rem;
       color: var(--text-muted);
       font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .platform-action-arrow {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all var(--transition-smooth);
     }
 
     /* WhatsApp */
     .platform-btn.whatsapp .platform-icon-wrap {
-      background: #e8fbf0;
-      color: #25D366;
+      background: #ecfdf5;
+      color: #059669;
     }
     .platform-btn.whatsapp:hover {
-      border-color: #25D366;
+      border-color: #059669;
       background: #ffffff;
-      box-shadow: 0 10px 28px rgba(37, 211, 102, 0.22);
-      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(5, 150, 105, 0.22);
+      transform: translateY(-3px);
     }
     .platform-btn.whatsapp:hover .platform-icon-wrap {
-      transform: scale(1.12);
-      background: #25D366;
+      transform: scale(1.08);
+      background: #059669;
       color: #ffffff;
     }
-
-    /* Instagram */
-    .platform-btn.instagram .platform-icon-wrap {
-      background: #fdf2f8;
-      color: #E1306C;
-    }
-    .platform-btn.instagram:hover {
-      border-color: #E1306C;
-      background: #ffffff;
-      box-shadow: 0 10px 28px rgba(225, 48, 108, 0.22);
-      transform: translateY(-4px);
-    }
-    .platform-btn.instagram:hover .platform-icon-wrap {
-      transform: scale(1.12);
-      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    .platform-btn.whatsapp:hover .platform-action-arrow {
+      background: #059669;
       color: #ffffff;
-    }
-
-    /* Discord */
-    .platform-btn.discord .platform-icon-wrap {
-      background: #eef2ff;
-      color: #5865F2;
-    }
-    .platform-btn.discord:hover {
-      border-color: #5865F2;
-      background: #ffffff;
-      box-shadow: 0 10px 28px rgba(88, 101, 242, 0.22);
-      transform: translateY(-4px);
-    }
-    .platform-btn.discord:hover .platform-icon-wrap {
-      transform: scale(1.12);
-      background: #5865F2;
-      color: #ffffff;
+      border-color: #059669;
+      transform: translateX(4px);
     }
 
     /* Gmail */
@@ -2535,12 +2521,22 @@
       border-color: #EA4335;
       background: #ffffff;
       box-shadow: 0 10px 28px rgba(234, 67, 53, 0.22);
-      transform: translateY(-4px);
+      transform: translateY(-3px);
     }
     .platform-btn.gmail:hover .platform-icon-wrap {
-      transform: scale(1.12);
+      transform: scale(1.08);
       background: #EA4335;
       color: #ffffff;
+    }
+    .platform-btn.gmail:hover .platform-action-arrow {
+      background: #EA4335;
+      color: #ffffff;
+      border-color: #EA4335;
+      transform: translateX(4px);
+    }
+
+    .platform-btn:active {
+      transform: scale(0.97) !important;
     }
 
     .booking-divider-tag {
@@ -3370,23 +3366,24 @@
         border-radius: 10px !important;
       }
       .platform-booking-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 0.75rem !important;
+        grid-template-columns: 1fr !important;
+        gap: 0.85rem !important;
       }
       .platform-btn {
-        padding: 1.15rem 0.75rem !important;
-        border-radius: 14px !important;
+        padding: 1rem 1.15rem !important;
+        border-radius: 16px !important;
+        gap: 0.9rem !important;
       }
       .platform-btn .platform-icon-wrap {
-        width: 44px !important;
-        height: 44px !important;
-        margin-bottom: 0.5rem !important;
+        width: 46px !important;
+        height: 46px !important;
+        margin-bottom: 0 !important;
       }
       .platform-btn .platform-name {
-        font-size: 0.92rem !important;
+        font-size: 0.98rem !important;
       }
       .platform-btn .platform-sub {
-        font-size: 0.7rem !important;
+        font-size: 0.76rem !important;
       }
 
       /* 8. Modals & Footer */
@@ -3423,7 +3420,6 @@
     @media (max-width: 480px) {
       .hero-main-heading { font-size: 1.85rem !important; }
       .brand-name { font-size: 1.08rem !important; }
-      .platform-booking-grid { grid-template-columns: repeat(2, 1fr) !important; }
     }
 
     @keyframes mobileMenuSlide {
@@ -3564,12 +3560,15 @@
         <div class="container">
           <div class="recent-edits-box-frame reveal">
             <div class="section-head" style="text-align: center; margin-bottom: 2rem;">
-              <h2 class="section-main-title" style="font-size: 2.2rem; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-heading); display: inline-flex; align-items: center; justify-content: center; gap: 0.65rem; margin: 0 auto; text-shadow: 0 4px 20px rgba(83, 117, 104, 0.2);">
+              <span class="section-label">🔥 Quick Work Showcase</span>
+              <h2 class="section-main-title" style="font-size: 2.25rem; font-weight: 900; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-heading); display: inline-flex; align-items: center; justify-content: center; gap: 0.65rem; margin: 0 auto; text-shadow: 0 4px 20px rgba(83, 117, 104, 0.2);">
                 <span style="color: var(--accent-sage);">⚡</span>
-                <span>RECENT EDITS</span>
+                <span>BEST EDITS & SIGNATURE WORK</span>
                 <span style="color: var(--accent-sage);">⚡</span>
               </h2>
-              <p class="section-description" style="margin-top: 0.4rem; font-size: 0.95rem;">Continuous live stream of our highest-performing recent video edits.</p>
+              <p class="section-description" style="margin-top: 0.4rem; font-size: 0.95rem; max-width: 620px; margin-left: auto; margin-right: auto;">
+                A curated quick-view stream of our highest-retention master edits, kinetic typography, and cinematic storytelling.
+              </p>
             </div>
 
             <div class="recent-edits-container">
@@ -3848,8 +3847,13 @@
                 <div class="platform-icon-wrap">
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.54 1.861.855 2.796.857 3.18 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.767-5.768-5.767zm0 10.373c-.886 0-1.748-.239-2.493-.687l-.179-.106-1.854.486.495-1.808-.117-.186c-.495-.788-.756-1.704-.755-2.484 0-2.529 2.057-4.587 4.586-4.587 2.528 0 4.586 2.058 4.586 4.587 0 2.529-2.058 4.587-4.587 4.587z"/></svg>
                 </div>
-                <div class="platform-name">WhatsApp</div>
-                <div class="platform-sub">+91 91939 05629</div>
+                <div class="platform-btn-info">
+                  <div class="platform-name">Connect via WhatsApp</div>
+                  <div class="platform-sub">Instant Direct Chat • Fast Reply</div>
+                </div>
+                <div class="platform-action-arrow">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
               </button>
 
               <!-- Gmail -->
@@ -3857,8 +3861,13 @@
                 <div class="platform-icon-wrap">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                 </div>
-                <div class="platform-name">Gmail</div>
-                <div class="platform-sub">creative_vibe@creavibestudios.in</div>
+                <div class="platform-btn-info">
+                  <div class="platform-name">Send via Gmail</div>
+                  <div class="platform-sub">Formal Inquiry • Full Project Dossier</div>
+                </div>
+                <div class="platform-action-arrow">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
               </button>
             </div>
           </form>

@@ -137,7 +137,7 @@ window.renderPricingLive = () => {
 };
 
 // Render Live Reviews Section
-// Render Live Reviews Section
+// Render Live Reviews Section with Crisp Precision Vector SVG Stars
 window.renderReviewsLive = () => {
   const container = document.getElementById('reviewsGridContainer');
   if (!container) return;
@@ -145,7 +145,7 @@ window.renderReviewsLive = () => {
   const data = window.appData.getData();
   let html = '';
 
-  data.reviews.forEach(r => {
+  data.reviews.forEach((r, rIdx) => {
     const numRating = typeof r.rating === 'number' ? r.rating : 4.9;
     
     let starsHtml = '';
@@ -159,14 +159,19 @@ window.renderReviewsLive = () => {
         fillPercent = 0;
       }
 
-      if (fillPercent === 100) {
-        starsHtml += '<span class="star filled">★</span>';
-      } else if (fillPercent === 0) {
-        starsHtml += '<span class="star empty">★</span>';
-      } else {
-        // Exact percentage gradient fill (e.g. 70% full, 30% empty for 4.7)
-        starsHtml += `<span class="star partial" style="background: linear-gradient(90deg, #f59e0b 0%, #f59e0b ${fillPercent}%, #d1d5db ${fillPercent}%, #d1d5db 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;">★</span>`;
-      }
+      const gradId = `starGrad_${r.id || rIdx}_${i}`;
+      
+      starsHtml += `
+        <svg class="star-svg-icon" width="18" height="18" viewBox="0 0 24 24">
+          <defs>
+            <linearGradient id="${gradId}" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="${fillPercent}%" stop-color="#f59e0b" />
+              <stop offset="${fillPercent}%" stop-color="#e2e8f0" />
+            </linearGradient>
+          </defs>
+          <path fill="url(#${gradId})" stroke="#d97706" stroke-width="0.75" stroke-linejoin="round" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+      `;
     }
 
     html += `
@@ -180,7 +185,7 @@ window.renderReviewsLive = () => {
         </div>
 
         <div class="review-rating-row">
-          <div class="star-rating">${starsHtml}</div>
+          <div class="star-rating-svg-wrap">${starsHtml}</div>
           <span class="rating-num-badge">${numRating.toFixed(1)}</span>
         </div>
         <p class="review-quote-text">"${r.text}"</p>
