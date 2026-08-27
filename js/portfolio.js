@@ -14,6 +14,7 @@ class PortfolioManager {
     this.modalTitle = document.getElementById('modalVideoTitle');
     this.modalSub = document.getElementById('modalVideoSub');
     this.modalCloseBtn = document.getElementById('modalCloseBtn');
+    this.observer = null;
 
     this.init();
   }
@@ -21,6 +22,7 @@ class PortfolioManager {
   init() {
     this.renderRecentEditsSliders();
     this.bindEvents();
+    this.initViewportObserver();
   }
 
   // Helper to build robust infinite marquee array with minimal memory footprint
@@ -32,6 +34,47 @@ class PortfolioManager {
       half = half.concat(base);
     }
     return half.concat(half);
+  }
+
+  // =========================================================================
+  // VIEWPORT INTERSECTION OBSERVER (0% CPU/GPU WHEN OFFSCREEN)
+  // =========================================================================
+  initViewportObserver() {
+    if (!('IntersectionObserver' in window)) return;
+
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const target = entry.target;
+        const tracks = target.querySelectorAll('.marquee-track');
+        const videos = target.querySelectorAll('video');
+
+        if (entry.isIntersecting) {
+          // In view: Run smooth hardware animation & play video
+          tracks.forEach(t => t.style.animationPlayState = 'running');
+          videos.forEach(v => {
+            try { v.play().catch(() => {}); } catch (e) {}
+          });
+        } else {
+          // Off screen: Pause marquee animation and video decoding to keep GPU at 0%
+          tracks.forEach(t => t.style.animationPlayState = 'paused');
+          videos.forEach(v => {
+            try { v.pause(); } catch (e) {}
+          });
+        }
+      });
+    }, {
+      rootMargin: '100px 0px',
+      threshold: 0.05
+    });
+
+    // Observe Home recent edits container
+    const homeSection = document.getElementById('recentEditsContainer');
+    if (homeSection) this.observer.observe(homeSection);
+
+    // Observe all Work niche blocks
+    document.querySelectorAll('.niche-stream-block').forEach(el => {
+      this.observer.observe(el);
+    });
   }
 
   // =========================================================================
@@ -80,12 +123,18 @@ class PortfolioManager {
     container.querySelectorAll('video').forEach(v => {
       try { v.pause(); } catch (e) {}
     });
+    container.querySelectorAll('.marquee-track').forEach(t => {
+      t.style.animationPlayState = 'paused';
+    });
   }
 
   resumeVideosInContainer(container) {
     if (!container) return;
     container.querySelectorAll('video').forEach(v => {
-      try { v.play(); } catch (e) {}
+      try { v.play().catch(() => {}); } catch (e) {}
+    });
+    container.querySelectorAll('.marquee-track').forEach(t => {
+      t.style.animationPlayState = 'running';
     });
   }
 
@@ -164,6 +213,13 @@ class PortfolioManager {
         this.openNicheDetail(nicheKey);
       });
     });
+
+    // Register with intersection observer
+    if (this.observer) {
+      container.querySelectorAll('.niche-stream-block').forEach(el => {
+        this.observer.observe(el);
+      });
+    }
 
     if (window.initScrollReveal) window.initScrollReveal();
   }
@@ -281,12 +337,14 @@ class PortfolioManager {
       card.addEventListener('click', () => {
         const sourceType = card.getAttribute('data-source-type');
         const videoUrl = card.getAttribute('data-video-url');
+        const previewUrl = card.getAttribute('data-preview-url');
+        const gdriveId = card.getAttribute('data-gdrive-id');
         const ytId = card.getAttribute('data-ytid');
         const title = card.getAttribute('data-title');
         const client = card.getAttribute('data-client');
         const format = card.getAttribute('data-format');
         const views = card.getAttribute('data-views');
-        this.openVideoPlayer({ sourceType, videoUrl, ytId, title, client, aspectRatio: format, views });
+        this.openVideoPlayer({ sourceType, videoUrl, previewUrl, gdriveId, ytId, title, client, aspectRatio: format, views });
       });
     });
 
@@ -315,7 +373,11 @@ class PortfolioManager {
   // =========================================================================
   buildVerticalMarqueeCardHtml(v) {
     let mediaHtml = '';
-    if (v.sourceType === 'direct' || v.sourceType === 'gdrive') {
+    if (v.sourceType === 'gdrive') {
+      mediaHtml = `
+        <iframe class="marquee-video-iframe" src="${v.previewUrl || `https://drive.google.com/file/d/${v.gdriveId}/preview`}" allow="autoplay" tabindex="-1"></iframe>
+      `;
+    } else if (v.sourceType === 'direct') {
       mediaHtml = `
         <video class="marquee-native-video" src="${v.videoUrl}" autoplay loop muted playsinline preload="metadata" poster="${v.thumbnail || ''}"></video>
       `;
@@ -325,7 +387,7 @@ class PortfolioManager {
     }
 
     return `
-      <div class="marquee-card-vertical" data-source-type="${v.sourceType}" data-video-url="${v.videoUrl}" data-ytid="${v.ytId || ''}" data-title="${v.title}" data-client="${v.client}" data-format="9:16" data-views="${v.views}">
+      <div class="marquee-card-vertical" data-source-type="${v.sourceType}" data-gdrive-id="${v.gdriveId || ''}" data-preview-url="${v.previewUrl || ''}" data-video-url="${v.videoUrl}" data-ytid="${v.ytId || ''}" data-title="${v.title}" data-client="${v.client}" data-format="9:16" data-views="${v.views}">
         <div class="marquee-video-frame">
           ${mediaHtml}
         </div>
@@ -335,7 +397,11 @@ class PortfolioManager {
 
   buildHorizontalMarqueeCardHtml(v) {
     let mediaHtml = '';
-    if (v.sourceType === 'direct' || v.sourceType === 'gdrive') {
+    if (v.sourceType === 'gdrive') {
+      mediaHtml = `
+        <iframe class="marquee-video-iframe" src="${v.previewUrl || `https://drive.google.com/file/d/${v.gdriveId}/preview`}" allow="autoplay" tabindex="-1"></iframe>
+      `;
+    } else if (v.sourceType === 'direct') {
       mediaHtml = `
         <video class="marquee-native-video" src="${v.videoUrl}" autoplay loop muted playsinline preload="metadata" poster="${v.thumbnail || ''}"></video>
       `;
@@ -345,7 +411,7 @@ class PortfolioManager {
     }
 
     return `
-      <div class="marquee-card-horizontal" data-source-type="${v.sourceType}" data-video-url="${v.videoUrl}" data-ytid="${v.ytId || ''}" data-title="${v.title}" data-client="${v.client}" data-format="16:9" data-views="${v.views}">
+      <div class="marquee-card-horizontal" data-source-type="${v.sourceType}" data-gdrive-id="${v.gdriveId || ''}" data-preview-url="${v.previewUrl || ''}" data-video-url="${v.videoUrl}" data-ytid="${v.ytId || ''}" data-title="${v.title}" data-client="${v.client}" data-format="16:9" data-views="${v.views}">
         <div class="marquee-video-frame">
           ${mediaHtml}
         </div>
@@ -356,7 +422,7 @@ class PortfolioManager {
   buildGridCardHorizontal(v) {
     const thumbUrl = v.thumbnail || `https://img.youtube.com/vi/${v.ytId || 'dQw4w9WgXcQ'}/hqdefault.jpg`;
     return `
-      <div class="video-card-horiz" data-source-type="${v.sourceType}" data-video-url="${v.videoUrl}" data-ytid="${v.ytId || ''}" data-title="${v.title}" data-client="${v.client}" data-format="16:9" data-views="${v.views}">
+      <div class="video-card-horiz" data-source-type="${v.sourceType}" data-gdrive-id="${v.gdriveId || ''}" data-preview-url="${v.previewUrl || ''}" data-video-url="${v.videoUrl}" data-ytid="${v.ytId || ''}" data-title="${v.title}" data-client="${v.client}" data-format="16:9" data-views="${v.views}">
         <div class="thumb-holder-169">
           <img src="${thumbUrl}" alt="${v.title}" loading="lazy">
           <div class="play-hover-overlay">
@@ -382,7 +448,7 @@ class PortfolioManager {
   buildGridCardVertical(v) {
     const thumbUrl = v.thumbnail || `https://img.youtube.com/vi/${v.ytId || 'dQw4w9WgXcQ'}/hqdefault.jpg`;
     return `
-      <div class="video-card-vert" data-source-type="${v.sourceType}" data-video-url="${v.videoUrl}" data-ytid="${v.ytId || ''}" data-title="${v.title}" data-client="${v.client}" data-format="9:16" data-views="${v.views}">
+      <div class="video-card-vert" data-source-type="${v.sourceType}" data-gdrive-id="${v.gdriveId || ''}" data-preview-url="${v.previewUrl || ''}" data-video-url="${v.videoUrl}" data-ytid="${v.ytId || ''}" data-title="${v.title}" data-client="${v.client}" data-format="9:16" data-views="${v.views}">
         <div class="thumb-holder-916">
           <img src="${thumbUrl}" alt="${v.title}" loading="lazy">
           <div class="play-hover-overlay">
@@ -409,6 +475,8 @@ class PortfolioManager {
     container.querySelectorAll('.marquee-card-vertical, .marquee-card-horizontal').forEach(card => {
       const sourceType = card.getAttribute('data-source-type');
       const videoUrl = card.getAttribute('data-video-url');
+      const previewUrl = card.getAttribute('data-preview-url');
+      const gdriveId = card.getAttribute('data-gdrive-id');
       const ytId = card.getAttribute('data-ytid');
       const title = card.getAttribute('data-title');
       const client = card.getAttribute('data-client');
@@ -452,7 +520,7 @@ class PortfolioManager {
           try { iframe.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*'); } catch (e) {}
         }
         card.classList.remove('is-unmuted');
-        this.openVideoPlayer({ sourceType, videoUrl, ytId, title, client, aspectRatio: format, views });
+        this.openVideoPlayer({ sourceType, videoUrl, previewUrl, gdriveId, ytId, title, client, aspectRatio: format, views });
       });
     });
   }
@@ -477,7 +545,12 @@ class PortfolioManager {
     if (this.modalSub) this.modalSub.textContent = `${video.aspectRatio || '16:9'} Format • High Retention Edit`;
 
     if (this.iframeContainer) {
-      if (video.sourceType === 'direct' || video.sourceType === 'gdrive') {
+      if (video.sourceType === 'gdrive') {
+        const gdriveUrl = video.previewUrl || (video.gdriveId ? `https://drive.google.com/file/d/${video.gdriveId}/preview` : video.videoUrl);
+        this.iframeContainer.innerHTML = `
+          <iframe class="modal-gdrive-iframe" src="${gdriveUrl}" title="Google Drive Video Player" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        `;
+      } else if (video.sourceType === 'direct') {
         this.iframeContainer.innerHTML = `
           <video class="modal-native-video" src="${video.videoUrl}" autoplay controls playsinline></video>
         `;
@@ -536,8 +609,9 @@ class PortfolioManager {
     if (heroShowreel) {
       heroShowreel.addEventListener('click', () => {
         this.openVideoPlayer({
-          sourceType: 'direct',
-          videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+          sourceType: 'gdrive',
+          gdriveId: '1olgHcQnHMMgcPtR73jMRS0l6JEUXj51R',
+          previewUrl: 'https://drive.google.com/file/d/1olgHcQnHMMgcPtR73jMRS0l6JEUXj51R/preview',
           title: 'Creative Vibe 2026 Showreel',
           client: 'Creative Vibe Original',
           aspectRatio: '16:9',
