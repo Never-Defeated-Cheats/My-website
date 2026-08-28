@@ -18,7 +18,6 @@ class PortfolioManager {
     this.modalTitle = document.getElementById('modalVideoTitle');
     this.modalSub = document.getElementById('modalVideoSub');
     this.modalCloseBtn = document.getElementById('modalCloseBtn');
-    this.ambientBackdrop = document.getElementById('modalAmbientBackdrop');
     this.cardObserver = null;
     this.isModalOpen = false;
     this.activeResumeTimers = [];
@@ -416,7 +415,7 @@ class PortfolioManager {
           <span>🎬</span>
           <span>16:9 Long-Form Master Edits — ${horizList.length} Projects</span>
         </div>
-        <div class="niche-archive-grid-horizontal" style="display: flex; flex-wrap: wrap; gap: 1.25rem; justify-content: center;">
+        <div class="niche-archive-grid-horizontal" style="display: flex; flex-wrap: wrap; gap: 1.25rem; justify-content: flex-start; align-items: flex-start;">
           ${horizList.map(v => this.buildHorizontalMarqueeCardHtml(v)).join('')}
         </div>
       </div>
@@ -426,7 +425,7 @@ class PortfolioManager {
           <span>⚡</span>
           <span>9:16 Shorts & Reels — ${vertList.length} Projects</span>
         </div>
-        <div class="niche-archive-grid-vertical" style="display: flex; flex-wrap: wrap; gap: 1.25rem; justify-content: center;">
+        <div class="niche-archive-grid-vertical" style="display: flex; flex-wrap: wrap; gap: 1.25rem; justify-content: flex-start; align-items: flex-start;">
           ${vertList.map(v => this.buildVerticalMarqueeCardHtml(v)).join('')}
         </div>
       </div>
@@ -610,25 +609,7 @@ class PortfolioManager {
     if (this.modalTitle) this.modalTitle.textContent = video.title || 'Video Showcase';
     if (this.modalSub) this.modalSub.textContent = `${video.aspectRatio || '16:9'} Format • Master Edit`;
 
-    // 3. Set Static Ambient Freeze Frame Backdrop Image (0% GPU Load)
-    let posterUrl = video.poster || '';
-    if (!posterUrl && (video.masterUrl || video.videoUrl)) {
-      const src = video.masterUrl || video.videoUrl;
-      if (src.includes('res.cloudinary.com')) {
-        posterUrl = src.replace('.mp4', '.jpg').replace('/video/upload/', '/video/upload/w_500,so_0,q_auto:eco/');
-      }
-    }
-    const ambientImg = document.getElementById('modalAmbientBackdrop');
-    if (ambientImg) {
-      if (posterUrl) {
-        ambientImg.src = posterUrl;
-        ambientImg.style.display = 'block';
-      } else {
-        ambientImg.style.display = 'none';
-      }
-    }
-
-    // 4. PAUSE ALL BACKGROUND VIDEOS ACROSS THE ENTIRE WEBSITE
+    // 3. PAUSE ALL BACKGROUND VIDEOS ACROSS THE ENTIRE WEBSITE
     document.querySelectorAll('video:not(.modal-native-video)').forEach(v => {
       try {
         v.pause();
@@ -636,7 +617,7 @@ class PortfolioManager {
       } catch (e) {}
     });
 
-    // 5. FREEZE ALL CSS MARQUEE TRACK ANIMATIONS
+    // 4. FREEZE ALL CSS MARQUEE TRACK ANIMATIONS
     document.querySelectorAll('.marquee-track').forEach(t => {
       t.style.animationPlayState = 'paused';
     });
@@ -671,11 +652,6 @@ class PortfolioManager {
 
       if (this.iframeContainer) {
         this.iframeContainer.innerHTML = '';
-      }
-
-      const ambientImg = document.getElementById('modalAmbientBackdrop');
-      if (ambientImg) {
-        ambientImg.src = '';
       }
 
       // GUARANTEED INSTANT RESUME: Re-enable marquee animations on all tracks
