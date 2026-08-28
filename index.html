@@ -200,7 +200,7 @@
       cursor: pointer;
     }
 
-    /* Logo Circular Frame with Sleek Modern Glow (0% Idle GPU) */
+    /* Logo Circular Frame with Connected Spinning Light Loop */
     .brand-logo-frame {
       width: 44px;
       height: 44px;
@@ -211,29 +211,25 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
-      box-shadow: 0 0 12px rgba(220, 38, 38, 0.35), 0 0 20px rgba(122, 231, 249, 0.3);
+      transition: transform var(--transition-smooth);
+      box-shadow: 0 0 14px rgba(220, 38, 38, 0.4), 0 0 22px rgba(122, 231, 249, 0.35);
+      animation: logoOrbitGlow 3.5s ease-in-out infinite;
+      will-change: transform, box-shadow;
     }
 
     .brand-logo-frame::before {
       content: '';
       position: absolute;
-      inset: -2px;
+      inset: -3px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #dc2626, #ef4444, #7ae7f9, #ffffff);
+      background: conic-gradient(from 0deg, #dc2626, #ef4444, #7ae7f9, #ffffff, #dc2626);
       z-index: -1;
-      opacity: 0.85;
-      transition: transform 0.4s ease, opacity 0.4s ease;
+      animation: logoSpinRing 3.5s linear infinite;
+      will-change: transform;
     }
 
     .brand-identity:hover .brand-logo-frame {
-      transform: scale(1.1) rotate(6deg);
-      box-shadow: 0 0 20px rgba(220, 38, 38, 0.6), 0 0 30px rgba(122, 231, 249, 0.55);
-    }
-
-    .brand-identity:hover .brand-logo-frame::before {
-      transform: rotate(45deg);
-      opacity: 1;
+      transform: scale(1.12) rotate(6deg);
     }
 
     .brand-logo-frame img {
@@ -245,26 +241,49 @@
       border: 2px solid #ffffff;
     }
 
+    @keyframes logoSpinRing {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes logoOrbitGlow {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 12px rgba(220, 38, 38, 0.35), 0 0 20px rgba(122, 231, 249, 0.3);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 22px rgba(220, 38, 38, 0.7), 0 0 32px rgba(122, 231, 249, 0.65);
+      }
+    }
+
     .brand-text {
       display: flex;
       flex-direction: column;
     }
 
-    /* Red to White Left-Shifted Gradient (Zero GPU Overhead) */
+    /* Red to White Left-Shifted Gradient with Connected Breathing Light FX */
     .brand-name {
       font-family: var(--font-brand);
       font-weight: 900;
       font-size: 1.34rem;
       line-height: 1.1;
       letter-spacing: -0.02em;
-      background: linear-gradient(90deg, #dc2626 0%, #ef4444 20%, #f87171 40%, #ffffff 75%, #f8fafc 100%);
+      background: linear-gradient(90deg, #dc2626 0%, #ef4444 16%, #f87171 35%, #ffffff 68%, #f8fafc 100%);
+      background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      transition: filter var(--transition-smooth);
+      animation: brandLightWave 3.5s ease-in-out infinite;
+      will-change: background-position;
     }
 
-    .brand-identity:hover .brand-name {
-      filter: drop-shadow(0 2px 10px rgba(239, 68, 68, 0.6));
+    @keyframes brandLightWave {
+      0%, 100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
     }
 
     .brand-sub {
@@ -672,25 +691,51 @@
       inset: -3px;
       border-radius: 50%;
       border: 2px solid #10b981;
-      background: rgba(16, 185, 129, 0.25);
+      background: rgba(16, 185, 129, 0.35);
+      animation: radioWavePulse1 2.2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+      will-change: transform, opacity;
       z-index: 1;
     }
 
+    /* Radio Wave 2 */
     .live-status-dot-wrap::after {
       content: '';
       position: absolute;
-      inset: -1px;
+      inset: -3px;
       border-radius: 50%;
-      background: rgba(52, 211, 153, 0.4);
+      border: 1.5px solid #34d399;
+      background: rgba(52, 211, 153, 0.2);
+      animation: radioWavePulse2 2.2s cubic-bezier(0.215, 0.61, 0.355, 1) 0.75s infinite;
+      will-change: transform, opacity;
       z-index: 1;
     }
+
+    @keyframes radioWavePulse1 {
+      0% {
+        transform: scale(0.7);
+        opacity: 0.95;
+      }
+      70% {
+        transform: scale(2.8);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(3.2);
+        opacity: 0;
+      }
+    }
+
+    @keyframes radioWavePulse2 {
+      0% {
+        transform: scale(0.7);
+        opacity: 0.85;
       }
       70% {
         transform: scale(2.6);
         opacity: 0;
       }
       100% {
-        transform: scale(3);
+        transform: scale(3.0);
         opacity: 0;
       }
     }
@@ -3513,7 +3558,7 @@
     <!-- ====================================================================
          TAB 2: WORK / SHOWREELS (ALL NICHES DUAL-ROW SLIDERS & DEDICATED PAGES)
          ==================================================================== -->
-    <main id="tab-work" class="tab-page">
+    <main id="tab-work" class="tab-page" style="display: none;">
       <div class="container" style="padding-top: 2rem; padding-bottom: 5rem;">
         <div class="section-head" style="text-align: center; margin-bottom: 3.25rem;">
           <span class="section-label">Curated Editing Niches</span>
@@ -3535,7 +3580,7 @@
     <!-- ====================================================================
          TAB 3: PROCESS & WORKFLOW
          ==================================================================== -->
-    <main id="tab-process" class="tab-page">
+    <main id="tab-process" class="tab-page" style="display: none;">
       <div class="container" style="padding-top: 2rem; padding-bottom: 5rem;">
         <div class="section-head">
           <span class="section-label">Standards & Pipeline</span>
@@ -3586,7 +3631,7 @@
     <!-- ====================================================================
          TAB 4: PRICING
          ==================================================================== -->
-    <main id="tab-pricing" class="tab-page">
+    <main id="tab-pricing" class="tab-page" style="display: none;">
       <div class="container" style="padding-top: 2rem; padding-bottom: 5rem;">
         <div class="section-head" style="text-align: center; margin-bottom: 2.25rem;">
           <span class="section-label">Estimated Niche Budgets</span>
@@ -3613,7 +3658,7 @@
     <!-- ====================================================================
          TAB 5: BOOK APPOINTMENT & MULTI-PLATFORM DIRECT CONNECT
          ==================================================================== -->
-    <main id="tab-book-call" class="tab-page">
+    <main id="tab-book-call" class="tab-page" style="display: none;">
       <div class="container-narrow" style="padding-top: 2rem; padding-bottom: 5rem;">
         <div class="section-head" style="text-align: center; margin-bottom: 3rem;">
           <span class="section-label">Direct Project Booking</span>

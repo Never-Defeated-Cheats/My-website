@@ -294,6 +294,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Explicitly activate Home Tab on initial load (guarantees other tabs are 100% hidden)
+  switchTab('home');
+
   // 4. Mobile Nav Toggle & Outside Click Handler
   const mobileMenuBtn = document.getElementById('mobileMenuBtn');
   const navTabsGroup = document.getElementById('navTabsGroup');
