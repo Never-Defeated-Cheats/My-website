@@ -1,9 +1,10 @@
 /* ==========================================================================
    CREATIVE VIBE - SMART DEVICE-AWARE DYNAMIC PORTFOLIO ENGINE
    - Mathematically Infinite Loop: Half A >= 2400px (12 cards) with seamless wrap
+   - Ambient Freeze-Frame Blur Backdrop behind Fullscreen Cinema Video
+   - Clean, Minimalist Video Showcase Cards in Both Home & Work Niches
    - Deep Freeze of All Background Processes During Fullscreen Video Mode
    - Guaranteed Instant Auto-Resume of Marquee Sliders on Modal Close
-   - Interactive Touch-Swipe & Mouse Drag with Infinite Modulo Wrapping
    - Strict Card Virtualization (< 2% CPU / < 12-15% GPU / < 100MB RAM)
    ========================================================================== */
 
@@ -17,6 +18,7 @@ class PortfolioManager {
     this.modalTitle = document.getElementById('modalVideoTitle');
     this.modalSub = document.getElementById('modalVideoSub');
     this.modalCloseBtn = document.getElementById('modalCloseBtn');
+    this.ambientBackdrop = document.getElementById('modalAmbientBackdrop');
     this.cardObserver = null;
     this.isModalOpen = false;
     this.activeResumeTimers = [];
@@ -32,7 +34,6 @@ class PortfolioManager {
 
   // =========================================================================
   // 1. MATHEMATICALLY INFINITE LOOP ENGINE (CARDS NEVER FINISH)
-  // Half A is >= 2400px (12 items) so running/dragging never shows empty space!
   // =========================================================================
   buildSeamlessLoop(items) {
     if (!items || !items.length) return [];
@@ -364,7 +365,7 @@ class PortfolioManager {
   }
 
   // =========================================================================
-  // 6. DEDICATED SINGLE NICHE FULL ARCHIVE VIEW
+  // 6. DEDICATED SINGLE NICHE ARCHIVE VIEW (CLEAN, MINIMALIST & NATIVE)
   // =========================================================================
   openNicheDetail(nicheKey) {
     const nichesContainer = document.getElementById('workNichesContainer');
@@ -403,30 +404,30 @@ class PortfolioManager {
           <span>⚡ All Works (${totalCount})</span>
         </button>
         <button class="niche-tab-pill" data-niche-filter="16:9">
-          <span>🎬 YouTube Long-Form (16:9) (${horizList.length})</span>
+          <span>🎬 16:9 Long-Form (${horizList.length})</span>
         </button>
         <button class="niche-tab-pill" data-niche-filter="9:16">
-          <span>📱 Viral Shorts & Reels (9:16) (${vertList.length})</span>
+          <span>📱 9:16 Shorts & Reels (${vertList.length})</span>
         </button>
       </div>
 
       <div id="nicheSection169" class="niche-content-section">
         <div class="niche-grid-section-title">
           <span>🎬</span>
-          <span>YouTube Long-Form & Master Edits (16:9) — ${horizList.length} Projects</span>
+          <span>16:9 Long-Form Master Edits — ${horizList.length} Projects</span>
         </div>
-        <div class="niche-archive-grid-horizontal">
-          ${horizList.map(v => this.buildGridCardHorizontal(v)).join('')}
+        <div class="niche-archive-grid-horizontal" style="display: flex; flex-wrap: wrap; gap: 1.25rem; justify-content: center;">
+          ${horizList.map(v => this.buildHorizontalMarqueeCardHtml(v)).join('')}
         </div>
       </div>
 
       <div id="nicheSection916" class="niche-content-section" style="margin-top: 2rem;">
         <div class="niche-grid-section-title">
           <span>⚡</span>
-          <span>Viral Shorts & Reels (9:16) — ${vertList.length} Projects</span>
+          <span>9:16 Shorts & Reels — ${vertList.length} Projects</span>
         </div>
-        <div class="niche-archive-grid-vertical">
-          ${vertList.map(v => this.buildGridCardVertical(v)).join('')}
+        <div class="niche-archive-grid-vertical" style="display: flex; flex-wrap: wrap; gap: 1.25rem; justify-content: center;">
+          ${vertList.map(v => this.buildVerticalMarqueeCardHtml(v)).join('')}
         </div>
       </div>
     `;
@@ -463,20 +464,8 @@ class PortfolioManager {
       });
     });
 
-    detailContainer.querySelectorAll('.video-card-horiz, .video-card-vert').forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        if (window.soundFX) window.soundFX.playHover();
-      });
-      card.addEventListener('click', () => {
-        const videoUrl = card.getAttribute('data-video-url');
-        const masterUrl = card.getAttribute('data-master-url') || videoUrl;
-        const title = card.getAttribute('data-title');
-        const client = card.getAttribute('data-client');
-        const format = card.getAttribute('data-format');
-        const views = card.getAttribute('data-views');
-        this.openVideoPlayer({ videoUrl: masterUrl, title, client, aspectRatio: format, views });
-      });
-    });
+    // Bind cards in niche detail view
+    this.bindMarqueeCardEvents(detailContainer);
 
     const tabWork = document.getElementById('tab-work');
     if (tabWork) {
@@ -498,13 +487,14 @@ class PortfolioManager {
   }
 
   // =========================================================================
-  // 7. 100% PURE NATIVE VIDEO CARDS
+  // 7. 100% PURE NATIVE VIDEO CARDS (CLEAN & CLUTTER-FREE)
   // =========================================================================
   buildVerticalMarqueeCardHtml(v) {
     const streamSrc = v.previewUrl || v.videoUrl;
     const masterSrc = v.masterUrl || streamSrc;
+    const poster = v.poster || '';
     return `
-      <div class="marquee-card-vertical" data-video-url="${streamSrc}" data-master-url="${masterSrc}" data-title="${v.title}" data-client="${v.client}" data-format="9:16" data-views="${v.views}">
+      <div class="marquee-card-vertical" data-video-url="${streamSrc}" data-master-url="${masterSrc}" data-poster="${poster}" data-title="${v.title}" data-client="${v.client}" data-format="9:16" data-views="${v.views}">
         <div class="marquee-video-frame">
           <video class="marquee-native-video" src="${streamSrc}" autoplay loop muted playsinline preload="auto" disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"></video>
         </div>
@@ -515,61 +505,11 @@ class PortfolioManager {
   buildHorizontalMarqueeCardHtml(v) {
     const streamSrc = v.previewUrl || v.videoUrl;
     const masterSrc = v.masterUrl || streamSrc;
+    const poster = v.poster || '';
     return `
-      <div class="marquee-card-horizontal" data-video-url="${streamSrc}" data-master-url="${masterSrc}" data-title="${v.title}" data-client="${v.client}" data-format="16:9" data-views="${v.views}">
+      <div class="marquee-card-horizontal" data-video-url="${streamSrc}" data-master-url="${masterSrc}" data-poster="${poster}" data-title="${v.title}" data-client="${v.client}" data-format="16:9" data-views="${v.views}">
         <div class="marquee-video-frame">
           <video class="marquee-native-video" src="${streamSrc}" autoplay loop muted playsinline preload="auto" disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"></video>
-        </div>
-      </div>
-    `;
-  }
-
-  buildGridCardHorizontal(v) {
-    const streamSrc = v.previewUrl || v.videoUrl;
-    const masterSrc = v.masterUrl || streamSrc;
-    const thumbUrl = v.thumbnail || `https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600&auto=format&fit=crop&q=80`;
-    return `
-      <div class="video-card-horiz" data-video-url="${streamSrc}" data-master-url="${masterSrc}" data-title="${v.title}" data-client="${v.client}" data-format="16:9" data-views="${v.views}">
-        <div class="thumb-holder-169">
-          <img src="${thumbUrl}" alt="${v.title}" loading="lazy">
-          <div class="play-hover-overlay">
-            <div class="play-mini-btn">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            </div>
-          </div>
-          <span class="duration-tag">${v.duration || '16:9 HD'}</span>
-        </div>
-        <div class="card-content-area">
-          <div class="card-cat-label">${v.client || 'Creative Vibe'}</div>
-          <h4 class="card-item-title">${v.title}</h4>
-          <p class="card-item-desc">${v.description || 'Cinema grade editing, sound design, and retention pacing.'}</p>
-          <div class="card-footer-meta">
-            <span>🎬 16:9 Longform</span>
-            <span>${v.views || 'Verified View'}</span>
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  buildGridCardVertical(v) {
-    const streamSrc = v.previewUrl || v.videoUrl;
-    const masterSrc = v.masterUrl || streamSrc;
-    const thumbUrl = v.thumbnail || `https://images.unsplash.com/photo-1536240478700-b869070f9279?w=400&auto=format&fit=crop&q=80`;
-    return `
-      <div class="video-card-vert" data-video-url="${streamSrc}" data-master-url="${masterSrc}" data-title="${v.title}" data-client="${v.client}" data-format="9:16" data-views="${v.views}">
-        <div class="thumb-holder-916">
-          <img src="${thumbUrl}" alt="${v.title}" loading="lazy">
-          <div class="play-hover-overlay">
-            <div class="play-mini-btn">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            </div>
-          </div>
-          <span class="vert-tag-top">9:16 Reel</span>
-          <div class="vert-overlay-info">
-            <h4 class="vert-item-title">${v.title}</h4>
-            <div class="vert-views-pill">${v.views || 'Viral Hit'}</div>
-          </div>
         </div>
       </div>
     `;
@@ -584,6 +524,7 @@ class PortfolioManager {
     container.querySelectorAll('.marquee-card-vertical, .marquee-card-horizontal').forEach(card => {
       const previewUrl = card.getAttribute('data-video-url');
       const masterUrl = card.getAttribute('data-master-url') || previewUrl;
+      const poster = card.getAttribute('data-poster') || '';
       const title = card.getAttribute('data-title');
       const client = card.getAttribute('data-client');
       const format = card.getAttribute('data-format');
@@ -635,13 +576,13 @@ class PortfolioManager {
         e.stopPropagation();
         if (nativeVideo) nativeVideo.muted = true;
         card.classList.remove('is-unmuted');
-        this.openVideoPlayer({ videoUrl: masterUrl, title, client, aspectRatio: format, views });
+        this.openVideoPlayer({ videoUrl: masterUrl, poster, title, client, aspectRatio: format, views });
       });
     });
   }
 
   // =========================================================================
-  // 9. 100% CINEMA MODAL WITH GUARANTEED FULL BACKGROUND PROCESS FREEZE
+  // 9. 100% CINEMA MODAL WITH STATIC AMBIENT BLUR BACKDROP
   // =========================================================================
   openVideoPlayer(video) {
     if (!video) return;
@@ -669,7 +610,25 @@ class PortfolioManager {
     if (this.modalTitle) this.modalTitle.textContent = video.title || 'Video Showcase';
     if (this.modalSub) this.modalSub.textContent = `${video.aspectRatio || '16:9'} Format • Master Edit`;
 
-    // 3. PAUSE ALL BACKGROUND VIDEOS ACROSS THE ENTIRE WEBSITE
+    // 3. Set Static Ambient Freeze Frame Backdrop Image (0% GPU Load)
+    let posterUrl = video.poster || '';
+    if (!posterUrl && (video.masterUrl || video.videoUrl)) {
+      const src = video.masterUrl || video.videoUrl;
+      if (src.includes('res.cloudinary.com')) {
+        posterUrl = src.replace('.mp4', '.jpg').replace('/video/upload/', '/video/upload/w_500,so_0,q_auto:eco/');
+      }
+    }
+    const ambientImg = document.getElementById('modalAmbientBackdrop');
+    if (ambientImg) {
+      if (posterUrl) {
+        ambientImg.src = posterUrl;
+        ambientImg.style.display = 'block';
+      } else {
+        ambientImg.style.display = 'none';
+      }
+    }
+
+    // 4. PAUSE ALL BACKGROUND VIDEOS ACROSS THE ENTIRE WEBSITE
     document.querySelectorAll('video:not(.modal-native-video)').forEach(v => {
       try {
         v.pause();
@@ -677,7 +636,7 @@ class PortfolioManager {
       } catch (e) {}
     });
 
-    // 4. FREEZE ALL CSS MARQUEE TRACK ANIMATIONS
+    // 5. FREEZE ALL CSS MARQUEE TRACK ANIMATIONS
     document.querySelectorAll('.marquee-track').forEach(t => {
       t.style.animationPlayState = 'paused';
     });
@@ -714,6 +673,11 @@ class PortfolioManager {
         this.iframeContainer.innerHTML = '';
       }
 
+      const ambientImg = document.getElementById('modalAmbientBackdrop');
+      if (ambientImg) {
+        ambientImg.src = '';
+      }
+
       // GUARANTEED INSTANT RESUME: Re-enable marquee animations on all tracks
       document.querySelectorAll('.marquee-track').forEach(t => {
         t.style.animation = '';
@@ -745,21 +709,6 @@ class PortfolioManager {
         this.closeVideoPlayer();
       }
     });
-
-    // Hero Showreel Click
-    const heroShowreel = document.getElementById('heroShowreelCard');
-    if (heroShowreel) {
-      heroShowreel.addEventListener('click', () => {
-        const tajUrl = window.CREATIVE_VIBE_VIDEOS ? window.CREATIVE_VIBE_VIDEOS.config.recentEdits.horizontal[0].masterUrl : '';
-        this.openVideoPlayer({
-          videoUrl: tajUrl,
-          title: 'The Taj Story | Documentary Masterclass',
-          client: 'Creative Vibe Original',
-          aspectRatio: '16:9',
-          views: 'Showreel'
-        });
-      });
-    }
   }
 }
 

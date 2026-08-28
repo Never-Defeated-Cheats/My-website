@@ -792,16 +792,18 @@
     }
 
     /* --------------------------------------------------------------------------
-       3. HERO SECTION
+       3. HERO SECTION (Centered, Clean & Spacious)
        -------------------------------------------------------------------------- */
     .hero-box {
-      padding: 2.5rem 0 4.5rem;
+      padding: 3rem 0 3.5rem;
+      text-align: center;
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 3rem;
+    .hero-content-wrap {
+      max-width: 840px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
       align-items: center;
     }
 
@@ -810,12 +812,12 @@
     }
 
     .hero-main-heading {
-      font-size: 3.2rem;
+      font-size: 3.4rem;
       font-weight: 800;
       line-height: 1.15;
       letter-spacing: -0.03em;
       color: var(--text-heading);
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.25rem;
     }
 
     .hero-accent-text {
@@ -824,27 +826,34 @@
     }
 
     .hero-bio {
-      font-size: 1.12rem;
+      font-size: 1.15rem;
       color: var(--text-body);
       line-height: 1.7;
       margin-bottom: 2rem;
-      max-width: 520px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .hero-btn-row {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 1rem;
       flex-wrap: wrap;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2.75rem;
     }
 
     .hero-stats-bar {
       display: flex;
       align-items: center;
-      gap: 2.25rem;
-      padding-top: 1.75rem;
+      justify-content: center;
+      gap: 3rem;
+      padding-top: 2rem;
       border-top: 1px solid var(--border-subtle);
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
     }
 
     .stat-block {
@@ -2182,7 +2191,7 @@
     .calm-modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(5, 8, 7, 0.96);
+      background: #000000;
       z-index: 2000;
       display: none;
       align-items: center;
@@ -2190,8 +2199,21 @@
       padding: 1.5rem;
       opacity: 0;
       transition: opacity var(--transition-smooth);
-      contain: strict;
-      will-change: opacity;
+      overflow: hidden;
+    }
+
+    .modal-ambient-backdrop-img {
+      position: absolute;
+      inset: -40px;
+      width: calc(100% + 80px);
+      height: calc(100% + 80px);
+      object-fit: cover;
+      filter: blur(60px) brightness(0.4) saturate(1.4);
+      opacity: 0.85;
+      pointer-events: none;
+      z-index: 1;
+      transform: scale(1.15);
+      transition: opacity 0.4s ease;
     }
 
     .calm-modal-backdrop.active {
@@ -2203,7 +2225,7 @@
       background: #000000;
       border-radius: var(--radius-xl);
       border: 1.5px solid rgba(83, 117, 104, 0.45);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(83, 117, 104, 0.3);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 45px rgba(83, 117, 104, 0.4);
       width: 92vw;
       max-width: 960px;
       position: relative;
@@ -2213,6 +2235,7 @@
       margin: 0 auto;
       contain: content;
       transform: translate3d(0, 0, 0);
+      z-index: 10;
     }
 
     .calm-modal-box.is-vertical {
@@ -3437,69 +3460,48 @@
       <!-- Hero -->
       <section class="hero-box">
         <div class="container">
-          <div class="hero-grid">
-            <div>
-              <div class="hero-badge-wrap">
-                <div class="hero-status-pill">
-                  <div class="live-status-dot-wrap">
-                    <div class="live-status-dot"></div>
-                  </div>
-                  <span>Available for New Work</span>
+          <div class="hero-content-wrap reveal">
+            <div class="hero-badge-wrap">
+              <div class="hero-status-pill">
+                <div class="live-status-dot-wrap">
+                  <div class="live-status-dot"></div>
                 </div>
-              </div>
-              <h1 class="hero-main-heading">
-                Crafting visual stories with <span class="hero-accent-text">high retention</span> & cinematic flow.
-              </h1>
-              <p class="hero-bio">
-                Hey, I'm <strong>Creative Vibe</strong> — a freelance video editor helping creators, YouTubers, and Brand founders transform raw footage into captivating, high-performing videos.
-              </p>
-              <div class="hero-btn-row">
-                <button class="btn btn-primary btn-lg" data-tab="work">
-                  <span>Explore All Niches & Works</span>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </button>
-                <button class="btn btn-secondary btn-lg" data-open-booking="true">
-                  <span>Book an Appointment</span>
-                </button>
-              </div>
-
-              <!-- Stats -->
-              <div class="hero-stats-bar" id="heroStatsBar">
-                <div class="stat-block">
-                  <span class="stat-num" data-target="50" data-suffix="M+" data-decimals="0">50M+</span>
-                  <span class="stat-text">Views Generated</span>
-                </div>
-                <div class="stat-block">
-                  <span class="stat-num" data-target="180" data-suffix="+" data-decimals="0">180+</span>
-                  <span class="stat-text">Videos Edited</span>
-                </div>
-                <div class="stat-block">
-                  <span class="stat-num" data-target="72" data-suffix="%" data-decimals="0">72%</span>
-                  <span class="stat-text">Avg. Watch Retention</span>
-                </div>
-                <div class="stat-block">
-                  <span class="stat-num" data-target="4.9" data-suffix="★" data-decimals="1">4.9★</span>
-                  <span class="stat-text">Client Rating</span>
-                </div>
+                <span>Available for New Work</span>
               </div>
             </div>
+            <h1 class="hero-main-heading">
+              Crafting visual stories with <span class="hero-accent-text">high retention</span> & cinematic flow.
+            </h1>
+            <p class="hero-bio">
+              Hey, I'm <strong>Creative Vibe</strong> — a freelance video editor helping creators, YouTubers, and Brand founders transform raw footage into captivating, high-performing videos.
+            </p>
+            <div class="hero-btn-row">
+              <button class="btn btn-primary btn-lg" data-tab="work">
+                <span>Explore All Niches & Works</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+              <button class="btn btn-secondary btn-lg" data-open-booking="true">
+                <span>Book an Appointment</span>
+              </button>
+            </div>
 
-            <!-- Showreel Card -->
-            <div>
-              <div class="showreel-card" id="heroShowreelCard" title="Click to play showreel">
-                <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1000&q=80" alt="Showreel Thumbnail" class="showreel-cover-img">
-                <div class="showreel-card-overlay">
-                  <div>
-                    <span class="badge-pill" style="background: rgba(255,255,255,0.9); border:none;">⚡ 2026 Showreel</span>
-                  </div>
-                  <div class="play-circle">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                  </div>
-                  <div style="color: #ffffff;">
-                    <div style="font-size: 1.15rem; font-weight: 700;">Creative Vibe Showreel</div>
-                    <div style="font-size: 0.82rem; opacity: 0.9;">Documentary • Motion Graphics • Sound Design</div>
-                  </div>
-                </div>
+            <!-- Stats -->
+            <div class="hero-stats-bar" id="heroStatsBar">
+              <div class="stat-block">
+                <span class="stat-num" data-target="50" data-suffix="M+" data-decimals="0">50M+</span>
+                <span class="stat-text">Views Generated</span>
+              </div>
+              <div class="stat-block">
+                <span class="stat-num" data-target="180" data-suffix="+" data-decimals="0">180+</span>
+                <span class="stat-text">Videos Edited</span>
+              </div>
+              <div class="stat-block">
+                <span class="stat-num" data-target="72" data-suffix="%" data-decimals="0">72%</span>
+                <span class="stat-text">Avg. Watch Retention</span>
+              </div>
+              <div class="stat-block">
+                <span class="stat-num" data-target="4.9" data-suffix="★" data-decimals="1">4.9★</span>
+                <span class="stat-text">Client Rating</span>
               </div>
             </div>
           </div>
@@ -3883,6 +3885,7 @@
        MODAL 1: UNIVERSAL VIDEO PLAYER (PURE 100% CLEAN VIDEO SCREEN)
        ==================================================================== -->
   <div class="calm-modal-backdrop" id="videoPlayerModal">
+    <img id="modalAmbientBackdrop" class="modal-ambient-backdrop-img" src="" alt="Ambient Freeze Frame">
     <div class="calm-modal-box">
       <button class="modal-close-icon" id="modalCloseBtn" title="Close">✕</button>
       <div class="modal-frame-box" id="modalIframeBox"></div>

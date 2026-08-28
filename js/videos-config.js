@@ -7,25 +7,30 @@ const USER_CLOUDINARY_VIDEOS = {
   // Vertical 9:16 Shorts & Reels
   vertRealEstate: {
     preview: "https://res.cloudinary.com/pxf5pjuu/video/upload/w_200,c_scale,q_auto:eco,br_150k,f_mp4/v1787906532/Real_Estate.mp4",
-    master: "https://res.cloudinary.com/pxf5pjuu/video/upload/q_auto:good,vc_auto/v1787906532/Real_Estate.mp4"
+    master: "https://res.cloudinary.com/pxf5pjuu/video/upload/q_auto:good,vc_auto/v1787906532/Real_Estate.mp4",
+    poster: "https://res.cloudinary.com/pxf5pjuu/video/upload/w_400,so_0,q_auto:eco/v1787906532/Real_Estate.jpg"
   },
   vertReel06: {
     preview: "https://res.cloudinary.com/pxf5pjuu/video/upload/w_200,c_scale,q_auto:eco,br_150k,f_mp4/v1787906442/Reel_06.mp4",
-    master: "https://res.cloudinary.com/pxf5pjuu/video/upload/q_auto:good,vc_auto/v1787906442/Reel_06.mp4"
+    master: "https://res.cloudinary.com/pxf5pjuu/video/upload/q_auto:good,vc_auto/v1787906442/Reel_06.mp4",
+    poster: "https://res.cloudinary.com/pxf5pjuu/video/upload/w_400,so_0,q_auto:eco/v1787906442/Reel_06.jpg"
   },
   vertPerception: {
     preview: "https://res.cloudinary.com/pxf5pjuu/video/upload/w_200,c_scale,q_auto:eco,br_150k,f_mp4/v1787847723/perception_over_value.mp4",
-    master: "https://res.cloudinary.com/pxf5pjuu/video/upload/q_auto:good,vc_auto/v1787847723/perception_over_value.mp4"
+    master: "https://res.cloudinary.com/pxf5pjuu/video/upload/q_auto:good,vc_auto/v1787847723/perception_over_value.mp4",
+    poster: "https://res.cloudinary.com/pxf5pjuu/video/upload/w_400,so_0,q_auto:eco/v1787847723/perception_over_value.jpg"
   },
 
-  // Horizontal 16:9 Long-Form Master Edits
-  horizTajStory: {
-    preview: "https://res.cloudinary.com/pxf5pjuu/video/upload/w_280,c_scale,q_auto:eco,br_200k,f_mp4/v1787906348/The_Taj_Story.mp4",
-    master: "https://res.cloudinary.com/pxf5pjuu/video/upload/q_auto:good,vc_auto/v1787906348/The_Taj_Story.mp4"
-  },
+  // Horizontal 16:9 Long-Form Master Edit (perception_over_value_1.mp4 used across all horizontal frames)
   horizPerception1: {
     preview: "https://res.cloudinary.com/pxf5pjuu/video/upload/w_280,c_scale,q_auto:eco,br_200k,f_mp4/v1787906505/perception_over_value_1.mp4",
-    master: "https://res.cloudinary.com/pxf5pjuu/video/upload/q_auto:good,vc_auto/v1787906505/perception_over_value_1.mp4"
+    master: "https://res.cloudinary.com/pxf5pjuu/video/upload/q_auto:good,vc_auto/v1787906505/perception_over_value_1.mp4",
+    poster: "https://res.cloudinary.com/pxf5pjuu/video/upload/w_600,so_0,q_auto:eco/v1787906505/perception_over_value_1.jpg"
+  },
+  horizTajStory: {
+    preview: "https://res.cloudinary.com/pxf5pjuu/video/upload/w_280,c_scale,q_auto:eco,br_200k,f_mp4/v1787906348/The_Taj_Story.mp4",
+    master: "https://res.cloudinary.com/pxf5pjuu/video/upload/q_auto:good,vc_auto/v1787906348/The_Taj_Story.mp4",
+    poster: "https://res.cloudinary.com/pxf5pjuu/video/upload/w_600,so_0,q_auto:eco/v1787906348/The_Taj_Story.jpg"
   }
 };
 
@@ -40,6 +45,7 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
       {
         previewUrl: USER_CLOUDINARY_VIDEOS.vertRealEstate.preview,
         masterUrl: USER_CLOUDINARY_VIDEOS.vertRealEstate.master,
+        poster: USER_CLOUDINARY_VIDEOS.vertRealEstate.poster,
         title: "Trending Real Estate Speed Ramp Reel",
         client: "Luxury Real Estate",
         views: "1.8M Views",
@@ -48,6 +54,7 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
       {
         previewUrl: USER_CLOUDINARY_VIDEOS.vertReel06.preview,
         masterUrl: USER_CLOUDINARY_VIDEOS.vertReel06.master,
+        poster: USER_CLOUDINARY_VIDEOS.vertReel06.poster,
         title: "Viral Dynamic Motion & Sound Design Reel",
         client: "SaaS Brand",
         views: "940K Views",
@@ -56,6 +63,7 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
       {
         previewUrl: USER_CLOUDINARY_VIDEOS.vertPerception.preview,
         masterUrl: USER_CLOUDINARY_VIDEOS.vertPerception.master,
+        poster: USER_CLOUDINARY_VIDEOS.vertPerception.poster,
         title: "Perception Over Value | Viral Short",
         client: "Creator Spotlight",
         views: "2.4M Views",
@@ -64,6 +72,7 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
       {
         previewUrl: USER_CLOUDINARY_VIDEOS.vertRealEstate.preview,
         masterUrl: USER_CLOUDINARY_VIDEOS.vertRealEstate.master,
+        poster: USER_CLOUDINARY_VIDEOS.vertRealEstate.poster,
         title: "Alex Hormozi Style Captions & Sound Hits",
         client: "Podcast Host",
         views: "1.2M Views",
@@ -71,12 +80,23 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
       }
     ],
 
-    // Bottom Row: Horizontal Videos (16:9 Long-Form) - The Taj Story & Perception Over Value 1
+    // Bottom Row: Horizontal Videos (16:9 Long-Form) - perception_over_value_1.mp4 in all horizontal frames
     horizontal: [
       {
-        previewUrl: USER_CLOUDINARY_VIDEOS.horizTajStory.preview,
-        masterUrl: USER_CLOUDINARY_VIDEOS.horizTajStory.master,
-        title: "The Taj Story | Documentary Masterclass",
+        previewUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.preview,
+        masterUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.master,
+        poster: USER_CLOUDINARY_VIDEOS.horizPerception1.poster,
+        title: "Perception Over Value | 16:9 Master Edition",
+        client: "Creative Vibe Masterclass",
+        views: "1.5M Views",
+        aspectRatio: "16:9",
+        duration: "04:30"
+      },
+      {
+        previewUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.preview,
+        masterUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.master,
+        poster: USER_CLOUDINARY_VIDEOS.horizPerception1.poster,
+        title: "Documentary Masterclass Film",
         client: "Heritage Media",
         views: "2.1M Views",
         aspectRatio: "16:9",
@@ -85,29 +105,22 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
       {
         previewUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.preview,
         masterUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.master,
-        title: "Perception Over Value | 16:9 Master Edition",
-        client: "Creative Vibe Masterclass",
-        views: "1.5M Views",
-        aspectRatio: "16:9",
-        duration: "04:30"
-      },
-      {
-        previewUrl: USER_CLOUDINARY_VIDEOS.horizTajStory.preview,
-        masterUrl: USER_CLOUDINARY_VIDEOS.horizTajStory.master,
-        title: "How He Built an Empire | Talking Head Edit",
-        client: "Founder Hub",
-        views: "890K Views",
-        aspectRatio: "16:9",
-        duration: "21:40"
-      },
-      {
-        previewUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.preview,
-        masterUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.master,
+        poster: USER_CLOUDINARY_VIDEOS.horizPerception1.poster,
         title: "Fintech SaaS Product Explainer Animation",
         client: "PayFlow Inc",
         views: "450K Views",
         aspectRatio: "16:9",
         duration: "02:15"
+      },
+      {
+        previewUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.preview,
+        masterUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.master,
+        poster: USER_CLOUDINARY_VIDEOS.horizPerception1.poster,
+        title: "How He Built an Empire | Talking Head Edit",
+        client: "Founder Hub",
+        views: "890K Views",
+        aspectRatio: "16:9",
+        duration: "21:40"
       }
     ]
   },
@@ -126,34 +139,25 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
         {
           previewUrl: USER_CLOUDINARY_VIDEOS.vertPerception.preview,
           masterUrl: USER_CLOUDINARY_VIDEOS.vertPerception.master,
+          poster: USER_CLOUDINARY_VIDEOS.vertPerception.poster,
           title: "Viral Podcast Clip - The $100M Mindset",
-          client: "The Growth Show",
-          views: "1.4M Views"
+          aspectRatio: "9:16"
         },
         {
           previewUrl: USER_CLOUDINARY_VIDEOS.vertReel06.preview,
           masterUrl: USER_CLOUDINARY_VIDEOS.vertReel06.master,
+          poster: USER_CLOUDINARY_VIDEOS.vertReel06.poster,
           title: "Hormozi Kinetic Captions Reel",
-          client: "Alex Growth",
-          views: "890K Views"
+          aspectRatio: "9:16"
         }
       ],
       horizontal: [
         {
           previewUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.preview,
           masterUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.master,
+          poster: USER_CLOUDINARY_VIDEOS.horizPerception1.poster,
           title: "Full 45-Min Interview Multi-Cam Edit",
-          client: "Founder Unfiltered",
-          views: "620K Views",
-          duration: "45:10"
-        },
-        {
-          previewUrl: USER_CLOUDINARY_VIDEOS.horizTajStory.preview,
-          masterUrl: USER_CLOUDINARY_VIDEOS.horizTajStory.master,
-          title: "Talking Head YouTube Video with Custom Motion B-Roll",
-          client: "Dan Tech",
-          views: "430K Views",
-          duration: "12:45"
+          aspectRatio: "16:9"
         }
       ]
     },
@@ -167,34 +171,18 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
         {
           previewUrl: USER_CLOUDINARY_VIDEOS.vertRealEstate.preview,
           masterUrl: USER_CLOUDINARY_VIDEOS.vertRealEstate.master,
-          title: "The Fall of Silicon Valley Bank (Short Breakdown)",
-          client: "FinTech Stories",
-          views: "3.2M Views"
-        },
-        {
-          previewUrl: USER_CLOUDINARY_VIDEOS.vertReel06.preview,
-          masterUrl: USER_CLOUDINARY_VIDEOS.vertReel06.master,
-          title: "How Ferrari Built an Empire",
-          client: "Brand Biographies",
-          views: "1.8M Views"
+          poster: USER_CLOUDINARY_VIDEOS.vertRealEstate.poster,
+          title: "The Fall of Silicon Valley Bank",
+          aspectRatio: "9:16"
         }
       ],
       horizontal: [
         {
-          previewUrl: USER_CLOUDINARY_VIDEOS.horizTajStory.preview,
-          masterUrl: USER_CLOUDINARY_VIDEOS.horizTajStory.master,
-          title: "The Taj Story | 20-Min Documentary Masterclass",
-          client: "Investigate Daily",
-          views: "1.9M Views",
-          duration: "20:30"
-        },
-        {
           previewUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.preview,
           masterUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.master,
+          poster: USER_CLOUDINARY_VIDEOS.horizPerception1.poster,
           title: "How Tesla Conquered Global EV Market",
-          client: "Tech Chronology",
-          views: "890K Views",
-          duration: "18:15"
+          aspectRatio: "16:9"
         }
       ]
     },
@@ -208,34 +196,18 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
         {
           previewUrl: USER_CLOUDINARY_VIDEOS.vertReel06.preview,
           masterUrl: USER_CLOUDINARY_VIDEOS.vertReel06.master,
-          title: "Mobile App Feature Launch (TikTok / Reels Ad)",
-          client: "FlowSync App",
-          views: "720K Views"
-        },
-        {
-          previewUrl: USER_CLOUDINARY_VIDEOS.vertPerception.preview,
-          masterUrl: USER_CLOUDINARY_VIDEOS.vertPerception.master,
-          title: "AI Automation Tool in 30 Seconds",
-          client: "AutoPilot AI",
-          views: "1.1M Views"
+          poster: USER_CLOUDINARY_VIDEOS.vertReel06.poster,
+          title: "Mobile App Feature Launch",
+          aspectRatio: "9:16"
         }
       ],
       horizontal: [
         {
           previewUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.preview,
           masterUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.master,
+          poster: USER_CLOUDINARY_VIDEOS.horizPerception1.poster,
           title: "Complete SaaS Product Overview & UI Walkthrough",
-          client: "MetricPulse",
-          views: "310K Views",
-          duration: "02:45"
-        },
-        {
-          previewUrl: USER_CLOUDINARY_VIDEOS.horizTajStory.preview,
-          masterUrl: USER_CLOUDINARY_VIDEOS.horizTajStory.master,
-          title: "DevTools 3D Explainer Video",
-          client: "CodeStream",
-          views: "480K Views",
-          duration: "01:50"
+          aspectRatio: "16:9"
         }
       ]
     },
@@ -249,34 +221,18 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
         {
           previewUrl: USER_CLOUDINARY_VIDEOS.vertRealEstate.preview,
           masterUrl: USER_CLOUDINARY_VIDEOS.vertRealEstate.master,
+          poster: USER_CLOUDINARY_VIDEOS.vertRealEstate.poster,
           title: "I Survived 100 Hours in VR (Hook)",
-          client: "Challenge Beast",
-          views: "4.5M Views"
-        },
-        {
-          previewUrl: USER_CLOUDINARY_VIDEOS.vertReel06.preview,
-          masterUrl: USER_CLOUDINARY_VIDEOS.vertReel06.master,
-          title: "Last To Leave Giant Circle Wins $10,000",
-          client: "Hyper Viral",
-          views: "2.8M Views"
+          aspectRatio: "9:16"
         }
       ],
       horizontal: [
         {
           previewUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.preview,
           masterUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.master,
+          poster: USER_CLOUDINARY_VIDEOS.horizPerception1.poster,
           title: "Extreme $50,000 Hide and Seek Championship",
-          client: "Quest Arena",
-          views: "5.1M Views",
-          duration: "16:40"
-        },
-        {
-          previewUrl: USER_CLOUDINARY_VIDEOS.horizTajStory.preview,
-          masterUrl: USER_CLOUDINARY_VIDEOS.horizTajStory.master,
-          title: "Surviving on $1 vs $1,000,000 Island",
-          client: "Adventure Bros",
-          views: "3.7M Views",
-          duration: "14:10"
+          aspectRatio: "16:9"
         }
       ]
     },
@@ -290,34 +246,18 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
         {
           previewUrl: USER_CLOUDINARY_VIDEOS.vertRealEstate.preview,
           masterUrl: USER_CLOUDINARY_VIDEOS.vertRealEstate.master,
+          poster: USER_CLOUDINARY_VIDEOS.vertRealEstate.poster,
           title: "Kyoto Night Walk - Cinematic Reel",
-          client: "Nomad Visuals",
-          views: "1.6M Views"
-        },
-        {
-          previewUrl: USER_CLOUDINARY_VIDEOS.vertReel06.preview,
-          masterUrl: USER_CLOUDINARY_VIDEOS.vertReel06.master,
-          title: "Iceland Drone Speed Ramps",
-          client: "Explore With Sam",
-          views: "980K Views"
+          aspectRatio: "9:16"
         }
       ],
       horizontal: [
         {
-          previewUrl: USER_CLOUDINARY_VIDEOS.horizTajStory.preview,
-          masterUrl: USER_CLOUDINARY_VIDEOS.horizTajStory.master,
-          title: "The Taj Story | 4K Cinematic Travel Film",
-          client: "Far North Films",
-          views: "820K Views",
-          duration: "10:15"
-        },
-        {
           previewUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.preview,
           masterUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.master,
-          title: "Swiss Alps Motorcycle Journey",
-          client: "Ride Free",
-          views: "540K Views",
-          duration: "13:50"
+          poster: USER_CLOUDINARY_VIDEOS.horizPerception1.poster,
+          title: "4K Cinematic Travel Film",
+          aspectRatio: "16:9"
         }
       ]
     },
@@ -331,34 +271,18 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
         {
           previewUrl: USER_CLOUDINARY_VIDEOS.vertPerception.preview,
           masterUrl: USER_CLOUDINARY_VIDEOS.vertPerception.master,
-          title: "Luxury Watch Commercial Hook",
-          client: "Apex Timepieces",
-          views: "860K Views"
-        },
-        {
-          previewUrl: USER_CLOUDINARY_VIDEOS.vertRealEstate.preview,
-          masterUrl: USER_CLOUDINARY_VIDEOS.vertRealEstate.master,
-          title: "Fitness Brand Motivation Reel",
-          client: "Pulse Athletic",
-          views: "1.9M Views"
+          poster: USER_CLOUDINARY_VIDEOS.vertPerception.poster,
+          title: "Luxury Commercial Hook",
+          aspectRatio: "9:16"
         }
       ],
       horizontal: [
         {
           previewUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.preview,
           masterUrl: USER_CLOUDINARY_VIDEOS.horizPerception1.master,
+          poster: USER_CLOUDINARY_VIDEOS.horizPerception1.poster,
           title: "Commercial Brand Anthem Film",
-          client: "Lumina Studios",
-          views: "420K Views",
-          duration: "03:10"
-        },
-        {
-          previewUrl: USER_CLOUDINARY_VIDEOS.horizTajStory.preview,
-          masterUrl: USER_CLOUDINARY_VIDEOS.horizTajStory.master,
-          title: "Founder Story Manifesto Film",
-          client: "Elevate Global",
-          views: "610K Views",
-          duration: "05:45"
+          aspectRatio: "16:9"
         }
       ]
     }
@@ -372,13 +296,13 @@ const CREATIVE_VIBE_VIDEOS_CONFIG = {
 function normalizeVideoItem(item, defaultCategory = 'general', defaultAspect = '16:9') {
   let previewUrl = '';
   let masterUrl = '';
+  let poster = '';
   let title = 'Project Showcase';
   let client = 'Creative Vibe';
   let views = '1.2M Views';
   let duration = 'Full HD';
   let description = 'Crafted for high audience retention and cinematic storytelling.';
   let aspectRatio = defaultAspect;
-  let customThumb = '';
 
   if (typeof item === 'string') {
     previewUrl = item.trim();
@@ -387,13 +311,13 @@ function normalizeVideoItem(item, defaultCategory = 'general', defaultAspect = '
   } else if (typeof item === 'object' && item !== null) {
     previewUrl = (item.previewUrl || item.url || item.videoUrl || '').trim();
     masterUrl = (item.masterUrl || previewUrl).trim();
+    poster = item.poster || '';
     title = item.title || title;
     client = item.client || client;
     views = item.views || views;
     duration = item.duration || duration;
     description = item.description || description;
     aspectRatio = item.aspectRatio || defaultAspect;
-    customThumb = item.thumbnail || '';
   }
 
   const isVertical = aspectRatio === '9:16' || previewUrl.includes('w_200');
@@ -404,8 +328,8 @@ function normalizeVideoItem(item, defaultCategory = 'general', defaultAspect = '
     sourceType: 'direct',
     previewUrl: previewUrl,
     masterUrl: masterUrl,
+    poster: poster,
     videoUrl: previewUrl,
-    thumbnail: customThumb || '',
     title: title,
     client: client,
     views: views,
