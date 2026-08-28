@@ -2231,9 +2231,6 @@
     .calm-modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(12, 18, 15, 0.58);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
       z-index: 2000;
       display: none;
       align-items: center;
@@ -2241,6 +2238,22 @@
       padding: 1.5rem;
       opacity: 0;
       transition: opacity var(--transition-smooth);
+      isolation: isolate;
+      contain: layout size;
+    }
+
+    .modal-blur-glass {
+      position: absolute;
+      inset: 0;
+      background: rgba(12, 18, 15, 0.62);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      pointer-events: none;
+      z-index: 1;
+      contain: strict;
+      will-change: opacity, transform;
+      transform: translateZ(0);
+      backface-visibility: hidden;
     }
 
     .calm-modal-backdrop.active {
@@ -2260,9 +2273,11 @@
       display: flex;
       flex-direction: column;
       margin: 0 auto;
-      contain: content;
+      contain: strict;
       transform: translate3d(0, 0, 0);
+      isolation: isolate;
       z-index: 10;
+      backface-visibility: hidden;
     }
 
     .calm-modal-box.is-vertical {
@@ -3912,6 +3927,7 @@
        MODAL 1: UNIVERSAL VIDEO PLAYER (PURE 100% CLEAN VIDEO SCREEN)
        ==================================================================== -->
   <div class="calm-modal-backdrop" id="videoPlayerModal">
+    <div class="modal-blur-glass" id="modalBlurGlass"></div>
     <div class="calm-modal-box">
       <button class="modal-close-icon" id="modalCloseBtn" title="Close">✕</button>
       <div class="modal-frame-box" id="modalIframeBox"></div>
