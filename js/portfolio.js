@@ -1,9 +1,9 @@
 /* ==========================================================================
    CREATIVE VIBE - SMART DEVICE-AWARE DYNAMIC PORTFOLIO ENGINE
-   - Dynamic Viewport Width Adaptive Loop
-   - 100% Smooth Interactive Touch-Swipe & Mouse Drag with Auto-Resume
+   - Mathematically Infinite Loop: Half A >= 2400px (12 cards) with seamless wrap
+   - Fullscreen Cinema Modal with 100% Background Video & Animation Freeze
+   - Interactive Touch-Swipe & Mouse Drag with Infinite Modulo Wrapping
    - Strict Card Virtualization (< 2% CPU / < 12-15% GPU / < 100MB RAM)
-   - Lag-Free Mobile Cinema Player Engine
    ========================================================================== */
 
 class PortfolioManager {
@@ -17,7 +17,7 @@ class PortfolioManager {
     this.modalSub = document.getElementById('modalVideoSub');
     this.modalCloseBtn = document.getElementById('modalCloseBtn');
     this.cardObserver = null;
-    this.lastCardCount = this.getResponsiveCardCount();
+    this.isModalOpen = false;
 
     this.init();
   }
@@ -25,25 +25,16 @@ class PortfolioManager {
   init() {
     this.renderRecentEditsSliders();
     this.bindEvents();
-    this.bindResizeHandler();
     this.initCardLevelVirtualization();
   }
 
   // =========================================================================
-  // 1. SMART DEVICE-AWARE RESPONSIVE CARD CALCULATION
+  // 1. MATHEMATICALLY INFINITE LOOP ENGINE (CARDS NEVER FINISH)
+  // Half A is >= 2400px (12 items) so running/dragging never shows empty space!
   // =========================================================================
-  getResponsiveCardCount() {
-    const w = window.innerWidth;
-    if (w <= 480) return 4;       // Mobile small (8 cards total)
-    if (w <= 768) return 4;       // Mobile large (8 cards total)
-    if (w <= 1100) return 6;      // Tablet (12 cards total)
-    if (w <= 1600) return 8;      // Laptop & Desktop 1080p (16 cards total)
-    return 10;                    // Ultrawide & 4K (20 cards total)
-  }
-
   buildSeamlessLoop(items) {
     if (!items || !items.length) return [];
-    const targetHalf = this.getResponsiveCardCount();
+    const targetHalf = 12; // 12 cards per half = 24 total (0 empty gaps)
     let base = [...items];
     let half = [...base];
     while (half.length < targetHalf) {
@@ -51,23 +42,6 @@ class PortfolioManager {
     }
     const cleanHalf = half.slice(0, targetHalf);
     return cleanHalf.concat(cleanHalf);
-  }
-
-  bindResizeHandler() {
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        const newCount = this.getResponsiveCardCount();
-        if (newCount !== this.lastCardCount) {
-          this.lastCardCount = newCount;
-          this.renderRecentEditsSliders();
-          if (this.workNichesRendered) {
-            this.renderWorkNiches();
-          }
-        }
-      }, 250);
-    });
   }
 
   // =========================================================================
@@ -83,6 +57,8 @@ class PortfolioManager {
     const isMobile = window.innerWidth <= 768;
 
     this.cardObserver = new IntersectionObserver((entries) => {
+      if (this.isModalOpen) return; // Do not wake videos when fullscreen modal is open
+
       entries.forEach(entry => {
         const card = entry.target;
         const video = card.querySelector('video');
@@ -92,7 +68,7 @@ class PortfolioManager {
           card.style.opacity = '1';
           card.style.pointerEvents = 'auto';
 
-          if (video && video.paused) {
+          if (video && video.paused && !this.isModalOpen) {
             try {
               const playPromise = video.play();
               if (playPromise !== undefined) playPromise.catch(() => {});
@@ -120,7 +96,7 @@ class PortfolioManager {
   }
 
   // =========================================================================
-  // 3. SMOOTH INTERACTIVE TOUCH-SWIPE & MOUSE DRAG WITH AUTO-RESUME
+  // 3. INFINITE TOUCH-SWIPE & MOUSE DRAG WITH WRAP-AROUND (NEVER RUNS OUT)
   // =========================================================================
   bindTouchDragScroll(container) {
     if (!container) return;
@@ -166,21 +142,27 @@ class PortfolioManager {
         if (!isDragging) return;
         const deltaX = pageX - startX;
         movedDistance = Math.abs(deltaX);
-        track.style.transform = `translate3d(${initialOffset + deltaX}px, 0, 0)`;
+        const halfWidth = (track.scrollWidth || 4800) / 2;
+        
+        // Wrap around mathematically so cards NEVER run out or finish
+        let newPos = (initialOffset + deltaX) % halfWidth;
+        if (newPos > 0) newPos -= halfWidth;
+        
+        track.style.transform = `translate3d(${newPos}px, 0, 0)`;
       };
 
       const onEnd = () => {
         if (!isDragging) return;
         isDragging = false;
 
-        // Prevent opening video modal if user was intentionally dragging
+        // Prevent opening video modal if user was dragging
         if (movedDistance > 8) {
           track.setAttribute('data-just-dragged', 'true');
           setTimeout(() => track.removeAttribute('data-just-dragged'), 350);
         }
 
         clearTimeout(resumeTimer);
-        // After 1.5s of no interaction, smoothly resume standard infinite marquee animation
+        // After 1.5s of no touch, smoothly resume standard infinite marquee animation
         resumeTimer = setTimeout(() => {
           track.style.animation = '';
           track.style.transform = '';
@@ -604,6 +586,7 @@ class PortfolioManager {
 
       // 1. Mouse Enter: Instant Unmuted Sound
       card.addEventListener('mouseenter', () => {
+        if (this.isModalOpen) return;
         const track = card.closest('.marquee-track');
         if (track && track.getAttribute('data-just-dragged') === 'true') return;
 
@@ -629,7 +612,7 @@ class PortfolioManager {
         if (nativeVideo) {
           try {
             nativeVideo.muted = true;
-            nativeVideo.play().catch(() => {});
+            if (!this.isModalOpen) nativeVideo.play().catch(() => {});
           } catch (e) {}
         }
         card.classList.remove('is-unmuted');
@@ -652,11 +635,12 @@ class PortfolioManager {
   }
 
   // =========================================================================
-  // 9. LAG-FREE FULLSCREEN CINEMA MODAL (OPTIMIZED FOR MOBILE & DESKTOP)
+  // 9. 100% CINEMA MODAL WITH FULL BACKGROUND AUDIO & VIDEO FREEZE
   // =========================================================================
   openVideoPlayer(video) {
     if (!video) return;
 
+    this.isModalOpen = true;
     const is916 = video.aspectRatio === '9:16';
     const isMobile = window.innerWidth <= 768;
 
@@ -671,10 +655,15 @@ class PortfolioManager {
     if (this.modalTitle) this.modalTitle.textContent = video.title || 'Video Showcase';
     if (this.modalSub) this.modalSub.textContent = `${video.aspectRatio || '16:9'} Format • Master Edit`;
 
-    // 1. Freeze all background streams & animations to free 100% GPU for Modal!
-    document.querySelectorAll('.marquee-track video').forEach(v => {
-      try { v.pause(); } catch (e) {}
+    // 1. FREEZE ALL BACKGROUND VIDEOS ACROSS THE ENTIRE WEBSITE
+    document.querySelectorAll('video:not(.modal-native-video)').forEach(v => {
+      try {
+        v.pause();
+        v.muted = true;
+      } catch (e) {}
     });
+
+    // 2. FREEZE ALL CSS MARQUEE TRACK ANIMATIONS
     document.querySelectorAll('.marquee-track').forEach(t => {
       t.style.animationPlayState = 'paused';
     });
@@ -682,7 +671,7 @@ class PortfolioManager {
     if (this.iframeContainer) {
       let srcToPlay = video.masterUrl || video.videoUrl;
 
-      // On Mobile: Ensure smooth instant decoding without mobile GPU memory choke
+      // On Mobile: Deliver hardware stream optimized for phone GPUs
       if (isMobile && srcToPlay.includes('res.cloudinary.com')) {
         srcToPlay = srcToPlay.replace('/video/upload/', '/video/upload/w_720,c_scale,q_auto:good,vc_auto/');
       }
@@ -701,16 +690,18 @@ class PortfolioManager {
 
   closeVideoPlayer() {
     if (this.modal) {
+      this.isModalOpen = false;
       this.modal.classList.remove('active');
       document.body.style.overflow = '';
       if (this.iframeContainer) {
         this.iframeContainer.innerHTML = '';
       }
 
-      // 2. Resume all background animations and visible video streams smoothly!
+      // 2. RESUME ALL BACKGROUND MARQUEE ANIMATIONS & VISIBLE VIDEO STREAMS
       document.querySelectorAll('.marquee-track').forEach(t => {
         t.style.animationPlayState = 'running';
       });
+
       this.initCardLevelVirtualization();
 
       if (window.soundFX) window.soundFX.playClick();
