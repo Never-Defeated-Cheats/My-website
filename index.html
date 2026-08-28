@@ -699,15 +699,17 @@
        2. TABS & PAGES
        -------------------------------------------------------------------------- */
     .tab-page {
-      display: none;
+      display: none !important;
       opacity: 0;
+      visibility: hidden;
       transform: translateY(8px);
       transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
     .tab-page.active {
-      display: block;
+      display: block !important;
       opacity: 1;
+      visibility: visible;
       transform: translateY(0);
     }
 

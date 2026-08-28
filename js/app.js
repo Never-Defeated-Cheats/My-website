@@ -29,7 +29,7 @@ function createToastContainer() {
   return c;
 }
 
-// Tab Page Switcher
+// Tab Page Switcher (Complete Tab Isolation & Hardware Resource Optimization)
 function switchTab(tabId) {
   if (!tabId) return;
 
@@ -45,12 +45,14 @@ function switchTab(tabId) {
     }
   });
 
-  // Switch tab page views
+  // Switch tab page views with complete DOM display isolation
   tabPages.forEach(page => {
     if (page.id === `tab-${tabId}`) {
       page.classList.add('active');
+      page.style.display = 'block';
     } else {
       page.classList.remove('active');
+      page.style.display = 'none';
     }
   });
 
@@ -64,13 +66,24 @@ function switchTab(tabId) {
   // Play audio
   if (window.soundFX) window.soundFX.playPop();
 
-  // Re-trigger scroll reveals, lazy tab activations & counter animations
+  // Lazy tab activations & resource optimization
   setTimeout(() => {
     if (typeof initScrollReveal === 'function') initScrollReveal();
-    if (tabId === 'home' && typeof animateCounters === 'function') animateCounters();
-    if (tabId === 'work' && window.portfolioManager) window.portfolioManager.onWorkTabActivated();
-    if (window.portfolioManager) window.portfolioManager.onTabChanged(tabId);
-    if (tabId === 'book-call' && window.bookingManager) window.bookingManager.syncUserAuthFields();
+    if (tabId === 'home') {
+      if (typeof animateCounters === 'function') animateCounters();
+    }
+    if (tabId === 'work') {
+      if (window.portfolioManager) window.portfolioManager.onWorkTabActivated();
+    }
+    if (window.portfolioManager) {
+      window.portfolioManager.onTabChanged(tabId);
+    }
+    if (tabId === 'pricing') {
+      window.renderPricingLive();
+    }
+    if (tabId === 'book-call') {
+      if (window.bookingManager) window.bookingManager.syncUserAuthFields();
+    }
   }, 50);
 }
 window.switchTab = switchTab;
