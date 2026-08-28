@@ -580,18 +580,71 @@ class PortfolioManager {
     });
   }
 
+  captureFrostedSnapshot() {
+    const canvas = document.getElementById('modalFrozenSnapshotCanvas');
+    if (!canvas) return;
+
+    const w = 320;
+    const h = Math.round(320 * (window.innerHeight / Math.max(window.innerWidth, 1)));
+    canvas.width = w;
+    canvas.height = h;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // 1. Draw base page tone
+    ctx.fillStyle = '#0b100d';
+    ctx.fillRect(0, 0, w, h);
+
+    // 2. Draw brand header simulation
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 10px sans-serif';
+    ctx.fillText('CREATIVE VIBE', 18, 18);
+
+    // 3. Draw cards snapshot at their exact visible coordinates
+    const cards = document.querySelectorAll('.marquee-card-vertical, .marquee-card-horizontal');
+    const vpW = window.innerWidth;
+    const vpH = window.innerHeight;
+
+    cards.forEach(card => {
+      const rect = card.getBoundingClientRect();
+      if (rect.bottom > 0 && rect.top < vpH && rect.right > 0 && rect.left < vpW) {
+        const cx = (rect.left / vpW) * w;
+        const cy = (rect.top / vpH) * h;
+        const cw = (rect.width / vpW) * w;
+        const ch = (rect.height / vpH) * h;
+
+        ctx.fillStyle = 'rgba(83, 117, 104, 0.4)';
+        ctx.fillRect(cx, cy, cw, ch);
+
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(cx + 1, cy + 1, cw - 2, ch - 2);
+      }
+    });
+
+    // 4. Subtle center spotlight
+    const grad = ctx.createRadialGradient(w / 2, h / 2, 5, w / 2, h / 2, w / 1.8);
+    grad.addColorStop(0, 'rgba(83, 117, 104, 0.35)');
+    grad.addColorStop(1, 'rgba(10, 15, 12, 0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, w, h);
+  }
+
   // =========================================================================
-  // 9. 100% CINEMA MODAL WITH STATIC AMBIENT BLUR BACKDROP
+  // 9. 100% CINEMA MODAL WITH STATIC 1-TIME FROSTED SNAPSHOT (0% GPU SHADER)
   // =========================================================================
   openVideoPlayer(video) {
     if (!video) return;
 
     this.isModalOpen = true;
 
-    // 1. Activate Full Website Deep Freeze
+    // 1. Capture 1-Time Static Canvas Snapshot (0% ongoing GPU shader overhead)
+    this.captureFrostedSnapshot();
+
+    // 2. Activate Full Website Deep Freeze
     document.body.classList.add('modal-open-freeze');
 
-    // 2. Clear ALL pending resume timers
+    // 3. Clear ALL pending resume timers
     this.activeResumeTimers.forEach(t => clearTimeout(t));
     this.activeResumeTimers = [];
 
@@ -609,7 +662,7 @@ class PortfolioManager {
     if (this.modalTitle) this.modalTitle.textContent = video.title || 'Video Showcase';
     if (this.modalSub) this.modalSub.textContent = `${video.aspectRatio || '16:9'} Format • Master Edit`;
 
-    // 3. PAUSE ALL BACKGROUND VIDEOS ACROSS THE ENTIRE WEBSITE
+    // 4. PAUSE ALL BACKGROUND VIDEOS ACROSS THE ENTIRE WEBSITE
     document.querySelectorAll('video:not(.modal-native-video)').forEach(v => {
       try {
         v.pause();
@@ -617,7 +670,7 @@ class PortfolioManager {
       } catch (e) {}
     });
 
-    // 4. FREEZE ALL CSS MARQUEE TRACK ANIMATIONS
+    // 5. FREEZE ALL CSS MARQUEE TRACK ANIMATIONS
     document.querySelectorAll('.marquee-track').forEach(t => {
       t.style.animationPlayState = 'paused';
     });
