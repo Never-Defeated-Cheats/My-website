@@ -1,5 +1,8 @@
 /* ==========================================================================
-   CREATIVE VIBE - 3D BRAND LOGO ANIMATION & LOGO UPLOAD MANAGER
+   CREATIVE VIBE - ZERO-CPU/GPU EFFICIENT 3D BRAND LOGO
+   On-Demand WebGL Rendering Engine:
+   Renders statically on load; only animates on mouse interaction.
+   0% Idle CPU & 0% Idle GPU Overhead.
    ========================================================================== */
 
 class Brand3DManager {
@@ -13,6 +16,7 @@ class Brand3DManager {
     this.mesh = null;
     this.mouse = { x: 0, y: 0 };
     this.targetRotation = { x: 0, y: 0 };
+    this.isHovered = false;
     this.animId = null;
 
     this.init();
@@ -47,24 +51,23 @@ class Brand3DManager {
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas,
       alpha: true,
-      antialias: true
+      antialias: true,
+      powerPreference: "low-power"
     });
     this.renderer.setSize(width, height);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
-    // Create stylish 3D geometric video diamond/prism emblem
+    // Create stylish 3D geometric video diamond emblem
     const geometry = new THREE.IcosahedronGeometry(1.2, 0);
     
-    // Shader or metallic material with nice calming blue/teal sheen
     const material = new THREE.MeshStandardMaterial({
-      color: 0x3b66f5,
-      metalness: 0.85,
-      roughness: 0.2,
-      wireframe: false
+      color: 0x537568,
+      metalness: 0.7,
+      roughness: 0.3
     });
 
     const wireMat = new THREE.MeshBasicMaterial({
-      color: 0x0d9488,
+      color: 0x7ae7f9,
       wireframe: true,
       transparent: true,
       opacity: 0.4
@@ -77,89 +80,88 @@ class Brand3DManager {
 
     this.scene.add(this.mesh);
 
-    // Lights
+    // Subtle lights
     const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
     this.scene.add(ambientLight);
 
-    const pointLight1 = new THREE.PointLight(0x3b66f5, 2.5, 50);
-    pointLight1.position.set(2, 3, 4);
-    this.scene.add(pointLight1);
+    const pointLight = new THREE.PointLight(0x537568, 2.0, 50);
+    pointLight.position.set(2, 3, 4);
+    this.scene.add(pointLight);
 
-    const pointLight2 = new THREE.PointLight(0x0d9488, 2.0, 50);
-    pointLight2.position.set(-2, -3, 2);
-    this.scene.add(pointLight2);
-
-    this.animateThree();
+    // Initial single render (0% CPU background cost)
+    this.renderSingleFrame();
   }
 
-  animateThree() {
-    if (document.hidden) {
-      this.animId = setTimeout(() => this.animateThree(), 1000);
-      return;
-    }
-    this.animId = requestAnimationFrame(() => this.animateThree());
-
-    if (this.mesh) {
-      this.mesh.rotation.y += 0.015;
-      this.mesh.rotation.x += 0.008;
-
-      // Smooth mouse follow
-      this.mesh.rotation.y += (this.targetRotation.y - this.mesh.rotation.y) * 0.05;
-      this.mesh.rotation.x += (this.targetRotation.x - this.mesh.rotation.x) * 0.05;
-    }
-
+  renderSingleFrame() {
     if (this.renderer && this.scene && this.camera) {
       this.renderer.render(this.scene, this.camera);
     }
+  }
+
+  startInteractiveLoop() {
+    if (this.animId) return;
+
+    const loop = () => {
+      if (!this.isHovered) {
+        this.animId = null;
+        return;
+      }
+
+      if (this.mesh) {
+        this.mesh.rotation.y += 0.02;
+        this.mesh.rotation.x += 0.01;
+        this.mesh.rotation.y += (this.targetRotation.y - this.mesh.rotation.y) * 0.1;
+        this.mesh.rotation.x += (this.targetRotation.x - this.mesh.rotation.x) * 0.1;
+      }
+
+      this.renderSingleFrame();
+      this.animId = requestAnimationFrame(loop);
+    };
+
+    this.animId = requestAnimationFrame(loop);
   }
 
   initCanvasFallback() {
     const ctx = this.canvas.getContext('2d');
     const width = this.canvas.width = 44;
     const height = this.canvas.height = 44;
-    let angle = 0;
 
-    const render = () => {
-      ctx.clearRect(0, 0, width, height);
+    ctx.clearRect(0, 0, width, height);
+    ctx.save();
+    ctx.translate(width / 2, height / 2);
 
-      ctx.save();
-      ctx.translate(width / 2, height / 2);
-      ctx.rotate(angle);
+    const grad = ctx.createLinearGradient(-15, -15, 15, 15);
+    grad.addColorStop(0, '#537568');
+    grad.addColorStop(1, '#7ae7f9');
 
-      // Draw modern gradient geometric camera aperture/diamond
-      const grad = ctx.createLinearGradient(-15, -15, 15, 15);
-      grad.addColorStop(0, '#3b66f5');
-      grad.addColorStop(1, '#0d9488');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.moveTo(0, -14);
+    ctx.lineTo(14, 0);
+    ctx.lineTo(0, 14);
+    ctx.lineTo(-14, 0);
+    ctx.closePath();
+    ctx.fill();
 
-      ctx.fillStyle = grad;
-      ctx.beginPath();
-      ctx.moveTo(0, -14);
-      ctx.lineTo(14, 0);
-      ctx.lineTo(0, 14);
-      ctx.lineTo(-14, 0);
-      ctx.closePath();
-      ctx.fill();
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.moveTo(-3, -5);
+    ctx.lineTo(5, 0);
+    ctx.lineTo(-3, 5);
+    ctx.closePath();
+    ctx.fill();
 
-      // Inner play triangle
-      ctx.fillStyle = '#ffffff';
-      ctx.beginPath();
-      ctx.moveTo(-3, -5);
-      ctx.lineTo(5, 0);
-      ctx.lineTo(-3, 5);
-      ctx.closePath();
-      ctx.fill();
-
-      ctx.restore();
-
-      angle += 0.02;
-      requestAnimationFrame(render);
-    };
-
-    render();
+    ctx.restore();
   }
 
   bindEvents() {
     if (!this.container) return;
+
+    this.container.addEventListener('mouseenter', () => {
+      this.isHovered = true;
+      this.startInteractiveLoop();
+      if (window.soundFX) window.soundFX.playHover();
+    });
 
     this.container.addEventListener('mousemove', (e) => {
       const rect = this.container.getBoundingClientRect();
@@ -167,11 +169,14 @@ class Brand3DManager {
       const y = (e.clientY - rect.top) / rect.height - 0.5;
       this.targetRotation.x = y * 2;
       this.targetRotation.y = x * 2;
+      if (!this.animId) this.startInteractiveLoop();
     });
 
     this.container.addEventListener('mouseleave', () => {
+      this.isHovered = false;
       this.targetRotation.x = 0;
       this.targetRotation.y = 0;
+      setTimeout(() => this.renderSingleFrame(), 100);
     });
 
     this.container.addEventListener('click', () => {
@@ -180,22 +185,14 @@ class Brand3DManager {
   }
 
   displayCustomLogo(url) {
-    if (this.customImg && url) {
+    if (this.customImg) {
       this.customImg.src = url;
       this.customImg.style.display = 'block';
       if (this.canvas) this.canvas.style.display = 'none';
     }
   }
-
-  removeCustomLogo() {
-    if (this.customImg) {
-      this.customImg.src = '';
-      this.customImg.style.display = 'none';
-      if (this.canvas) this.canvas.style.display = 'block';
-    }
-  }
 }
 
 window.initBrand3D = () => {
-  window.brand3D = new Brand3DManager();
+  window.brand3DManager = new Brand3DManager();
 };
