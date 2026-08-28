@@ -2169,11 +2169,20 @@
       margin-top: 0.45rem;
     }
 
+    /* Deep Freeze Entire Website Background during Fullscreen Video */
+    body.modal-open-freeze .brand-logo-frame,
+    body.modal-open-freeze .brand-logo-frame::before,
+    body.modal-open-freeze .brand-name,
+    body.modal-open-freeze .live-status-dot-wrap::before,
+    body.modal-open-freeze .live-status-dot-wrap::after,
+    body.modal-open-freeze .marquee-track {
+      animation-play-state: paused !important;
+    }
+
     .calm-modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(36, 43, 39, 0.6);
-      backdrop-filter: blur(8px);
+      background: rgba(5, 8, 7, 0.96);
       z-index: 2000;
       display: none;
       align-items: center;
@@ -2181,6 +2190,8 @@
       padding: 1.5rem;
       opacity: 0;
       transition: opacity var(--transition-smooth);
+      contain: strict;
+      will-change: opacity;
     }
 
     .calm-modal-backdrop.active {
@@ -2192,7 +2203,7 @@
       background: #000000;
       border-radius: var(--radius-xl);
       border: 1.5px solid rgba(83, 117, 104, 0.45);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(83, 117, 104, 0.35);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(83, 117, 104, 0.3);
       width: 92vw;
       max-width: 960px;
       position: relative;
@@ -2200,6 +2211,8 @@
       display: flex;
       flex-direction: column;
       margin: 0 auto;
+      contain: content;
+      transform: translate3d(0, 0, 0);
     }
 
     .calm-modal-box.is-vertical {

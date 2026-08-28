@@ -1,7 +1,8 @@
 /* ==========================================================================
    CREATIVE VIBE - SMART DEVICE-AWARE DYNAMIC PORTFOLIO ENGINE
    - Mathematically Infinite Loop: Half A >= 2400px (12 cards) with seamless wrap
-   - Fullscreen Cinema Modal with 100% Guaranteed Permanent Background Video & Animation Freeze
+   - Deep Freeze of All Background Processes During Fullscreen Video Mode
+   - Guaranteed Instant Auto-Resume of Marquee Sliders on Modal Close
    - Interactive Touch-Swipe & Mouse Drag with Infinite Modulo Wrapping
    - Strict Card Virtualization (< 2% CPU / < 12-15% GPU / < 100MB RAM)
    ========================================================================== */
@@ -133,45 +134,45 @@ class PortfolioManager {
         movedDistance = 0;
         startX = pageX;
         initialOffset = getMatrixTranslateX(track);
-        
-        // Remove CSS animation during drag to enable direct responsive transform
-        track.style.animation = 'none';
-        track.style.transform = `translate3d(${initialOffset}px, 0, 0)`;
       };
 
       const onMove = (pageX) => {
         if (!isDragging) return;
         const deltaX = pageX - startX;
         movedDistance = Math.abs(deltaX);
-        const halfWidth = (track.scrollWidth || 4800) / 2;
-        
-        // Wrap around mathematically so cards NEVER run out or finish
-        let newPos = (initialOffset + deltaX) % halfWidth;
-        if (newPos > 0) newPos -= halfWidth;
-        
-        track.style.transform = `translate3d(${newPos}px, 0, 0)`;
+
+        if (movedDistance > 4) {
+          track.style.animation = 'none';
+          const halfWidth = (track.scrollWidth || 4800) / 2;
+          let newPos = (initialOffset + deltaX) % halfWidth;
+          if (newPos > 0) newPos -= halfWidth;
+          track.style.transform = `translate3d(${newPos}px, 0, 0)`;
+        }
       };
 
       const onEnd = () => {
         if (!isDragging) return;
         isDragging = false;
 
-        // Prevent opening video modal if user was dragging
         if (movedDistance > 8) {
           track.setAttribute('data-just-dragged', 'true');
           setTimeout(() => track.removeAttribute('data-just-dragged'), 350);
+
+          clearTimeout(resumeTimer);
+          resumeTimer = setTimeout(() => {
+            if (this.isModalOpen) return;
+            track.style.animation = '';
+            track.style.transform = '';
+            track.style.animationPlayState = 'running';
+          }, 1500);
+          this.activeResumeTimers.push(resumeTimer);
+        } else {
+          if (!this.isModalOpen) {
+            track.style.animation = '';
+            track.style.transform = '';
+            track.style.animationPlayState = 'running';
+          }
         }
-
-        clearTimeout(resumeTimer);
-        // ONLY resume marquee if modal is NOT open!
-        resumeTimer = setTimeout(() => {
-          if (this.isModalOpen) return; // Never restart marquee if fullscreen player is active
-          track.style.animation = '';
-          track.style.transform = '';
-          track.style.animationPlayState = 'running';
-        }, 1500);
-
-        this.activeResumeTimers.push(resumeTimer);
       };
 
       // Touch Events (Mobile/Tablet)
@@ -640,14 +641,17 @@ class PortfolioManager {
   }
 
   // =========================================================================
-  // 9. 100% CINEMA MODAL WITH GUARANTEED PERMANENT BACKGROUND VIDEO & MARQUEE FREEZE
+  // 9. 100% CINEMA MODAL WITH GUARANTEED FULL BACKGROUND PROCESS FREEZE
   // =========================================================================
   openVideoPlayer(video) {
     if (!video) return;
 
     this.isModalOpen = true;
 
-    // 1. Clear ALL pending resume timers so background marquee NEVER restarts in the middle of video!
+    // 1. Activate Full Website Deep Freeze
+    document.body.classList.add('modal-open-freeze');
+
+    // 2. Clear ALL pending resume timers
     this.activeResumeTimers.forEach(t => clearTimeout(t));
     this.activeResumeTimers = [];
 
@@ -665,7 +669,7 @@ class PortfolioManager {
     if (this.modalTitle) this.modalTitle.textContent = video.title || 'Video Showcase';
     if (this.modalSub) this.modalSub.textContent = `${video.aspectRatio || '16:9'} Format • Master Edit`;
 
-    // 2. PAUSE ALL BACKGROUND VIDEOS ACROSS THE ENTIRE WEBSITE
+    // 3. PAUSE ALL BACKGROUND VIDEOS ACROSS THE ENTIRE WEBSITE
     document.querySelectorAll('video:not(.modal-native-video)').forEach(v => {
       try {
         v.pause();
@@ -673,7 +677,7 @@ class PortfolioManager {
       } catch (e) {}
     });
 
-    // 3. FREEZE ALL CSS MARQUEE TRACK ANIMATIONS
+    // 4. FREEZE ALL CSS MARQUEE TRACK ANIMATIONS
     document.querySelectorAll('.marquee-track').forEach(t => {
       t.style.animationPlayState = 'paused';
     });
@@ -703,13 +707,17 @@ class PortfolioManager {
     if (this.modal) {
       this.isModalOpen = false;
       this.modal.classList.remove('active');
+      document.body.classList.remove('modal-open-freeze');
       document.body.style.overflow = '';
+
       if (this.iframeContainer) {
         this.iframeContainer.innerHTML = '';
       }
 
-      // RESUME ALL BACKGROUND MARQUEE ANIMATIONS & VISIBLE VIDEO STREAMS
+      // GUARANTEED INSTANT RESUME: Re-enable marquee animations on all tracks
       document.querySelectorAll('.marquee-track').forEach(t => {
+        t.style.animation = '';
+        t.style.transform = '';
         t.style.animationPlayState = 'running';
       });
 
