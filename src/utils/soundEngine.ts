@@ -1,29 +1,32 @@
-/* ==========================================================================
-   CREATIVE VIBE - WEB AUDIO API SOUND SYSTEM
-   Procedural, zero-dependency, gentle sound effects
-   ========================================================================== */
+// Web Audio API Procedural Sound Engine (Zero external network requests & 0% idle CPU)
 
 class SoundEngine {
-  constructor() {
-    this.audioCtx = null;
-    this.isMuted = localStorage.getItem('CREATIVE_VIBE_MUTED') === 'true';
-    this.initialized = false;
-  }
+  private audioCtx: AudioContext | null = null;
+  private isMuted: boolean = false;
+  private initialized: boolean = false;
 
-  init() {
-    if (this.initialized) return;
+  constructor() {
     try {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (AudioContext) {
-        this.audioCtx = new AudioContext();
-        this.initialized = true;
-      }
-    } catch (e) {
-      console.warn('Web Audio API not supported or blocked by browser', e);
+      this.isMuted = localStorage.getItem('CREATIVE_VIBE_MUTED') === 'true';
+    } catch {
+      this.isMuted = false;
     }
   }
 
-  ensureContext() {
+  private init() {
+    if (this.initialized) return;
+    try {
+      const AudioCtxClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      if (AudioCtxClass) {
+        this.audioCtx = new AudioCtxClass();
+        this.initialized = true;
+      }
+    } catch {
+      // AudioContext unavailable
+    }
+  }
+
+  private ensureContext() {
     if (!this.initialized) {
       this.init();
     }
@@ -32,33 +35,25 @@ class SoundEngine {
     }
   }
 
-  toggleMute() {
+  public toggleMute(): boolean {
     this.isMuted = !this.isMuted;
-    localStorage.setItem('CREATIVE_VIBE_MUTED', this.isMuted ? 'true' : 'false');
-    this.updateToggleUI();
+    try {
+      localStorage.setItem('CREATIVE_VIBE_MUTED', this.isMuted ? 'true' : 'false');
+    } catch {
+      // localStorage fallback
+    }
     if (!this.isMuted) {
       this.playChime();
     }
     return this.isMuted;
   }
 
-  updateToggleUI() {
-    const btn = document.getElementById('soundToggleBtn');
-    if (btn) {
-      if (this.isMuted) {
-        btn.classList.add('muted');
-        const text = btn.querySelector('.sound-btn-text');
-        if (text) text.textContent = 'Muted';
-      } else {
-        btn.classList.remove('muted');
-        const text = btn.querySelector('.sound-btn-text');
-        if (text) text.textContent = 'Sound ON';
-      }
-    }
+  public getIsMuted(): boolean {
+    return this.isMuted;
   }
 
-  // Gentle Soft Click (Subtle UI feedback)
-  playClick() {
+  // Soft subtle click
+  public playClick() {
     if (this.isMuted) return;
     this.ensureContext();
     if (!this.audioCtx) return;
@@ -79,11 +74,13 @@ class SoundEngine {
 
       osc.start();
       osc.stop(this.audioCtx.currentTime + 0.04);
-    } catch (e) {}
+    } catch {
+      // Ignore audio error
+    }
   }
 
-  // Gentle Pop (Tab switch or Category select)
-  playPop() {
+  // Smooth pop on tab change / filter select
+  public playPop() {
     if (this.isMuted) return;
     this.ensureContext();
     if (!this.audioCtx) return;
@@ -104,11 +101,13 @@ class SoundEngine {
 
       osc.start();
       osc.stop(this.audioCtx.currentTime + 0.06);
-    } catch (e) {}
+    } catch {
+      // Ignore audio error
+    }
   }
 
-  // Hover tick (Very subtle micro-tick on video cards)
-  playHover() {
+  // Subtle hover tick on video cards
+  public playHover() {
     if (this.isMuted) return;
     this.ensureContext();
     if (!this.audioCtx) return;
@@ -129,11 +128,13 @@ class SoundEngine {
 
       osc.start();
       osc.stop(this.audioCtx.currentTime + 0.02);
-    } catch (e) {}
+    } catch {
+      // Ignore audio error
+    }
   }
 
-  // Whoosh / Modal Open
-  playWhoosh() {
+  // Whoosh on modal open
+  public playWhoosh() {
     if (this.isMuted) return;
     this.ensureContext();
     if (!this.audioCtx) return;
@@ -154,11 +155,13 @@ class SoundEngine {
 
       osc.start();
       osc.stop(this.audioCtx.currentTime + 0.12);
-    } catch (e) {}
+    } catch {
+      // Ignore audio error
+    }
   }
 
-  // Chime / Success
-  playChime() {
+  // Chime on success / appointment confirmation
+  public playChime() {
     if (this.isMuted) return;
     this.ensureContext();
     if (!this.audioCtx) return;
@@ -166,6 +169,7 @@ class SoundEngine {
     try {
       const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
       notes.forEach((freq, index) => {
+        if (!this.audioCtx) return;
         const osc = this.audioCtx.createOscillator();
         const gain = this.audioCtx.createGain();
 
@@ -173,7 +177,7 @@ class SoundEngine {
         osc.frequency.setValueAtTime(freq, this.audioCtx.currentTime + index * 0.06);
 
         const startTime = this.audioCtx.currentTime + index * 0.06;
-        gain.gain.setValueAtTime(0.04, startTime);
+        gain.gain.setValueAtTime(0.035, startTime);
         gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.25);
 
         osc.connect(gain);
@@ -182,13 +186,10 @@ class SoundEngine {
         osc.start(startTime);
         osc.stop(startTime + 0.25);
       });
-    } catch (e) {}
+    } catch {
+      // Ignore audio error
+    }
   }
 }
 
-window.soundFX = new SoundEngine();
-
-// First user interaction unblocks AudioContext
-document.addEventListener('click', () => {
-  window.soundFX.ensureContext();
-}, { once: true });
+export const soundEngine = new SoundEngine();
