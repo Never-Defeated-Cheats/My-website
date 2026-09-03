@@ -20,27 +20,27 @@ export const ProcessSection: React.FC = () => {
   };
 
   return (
-    <section className="py-8 px-4 sm:px-6">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-8 px-4 sm:px-8 2xl:px-14">
+      <div className="max-w-7xl 2xl:max-w-[1850px] mx-auto">
         
         {/* Section Head */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#537568]/10 text-[#537568] text-xs font-bold uppercase tracking-wider mb-2.5">
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#537568]/10 text-[#537568] text-xs font-bold uppercase tracking-wider mb-2.5">
             <Layers className="w-3.5 h-3.5" />
             <span>Standards & Pipeline</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl font-black text-[#242b27] tracking-tight">
+          <h2 className="text-3xl sm:text-4xl 2xl:text-5xl font-black text-[#242b27] tracking-tight">
             5-Stage Editing Workflow
           </h2>
 
-          <p className="text-sm sm:text-base text-[#748078] mt-2">
+          <p className="text-sm sm:text-base 2xl:text-lg text-[#748078] mt-3">
             A transparent, reliable production process that guarantees high audience retention, pristine color grading, and on-time turnarounds.
           </p>
         </div>
 
         {/* 5 Stages Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 2xl:gap-8 mb-12">
           {WORKFLOW_STAGES.map((stage) => (
             <div
               key={stage.step}

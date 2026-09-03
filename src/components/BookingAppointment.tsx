@@ -111,8 +111,8 @@ ${formData.projectDetails || 'Looking forward to discussing video editing requir
   const handleSendWhatsApp = () => {
     if (!validateForm()) return;
     const msg = buildFormattedDossier();
-    const waUrl = `https://api.whatsapp.com/send?phone=919193905629&text=${encodeURIComponent(msg)}`;
-    window.open(waUrl, '_blank');
+    const waUrl = `https://wa.me/919193905629?text=${encodeURIComponent(msg)}`;
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
     soundEngine.playChime();
     setSuccessPlatform('WhatsApp (+91 91939 05629)');
     setShowSuccessModal(true);
@@ -163,7 +163,7 @@ ${formData.projectDetails || 'Looking forward to discussing video editing requir
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-black text-[#242b27] tracking-tight">
-            Book an Appointment
+            Book a Meeting
           </h2>
 
           <p className="text-sm sm:text-base text-[#748078] mt-2">

@@ -21,18 +21,26 @@ export function initSecurityMeasures(
         currentHost.includes('run.app') ||
         currentHost.includes('googleusercontent.com') ||
         currentHost.includes('web.app') ||
-        currentHost.includes('firebaseapp.com');
+        currentHost.includes('firebaseapp.com') ||
+        currentHost.includes('creavibestudios');
 
       if (!isAllowedHost) {
-        // Attempt frame-busting breakout on unauthorized domains
+        // Attempt immediate frame-busting breakout on unauthorized domains
         try {
           if (window.top && window.top.location) {
             window.top.location.href = window.self.location.href;
           }
         } catch {
-          // Cross-origin restriction: display warning
+          // Cross-origin restriction: block document body content to protect from clickjacking
+          document.body.innerHTML = `
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#f6f5f0;color:#242b27;font-family:sans-serif;text-align:center;padding:24px;">
+              <h2 style="font-size:24px;font-weight:bold;margin-bottom:12px;">🔒 Embedding Restricted</h2>
+              <p style="color:#4c5750;max-width:500px;margin-bottom:24px;line-height:1.6;">For security and copyright integrity, Creative Vibe cannot be embedded in third-party iframes.</p>
+              <a href="${window.location.href}" target="_blank" rel="noopener noreferrer" style="background:#537568;color:#ffffff;padding:12px 24px;border-radius:9999px;text-decoration:none;font-weight:bold;">Open Creative Vibe in New Window</a>
+            </div>
+          `;
           if (onSecurityAlert) {
-            onSecurityAlert('⚠️ Unauthorized iframe embedding detected. Frame protection active.', 'warning');
+            onSecurityAlert('⚠️ Unauthorized iframe embedding blocked.', 'warning');
           }
         }
       }

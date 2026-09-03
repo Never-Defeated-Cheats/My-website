@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Video
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Direct Sitemap Indexing for Google Search Console & Search Engines
+Sitemap: https://www.creavibestudios.in/sitemap.xml

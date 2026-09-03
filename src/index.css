@@ -11,6 +11,7 @@
     --text-body: #4c5750;
     --text-muted: #748078;
     --border-subtle: #eeece4;
+    color-scheme: light;
   }
 
   html {
@@ -28,7 +29,17 @@
   }
 }
 
-/* Hardware-Accelerated 60FPS Marquee Animations */
+/* 
+  OFF-SCREEN RENDERING OPTIMIZATION:
+  Skips all paint and layout overhead for marquee rows that are outside the viewport.
+*/
+.marquee-row {
+  content-visibility: auto;
+  contain-intrinsic-size: 260px;
+  contain: layout style paint;
+}
+
+/* GPU Hardware-Accelerated 60FPS Marquee Animations */
 @keyframes marqueeLeft {
   0% {
     transform: translate3d(0, 0, 0);
@@ -47,12 +58,47 @@
   }
 }
 
-.animate-marquee-left {
+.animate-marquee-left,
+.marquee-track-left {
   animation: marqueeLeft 38s linear infinite;
   will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
-.animate-marquee-right {
+.animate-marquee-right,
+.marquee-track-right {
   animation: marqueeRight 42s linear infinite;
   will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* 
+  INSTANT PAUSE ON HOVER:
+  When the user hovers over ANY video card or anywhere in the marquee row,
+  the sliding track pauses in-place so the user can easily watch the video and listen.
+  When the mouse leaves, it resumes seamlessly.
+*/
+.marquee-row:hover .animate-marquee-left,
+.marquee-row:hover .animate-marquee-right,
+.marquee-row:hover .marquee-track-left,
+.marquee-row:hover .marquee-track-right,
+.animate-marquee-left:hover,
+.animate-marquee-right:hover,
+.marquee-track-left:hover,
+.marquee-track-right:hover {
+  animation-play-state: paused !important;
+}
+
+/* 
+  ZERO-OVERHEAD CINEMA MODAL:
+  When the Cinema / Fullscreen modal is open, completely halt background marquee animations
+  and background rendering to keep CPU & GPU usage minimal.
+*/
+body.cinema-modal-active .animate-marquee-left,
+body.cinema-modal-active .animate-marquee-right,
+body.cinema-modal-active .marquee-track-left,
+body.cinema-modal-active .marquee-track-right {
+  animation-play-state: paused !important;
 }

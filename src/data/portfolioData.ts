@@ -17,15 +17,15 @@ export const CLOUDINARY_VIDEOS = {
     master: "https://res.cloudinary.com/pxf5pjuu/video/upload/q_auto:good,vc_auto/v1787847723/perception_over_value.mp4",
     poster: "https://res.cloudinary.com/pxf5pjuu/video/upload/w_400,so_0,q_auto:eco/v1787847723/perception_over_value.jpg"
   },
+  vertTajStory: {
+    preview: "https://res.cloudinary.com/pxf5pjuu/video/upload/w_200,c_scale,q_auto:eco,br_150k,f_mp4/v1787906348/The_Taj_Story.mp4",
+    master: "https://res.cloudinary.com/pxf5pjuu/video/upload/q_auto:good,vc_auto/v1787906348/The_Taj_Story.mp4",
+    poster: "https://res.cloudinary.com/pxf5pjuu/video/upload/w_400,so_0,q_auto:eco/v1787906348/The_Taj_Story.jpg"
+  },
   horizPerception1: {
     preview: "https://res.cloudinary.com/pxf5pjuu/video/upload/w_280,c_scale,q_auto:eco,br_200k,f_mp4/v1787906505/perception_over_value_1.mp4",
     master: "https://res.cloudinary.com/pxf5pjuu/video/upload/q_auto:good,vc_auto/v1787906505/perception_over_value_1.mp4",
-    poster: "https://res.cloudinary.com/pxf5pjuu/video/upload/w_600,so_0,q_auto:eco/v1787906505/perception_over_value_1.jpg"
-  },
-  horizTajStory: {
-    preview: "https://res.cloudinary.com/pxf5pjuu/video/upload/w_280,c_scale,q_auto:eco,br_200k,f_mp4/v1787906348/The_Taj_Story.mp4",
-    master: "https://res.cloudinary.com/pxf5pjuu/video/upload/q_auto:good,vc_auto/v1787906348/The_Taj_Story.mp4",
-    poster: "https://res.cloudinary.com/pxf5pjuu/video/upload/w_600,so_0,q_auto:eco/v1787906348/The_Taj_Story.jpg"
+    poster: "/og-image.jpg"
   }
 };
 
@@ -45,13 +45,13 @@ export const RECENT_EDITS_DATA: { vertical: VideoItem[]; horizontal: VideoItem[]
     },
     {
       id: "recent-vert-2",
-      title: "Dynamic Motion & Sound Design Reel",
-      client: "SaaS Brand",
-      views: "940K Views",
+      title: "The Taj Story | Visual Short Film",
+      client: "Heritage Media",
+      views: "2.1M Views",
       aspectRatio: "9:16",
-      previewUrl: CLOUDINARY_VIDEOS.vertReel06.preview,
-      masterUrl: CLOUDINARY_VIDEOS.vertReel06.master,
-      poster: CLOUDINARY_VIDEOS.vertReel06.poster,
+      previewUrl: CLOUDINARY_VIDEOS.vertTajStory.preview,
+      masterUrl: CLOUDINARY_VIDEOS.vertTajStory.master,
+      poster: CLOUDINARY_VIDEOS.vertTajStory.poster,
       category: "shorts-reels"
     },
     {
@@ -67,20 +67,20 @@ export const RECENT_EDITS_DATA: { vertical: VideoItem[]; horizontal: VideoItem[]
     },
     {
       id: "recent-vert-4",
-      title: "Kinetic Captions & Sound Hits",
-      client: "Podcast Host",
-      views: "1.2M Views",
+      title: "Dynamic Motion & Sound Design Reel",
+      client: "SaaS Brand",
+      views: "940K Views",
       aspectRatio: "9:16",
-      previewUrl: CLOUDINARY_VIDEOS.vertRealEstate.preview,
-      masterUrl: CLOUDINARY_VIDEOS.vertRealEstate.master,
-      poster: CLOUDINARY_VIDEOS.vertRealEstate.poster,
+      previewUrl: CLOUDINARY_VIDEOS.vertReel06.preview,
+      masterUrl: CLOUDINARY_VIDEOS.vertReel06.master,
+      poster: CLOUDINARY_VIDEOS.vertReel06.poster,
       category: "shorts-reels"
     }
   ],
   horizontal: [
     {
       id: "recent-horiz-1",
-      title: "Perception Over Value | Master Edition",
+      title: "Perception Over Value | 4K Master Film",
       client: "Creative Vibe Masterclass",
       views: "1.5M Views",
       aspectRatio: "16:9",
@@ -92,11 +92,11 @@ export const RECENT_EDITS_DATA: { vertical: VideoItem[]; horizontal: VideoItem[]
     },
     {
       id: "recent-horiz-2",
-      title: "Documentary Masterclass Film",
-      client: "Heritage Media",
-      views: "2.1M Views",
+      title: "High-Retention Documentary Masterclass",
+      client: "AeroTech Insights",
+      views: "1.4M Views",
       aspectRatio: "16:9",
-      duration: "08:45",
+      duration: "18:40",
       previewUrl: CLOUDINARY_VIDEOS.horizPerception1.preview,
       masterUrl: CLOUDINARY_VIDEOS.horizPerception1.master,
       poster: CLOUDINARY_VIDEOS.horizPerception1.poster,
@@ -189,6 +189,16 @@ export const NICHES_DATA: Record<string, NicheCategory> = {
         previewUrl: CLOUDINARY_VIDEOS.vertRealEstate.preview,
         masterUrl: CLOUDINARY_VIDEOS.vertRealEstate.master,
         poster: CLOUDINARY_VIDEOS.vertRealEstate.poster
+      },
+      {
+        id: "doc-v2",
+        title: "The Taj Story | Visual Short Film",
+        client: "Heritage Media",
+        views: "2.1M Views",
+        aspectRatio: "9:16",
+        previewUrl: CLOUDINARY_VIDEOS.vertTajStory.preview,
+        masterUrl: CLOUDINARY_VIDEOS.vertTajStory.master,
+        poster: CLOUDINARY_VIDEOS.vertTajStory.poster
       }
     ],
     horizontal: [

@@ -13,12 +13,23 @@ import { SecurityToast } from './components/SecurityToast';
 import { VideoItem, PricingPlan, ToastMessage } from './types';
 import { soundEngine } from './utils/soundEngine';
 import { initSecurityMeasures } from './utils/security';
+import { initPerformanceMonitor } from './utils/perfMonitor';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>('home');
   const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
   const [bookingInitialPlan, setBookingInitialPlan] = useState<string>('Talking Head');
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
+
+  // Ensure any previous dark mode class is completely purged
+  useEffect(() => {
+    try {
+      document.documentElement.classList.remove('dark');
+      localStorage.removeItem('creavibe_theme');
+    } catch {
+      // ignore
+    }
+  }, []);
 
   // Add a toast notification
   const addToast = (message: string, type: 'info' | 'success' | 'warning' | 'error' = 'info', title?: string) => {
@@ -41,8 +52,11 @@ export default function App() {
       addToast(msg, type || 'warning');
     });
 
+    const cleanupPerfMonitor = initPerformanceMonitor();
+
     return () => {
       cleanupSecurity();
+      cleanupPerfMonitor();
     };
   }, []);
 

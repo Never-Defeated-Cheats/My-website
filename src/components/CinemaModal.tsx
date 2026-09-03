@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import { VideoItem } from '../types';
-import { X, Volume2, VolumeX, Maximize2, Play, Pause } from 'lucide-react';
+import { X } from 'lucide-react';
 import { soundEngine } from '../utils/soundEngine';
+import { CustomVideoPlayer } from './CustomVideoPlayer';
 
 interface CinemaModalProps {
   video: VideoItem | null;
@@ -9,111 +10,69 @@ interface CinemaModalProps {
 }
 
 export const CinemaModal: React.FC<CinemaModalProps> = ({ video, onClose }) => {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(false);
-
   useEffect(() => {
     if (!video) return;
 
-    // Keyboard handlers
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-      } else if (e.key === ' ' || e.code === 'Space') {
-        e.preventDefault();
-        togglePlay();
-      } else if (e.key === 'm' || e.key === 'M') {
-        toggleMute();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
+    // Lock background scroll and pause all background marquee animations for 0% background GPU usage
     document.body.style.overflow = 'hidden';
+    document.body.classList.add('cinema-modal-active');
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
+      document.body.classList.remove('cinema-modal-active');
     };
   }, [video]);
 
   if (!video) return null;
 
-  const is916 = video.aspectRatio === '9:16';
   const videoSrc = video.masterUrl || video.previewUrl;
-
-  const togglePlay = () => {
-    if (!videoRef.current) return;
-    if (videoRef.current.paused) {
-      videoRef.current.play();
-      setIsPlaying(true);
-    } else {
-      videoRef.current.pause();
-      setIsPlaying(false);
-    }
-  };
-
-  const toggleMute = () => {
-    if (!videoRef.current) return;
-    videoRef.current.muted = !videoRef.current.muted;
-    setIsMuted(videoRef.current.muted);
-  };
-
-  const handleFullscreen = () => {
-    if (!videoRef.current) return;
-    if (videoRef.current.requestFullscreen) {
-      videoRef.current.requestFullscreen();
-    }
-  };
 
   return (
     <div
       onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-xl animate-in fade-in select-none"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/95 select-none"
     >
-      {/* Video Container Box */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`relative bg-black rounded-3xl overflow-hidden border border-[#537568]/40 shadow-2xl flex flex-col justify-center ${
-          is916
-            ? 'w-full max-w-[420px] max-h-[85vh] aspect-[9/16]'
-            : 'w-full max-w-5xl aspect-video'
-        }`}
+        className="relative w-full max-w-5xl flex flex-col items-center justify-center"
       >
-        {/* Close Button */}
+        {/* Close Button - Responsive Position & 44px Touch Target */}
         <button
           onClick={() => {
             soundEngine.playClick();
             onClose();
           }}
-          className="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-black/60 hover:bg-red-600 text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all cursor-pointer shadow-lg"
+          className="absolute -top-12 right-0 sm:right-2 z-50 w-11 h-11 rounded-full bg-white/15 hover:bg-red-600 text-white flex items-center justify-center border border-white/20 transition-all cursor-pointer shadow-lg active:scale-95"
           title="Close (Esc)"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
         </button>
 
-        {/* Video Player Element */}
-        <video
-          ref={videoRef}
+        {/* Custom Video Player Instance */}
+        <CustomVideoPlayer
           src={videoSrc}
           poster={video.poster}
-          autoPlay
-          controls
-          playsInline
-          preload="auto"
-          className="w-full h-full object-contain bg-black"
+          title={video.title}
+          client={video.client}
+          aspectRatio={video.aspectRatio}
+          autoPlay={true}
+          onClose={onClose}
         />
 
-        {/* Bottom Video Meta Bar */}
-        <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4 flex items-center justify-between text-white pointer-events-none opacity-0 hover:opacity-100 transition-opacity">
+        {/* Video Info Header Card */}
+        <div className="w-full max-w-4xl mt-4 px-4 py-3 bg-[#161a18] border border-white/10 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-white shadow-lg">
           <div>
-            <div className="text-sm font-bold truncate max-w-xs sm:max-w-md">
+            <h3 className="font-bold text-sm sm:text-base text-white">
               {video.title}
-            </div>
-            <div className="text-xs text-[#7ae7f9]">
-              {video.client || 'Creative Vibe'} • {video.views || 'Master Edit'} • {video.aspectRatio}
-            </div>
+            </h3>
+            <p className="text-xs text-[#7ae7f9]">
+              {video.client || 'Creative Vibe Original'} • {video.views || 'Master Edit'} • {video.aspectRatio}
+            </p>
+          </div>
+
+          <div className="text-[11px] font-mono text-white/60 bg-white/10 px-3 py-1 rounded-full border border-white/10">
+            Press [Space] to Play/Pause • [F] Fullscreen • [M] Mute
           </div>
         </div>
       </div>

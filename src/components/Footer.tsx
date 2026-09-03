@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Phone, Instagram, AtSign, Shield, ArrowUp } from 'lucide-react';
+import { Mail, Phone, Instagram, AtSign, Shield, ArrowUp, Youtube, Twitter, Linkedin } from 'lucide-react';
 import { soundEngine } from '../utils/soundEngine';
 
 interface FooterProps {
@@ -13,8 +13,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavClick }) => {
   };
 
   return (
-    <footer className="mt-16 bg-[#ffffff] border-t border-[#eeece4] pt-14 pb-8 px-4 sm:px-6">
-      <div className="max-w-7xl mx-auto">
+    <footer className="mt-16 bg-[#ffffff] border-t border-[#eeece4] pt-14 pb-8 px-4 sm:px-8 2xl:px-14">
+      <div className="max-w-7xl 2xl:max-w-[1850px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           
           {/* Brand Info */}
@@ -36,6 +36,59 @@ export const Footer: React.FC<FooterProps> = ({ onNavClick }) => {
             <p className="text-sm text-[#4c5750] leading-relaxed max-w-sm mb-4">
               Helping top YouTubers, SaaS brands, and creators tell unforgettable visual stories with high watch retention, motion graphics, and cinema pacing.
             </p>
+
+            {/* Social Channels Row */}
+            <div className="flex items-center gap-2 mb-4">
+              <a
+                href="https://www.youtube.com/@creavibestudios"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-[#eeece4]/80 hover:bg-red-600 hover:text-white text-[#4c5750] flex items-center justify-center transition-all shadow-sm"
+                title="Creative Vibe on YouTube (@creavibestudios)"
+              >
+                <Youtube className="w-4 h-4" />
+              </a>
+
+              <a
+                href="https://x.com/creavibestudios"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-[#eeece4]/80 hover:bg-[#1DA1F2] hover:text-white text-[#4c5750] flex items-center justify-center transition-all shadow-sm"
+                title="Creative Vibe on X (@creavibestudios)"
+              >
+                <Twitter className="w-4 h-4" />
+              </a>
+
+              <a
+                href="https://www.instagram.com/creavibestudios/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-[#eeece4]/80 hover:bg-gradient-to-tr hover:from-amber-500 hover:to-rose-500 hover:text-white text-[#4c5750] flex items-center justify-center transition-all shadow-sm"
+                title="Creative Vibe on Instagram (@creavibestudios)"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/creavibestudios/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-[#eeece4]/80 hover:bg-[#0A66C2] hover:text-white text-[#4c5750] flex items-center justify-center transition-all shadow-sm"
+                title="Creative Vibe on LinkedIn"
+              >
+                <Linkedin className="w-4 h-4" />
+              </a>
+
+              <a
+                href="https://discord.gg/QHKAcSNDxD"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-[#eeece4]/80 hover:bg-[#5865F2] hover:text-white text-[#4c5750] flex items-center justify-center transition-all shadow-sm"
+                title="Creative Vibe Discord Community"
+              >
+                <AtSign className="w-4 h-4" />
+              </a>
+            </div>
 
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#eeece4]/80 text-[#748078] text-xs font-semibold">
               <Shield className="w-3.5 h-3.5 text-[#537568]" />
@@ -86,7 +139,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavClick }) => {
                   onClick={() => onNavClick('book-call')}
                   className="text-[#748078] hover:text-[#537568] transition-colors cursor-pointer"
                 >
-                  Book Appointment
+                  Book a Meeting
                 </button>
               </li>
             </ul>
@@ -95,16 +148,51 @@ export const Footer: React.FC<FooterProps> = ({ onNavClick }) => {
           {/* Direct Connect */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-[#242b27] mb-4">
-              Connect
+              Official Channels
             </h4>
-            <ul className="space-y-3 text-sm">
+            <ul className="space-y-2.5 text-sm">
               <li>
                 <a
-                  href="mailto:creative_vibe@creavibestudios.in"
-                  className="flex items-center gap-2 text-[#748078] hover:text-[#537568] transition-colors"
+                  href="https://www.youtube.com/@creavibestudios"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-[#748078] hover:text-red-600 transition-colors group"
                 >
-                  <Mail className="w-4 h-4 shrink-0 text-[#537568]" />
-                  <span className="truncate">creative_vibe@creavibestudios.in</span>
+                  <Youtube className="w-4 h-4 shrink-0 text-red-600" />
+                  <span className="font-semibold text-[#242b27] group-hover:text-red-600">YouTube (@creavibestudios)</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://x.com/creavibestudios"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-[#748078] hover:text-[#1DA1F2] transition-colors group"
+                >
+                  <Twitter className="w-4 h-4 shrink-0 text-[#1DA1F2]" />
+                  <span className="font-semibold text-[#242b27] group-hover:text-[#1DA1F2]">X / Twitter (@creavibestudios)</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/creavibestudios/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-[#748078] hover:text-rose-500 transition-colors group"
+                >
+                  <Instagram className="w-4 h-4 shrink-0 text-rose-500" />
+                  <span>Instagram (@creavibestudios)</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/in/creavibestudios/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-[#748078] hover:text-[#0A66C2] transition-colors group"
+                >
+                  <Linkedin className="w-4 h-4 shrink-0 text-[#0A66C2]" />
+                  <span>LinkedIn (@creavibestudios)</span>
                 </a>
               </li>
               <li>
@@ -112,7 +200,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavClick }) => {
                   href="https://wa.me/919193905629"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-[#748078] hover:text-[#537568] transition-colors"
+                  className="flex items-center gap-2 text-[#748078] hover:text-emerald-600 transition-colors group"
                 >
                   <Phone className="w-4 h-4 shrink-0 text-emerald-600" />
                   <span>+91 91939 05629 (WhatsApp)</span>
@@ -120,13 +208,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavClick }) => {
               </li>
               <li>
                 <a
-                  href="https://www.instagram.com/creavibe.studios"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-[#748078] hover:text-[#537568] transition-colors"
+                  href="mailto:creative_vibe@creavibestudios.in"
+                  className="flex items-center gap-2 text-[#748078] hover:text-[#537568] transition-colors group"
                 >
-                  <Instagram className="w-4 h-4 shrink-0 text-rose-500" />
-                  <span>@creavibe.studios</span>
+                  <Mail className="w-4 h-4 shrink-0 text-[#537568]" />
+                  <span className="truncate">creative_vibe@creavibestudios.in</span>
                 </a>
               </li>
               <li>
@@ -134,7 +220,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavClick }) => {
                   href="https://discord.gg/QHKAcSNDxD"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-[#748078] hover:text-[#537568] transition-colors"
+                  className="flex items-center gap-2 text-[#748078] hover:text-[#5865F2] transition-colors group"
                 >
                   <AtSign className="w-4 h-4 shrink-0 text-[#5865F2]" />
                   <span>Discord Community</span>

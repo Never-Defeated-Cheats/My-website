@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Primary Canonical Portfolio URL -->
+  <url>
+    <loc>https://www.creavibestudios.in/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+
+    <image:image>
+      <image:loc>https://www.creavibestudios.in/og-image.jpg</image:loc>
+      <image:title>Creative Vibe Studios - Elite Freelance Video Editor Portfolio</image:title>
+      <image:caption>Creative Vibe Freelance Video Editing Showreel &amp; Client Projects</image:caption>
+    </image:image>
+
+    <!-- Video 1: Real Estate Speed Ramp Reel -->
+    <video:video>
+      <video:thumbnail_loc>https://res.cloudinary.com/pxf5pjuu/video/upload/w_400,so_0,q_auto:eco/v1787906532/Real_Estate.jpg</video:thumbnail_loc>
+      <video:title>Real Estate Speed Ramp Reel - High Retention 9:16 Edit</video:title>
+      <video:description>Luxury real estate visual short-form edit by Creative Vibe Studios featuring dynamic speed ramping, architectural perspective matches, and atmospheric foley.</video:description>
+      <video:content_loc>https://res.cloudinary.com/pxf5pjuu/video/upload/q_auto:good,vc_auto/v1787906532/Real_Estate.mp4</video:content_loc>
+      <video:player_loc>https://www.creavibestudios.in/</video:player_loc>
+      <video:duration>45</video:duration>
+      <video:publication_date>2026-01-15T00:00:00+00:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:uploader info="https://www.creavibestudios.in/">Creative Vibe Studios</video:uploader>
+    </video:video>
+
+    <!-- Video 2: The Taj Story Visual Short Film -->
+    <video:video>
+      <video:thumbnail_loc>https://res.cloudinary.com/pxf5pjuu/video/upload/w_400,so_0,q_auto:eco/v1787906348/The_Taj_Story.jpg</video:thumbnail_loc>
+      <video:title>The Taj Story | Visual Short Film &amp; Heritage Showcase</video:title>
+      <video:description>Cinematic heritage documentary edit by Creative Vibe Studios blending historical imagery, acoustic spatial depth, and dramatic cinematic lighting.</video:description>
+      <video:content_loc>https://res.cloudinary.com/pxf5pjuu/video/upload/q_auto:good,vc_auto/v1787906348/The_Taj_Story.mp4</video:content_loc>
+      <video:player_loc>https://www.creavibestudios.in/</video:player_loc>
+      <video:duration>58</video:duration>
+      <video:publication_date>2026-01-20T00:00:00+00:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:uploader info="https://www.creavibestudios.in/">Creative Vibe Studios</video:uploader>
+    </video:video>
+
+    <!-- Video 3: Perception Over Value Viral Short -->
+    <video:video>
+      <video:thumbnail_loc>https://res.cloudinary.com/pxf5pjuu/video/upload/w_400,so_0,q_auto:eco/v1787847723/perception_over_value.jpg</video:thumbnail_loc>
+      <video:title>Perception Over Value | Viral Short Form Retention Master</video:title>
+      <video:description>High-velocity talking head reel edited by Creative Vibe Studios with synchronized sound design, sound fx hits, and visual text callouts.</video:description>
+      <video:content_loc>https://res.cloudinary.com/pxf5pjuu/video/upload/q_auto:good,vc_auto/v1787847723/perception_over_value.mp4</video:content_loc>
+      <video:player_loc>https://www.creavibestudios.in/</video:player_loc>
+      <video:duration>52</video:duration>
+      <video:publication_date>2026-02-01T00:00:00+00:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:uploader info="https://www.creavibestudios.in/">Creative Vibe Studios</video:uploader>
+    </video:video>
+
+    <!-- Video 4: Dynamic Motion & Sound Design Reel -->
+    <video:video>
+      <video:thumbnail_loc>https://res.cloudinary.com/pxf5pjuu/video/upload/w_400,so_0,q_auto:eco/v1787906442/Reel_06.jpg</video:thumbnail_loc>
+      <video:title>Dynamic Motion &amp; Sound Design Reel 06</video:title>
+      <video:description>Rapid pacing, kinetic typography, and multi-layer sound design reel engineered for maximum audience retention by Creative Vibe Studios.</video:description>
+      <video:content_loc>https://res.cloudinary.com/pxf5pjuu/video/upload/q_auto:good,vc_auto/v1787906442/Reel_06.mp4</video:content_loc>
+      <video:player_loc>https://www.creavibestudios.in/</video:player_loc>
+      <video:duration>48</video:duration>
+      <video:publication_date>2026-02-10T00:00:00+00:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:uploader info="https://www.creavibestudios.in/">Creative Vibe Studios</video:uploader>
+    </video:video>
+
+    <!-- Video 5: Perception Over Value 4K Master Film -->
+    <video:video>
+      <video:thumbnail_loc>https://www.creavibestudios.in/og-image.jpg</video:thumbnail_loc>
+      <video:title>Perception Over Value | 4K Long-Form Master Film</video:title>
+      <video:description>16:9 cinematic master film showcasing documentary storytelling, multi-cam assembly, custom color grades, and audio mastering by Creative Vibe Studios.</video:description>
+      <video:content_loc>https://res.cloudinary.com/pxf5pjuu/video/upload/q_auto:good,vc_auto/v1787906505/perception_over_value_1.mp4</video:content_loc>
+      <video:player_loc>https://www.creavibestudios.in/</video:player_loc>
+      <video:duration>270</video:duration>
+      <video:publication_date>2026-02-15T00:00:00+00:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:uploader info="https://www.creavibestudios.in/">Creative Vibe Studios</video:uploader>
+    </video:video>
+
+  </url>
+
+</urlset>

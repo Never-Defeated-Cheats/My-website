@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, Calendar, ArrowRight } from 'lucide-react';
+import { Menu, X, Calendar, ArrowRight, Youtube, Twitter, Instagram, Linkedin } from 'lucide-react';
 import { soundEngine } from '../utils/soundEngine';
 
 interface NavbarProps {
@@ -20,7 +20,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'work', label: 'Work / Showreels' },
     { id: 'process', label: 'Process & Workflow' },
     { id: 'pricing', label: 'Pricing' },
-    { id: 'book-call', label: 'Book Appointment' },
+    { id: 'book-call', label: 'Book a Meeting' },
   ];
 
   const handleNavClick = (tabId: string) => {
@@ -36,8 +36,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="sticky top-4 z-40 px-4 sm:px-6 mb-6">
-      <nav className="max-w-7xl mx-auto bg-[#ffffff]/90 backdrop-blur-md border border-[#eeece4] rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between shadow-sm transition-all duration-300 hover:border-[#537568]/30">
+    <header className="sticky top-0 z-50 bg-[#f6f5f0]/95 backdrop-blur-xl border-b border-[#eeece4] px-4 sm:px-8 2xl:px-14 py-3 sm:py-3.5 transition-all shadow-[0_2px_15px_rgba(0,0,0,0.02)]">
+      <nav className="max-w-7xl 2xl:max-w-[1850px] mx-auto bg-[#ffffff]/95 border border-[#eeece4] rounded-2xl px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between shadow-sm transition-all duration-300 hover:border-[#537568]/30">
         
         {/* Brand Logo & Name */}
         <button
@@ -83,15 +83,59 @@ export const Navbar: React.FC<NavbarProps> = ({
           })}
         </div>
 
-        {/* Nav Actions */}
-        <div className="flex items-center gap-2.5">
-          {/* Desktop Book Appointment CTA */}
+        {/* Nav Actions & Social Icons */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          
+          {/* Quick Social Buttons (YouTube, X, Instagram, LinkedIn) */}
+          <div className="hidden md:flex items-center gap-1 border-r border-[#eeece4] pr-2.5">
+            <a
+              href="https://www.youtube.com/@creavibestudios"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full text-[#748078] hover:text-red-600 hover:bg-red-50 transition-colors"
+              title="Creative Vibe YouTube (@creavibestudios)"
+            >
+              <Youtube className="w-4 h-4" />
+            </a>
+
+            <a
+              href="https://x.com/creavibestudios"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full text-[#748078] hover:text-[#1DA1F2] hover:bg-sky-50 transition-colors"
+              title="Creative Vibe on X (@creavibestudios)"
+            >
+              <Twitter className="w-4 h-4" />
+            </a>
+
+            <a
+              href="https://www.instagram.com/creavibestudios/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full text-[#748078] hover:text-rose-500 hover:bg-rose-50 transition-colors"
+              title="Creative Vibe Instagram (@creavibestudios)"
+            >
+              <Instagram className="w-4 h-4" />
+            </a>
+
+            <a
+              href="https://www.linkedin.com/in/creavibestudios/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full text-[#748078] hover:text-[#0A66C2] hover:bg-blue-50 transition-colors"
+              title="Creative Vibe LinkedIn"
+            >
+              <Linkedin className="w-4 h-4" />
+            </a>
+          </div>
+
+          {/* Aesthetic Compact Book a Meeting CTA */}
           <button
             onClick={handleBookingClick}
-            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 bg-[#537568] hover:bg-[#415e53] text-[#ffffff] text-sm font-bold rounded-full shadow-md shadow-[#537568]/20 transition-all transform hover:-translate-y-0.5 cursor-pointer"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 bg-[#537568] hover:bg-[#436257] text-white text-xs sm:text-[13px] font-medium tracking-wide rounded-full shadow-sm hover:shadow transition-all duration-200 hover:-translate-y-0.5 cursor-pointer active:scale-[0.98]"
           >
-            <Calendar className="w-4 h-4" />
-            <span>Book Appointment</span>
+            <Calendar className="w-3.5 h-3.5" />
+            <span>Book a Meeting</span>
           </button>
 
           {/* Mobile Hamburger Toggle */}
@@ -117,9 +161,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
-                className={`flex items-center justify-between w-full px-4 py-3 rounded-xl text-sm font-semibold transition-colors cursor-pointer ${
+                className={`flex items-center justify-between w-full px-4 py-2.5 rounded-xl text-sm font-medium transition-colors cursor-pointer ${
                   isActive
-                    ? 'bg-[#537568]/10 text-[#537568] font-bold border border-[#537568]/20'
+                    ? 'bg-[#537568]/10 text-[#537568] font-semibold border border-[#537568]/20'
                     : 'text-[#4c5750] hover:bg-[#eeece4]/60'
                 }`}
               >
@@ -129,13 +173,56 @@ export const Navbar: React.FC<NavbarProps> = ({
             );
           })}
 
-          <div className="pt-2 mt-1 border-t border-[#eeece4]">
+          {/* Mobile Social Links */}
+          <div className="grid grid-cols-4 gap-2 py-3 my-1 border-t border-b border-[#eeece4] text-center">
+            <a
+              href="https://www.youtube.com/@creavibestudios"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-1 text-[11px] font-semibold text-red-600 hover:opacity-80"
+            >
+              <Youtube className="w-4 h-4" />
+              <span>YouTube</span>
+            </a>
+
+            <a
+              href="https://x.com/creavibestudios"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-1 text-[11px] font-semibold text-[#1DA1F2] hover:opacity-80"
+            >
+              <Twitter className="w-4 h-4" />
+              <span>X</span>
+            </a>
+
+            <a
+              href="https://www.instagram.com/creavibestudios/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-1 text-[11px] font-semibold text-rose-500 hover:opacity-80"
+            >
+              <Instagram className="w-4 h-4" />
+              <span>Instagram</span>
+            </a>
+
+            <a
+              href="https://www.linkedin.com/in/creavibestudios/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-1 text-[11px] font-semibold text-[#0A66C2] hover:opacity-80"
+            >
+              <Linkedin className="w-4 h-4" />
+              <span>LinkedIn</span>
+            </a>
+          </div>
+
+          <div className="pt-1.5">
             <button
               onClick={handleBookingClick}
-              className="flex items-center justify-center gap-2 w-full py-3 bg-[#537568] hover:bg-[#415e53] text-[#ffffff] font-bold text-sm rounded-xl shadow-md cursor-pointer"
+              className="flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-[#537568] hover:bg-[#436257] text-white font-medium text-sm rounded-xl shadow-sm cursor-pointer transition-colors active:scale-[0.99]"
             >
               <Calendar className="w-4 h-4" />
-              <span>Book an Appointment</span>
+              <span>Book a Meeting</span>
             </button>
           </div>
         </div>

@@ -28,27 +28,27 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
   };
 
   return (
-    <section className="py-8 px-4 sm:px-6">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-8 px-4 sm:px-8 2xl:px-14">
+      <div className="max-w-7xl 2xl:max-w-[1850px] mx-auto">
         
         {/* Section Head */}
-        <div className="text-center max-w-2xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#537568]/10 text-[#537568] text-xs font-bold uppercase tracking-wider mb-2.5">
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#537568]/10 text-[#537568] text-xs font-bold uppercase tracking-wider mb-2.5">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Estimated Niche Budgets</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl font-black text-[#242b27] tracking-tight">
+          <h2 className="text-3xl sm:text-4xl 2xl:text-5xl font-black text-[#242b27] tracking-tight">
             Transparent Editing Rates
           </h2>
 
-          <p className="text-sm sm:text-base text-[#748078] mt-2">
+          <p className="text-sm sm:text-base 2xl:text-lg text-[#748078] mt-3">
             Estimated baseline pricing brackets across our 6 specialized editing niches. Transparent, reliable, and scalable.
           </p>
         </div>
 
         {/* Highlighted Project Complexity Pricing Notice Banner */}
-        <div className="max-w-4xl mx-auto bg-[#ffffff] border-l-4 border-l-[#537568] border border-[#eeece4] rounded-2xl p-5 sm:p-6 mb-12 shadow-sm flex items-start sm:items-center gap-4">
+        <div className="max-w-4xl 2xl:max-w-5xl mx-auto bg-[#ffffff] border-l-4 border-l-[#537568] border border-[#eeece4] rounded-2xl p-5 sm:p-6 mb-12 shadow-sm flex items-start sm:items-center gap-4">
           <div className="w-10 h-10 rounded-xl bg-[#537568]/10 flex items-center justify-center shrink-0">
             <Info className="w-5 h-5 text-[#537568]" />
           </div>
@@ -63,7 +63,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
         </div>
 
         {/* 6 Pricing Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 2xl:gap-10">
           {PRICING_PLANS.map((plan) => {
             const isFeatured = plan.featured;
 
@@ -144,9 +144,9 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
                     soundEngine.playWhoosh();
                     onSelectPlan(plan);
                   }}
-                  className={`w-full py-3.5 px-6 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                  className={`w-full py-2.5 px-5 rounded-full font-semibold text-sm flex items-center justify-center gap-2 transition-all cursor-pointer ${
                     isFeatured
-                      ? 'bg-[#537568] hover:bg-[#415e53] text-white shadow-md shadow-[#537568]/20'
+                      ? 'bg-[#537568] hover:bg-[#436257] text-white shadow-sm hover:shadow'
                       : 'bg-[#eeece4]/80 hover:bg-[#537568] hover:text-white text-[#242b27]'
                   }`}
                 >
