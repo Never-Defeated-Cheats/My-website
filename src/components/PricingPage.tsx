@@ -1,68 +1,66 @@
 import React from 'react';
 import { PRICING_PLANS } from '../data/portfolioData';
 import { PricingPlan } from '../types';
-import { Mic, Film, Laptop, Zap, Plane, Headphones, Check, Sparkles, ArrowRight, Info } from 'lucide-react';
+import {
+  Mic,
+  Film,
+  Laptop,
+  Zap,
+  Plane,
+  Headphones,
+  Check,
+  Sparkles,
+  ArrowRight,
+} from 'lucide-react';
 import { soundEngine } from '../utils/soundEngine';
 
-interface PricingSectionProps {
+interface PricingPageProps {
   onSelectPlan: (plan: PricingPlan) => void;
+  onOpenBooking?: () => void;
 }
 
-export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) => {
+export const PricingPage: React.FC<PricingPageProps> = ({
+  onSelectPlan,
+}) => {
   const getPlanIcon = (iconName: string) => {
     switch (iconName) {
       case 'Mic':
-        return <Mic className="w-6 h-6 text-[#537568] dark:text-[#5fcb9d]" />;
+        return <Mic className="w-6 h-6 text-[#537568] dark:text-[#50b38c]" />;
       case 'Laptop':
-        return <Laptop className="w-6 h-6 text-[#537568] dark:text-[#5fcb9d]" />;
+        return <Laptop className="w-6 h-6 text-[#537568] dark:text-[#50b38c]" />;
       case 'Zap':
         return <Zap className="w-6 h-6 text-amber-500" />;
       case 'Film':
-        return <Film className="w-6 h-6 text-[#537568] dark:text-[#5fcb9d]" />;
+        return <Film className="w-6 h-6 text-[#537568] dark:text-[#50b38c]" />;
       case 'Plane':
         return <Plane className="w-6 h-6 text-[#4f6878] dark:text-[#7ab0d6]" />;
       case 'Headphones':
       default:
-        return <Headphones className="w-6 h-6 text-[#537568] dark:text-[#5fcb9d]" />;
+        return <Headphones className="w-6 h-6 text-[#537568] dark:text-[#50b38c]" />;
     }
   };
 
   return (
-    <section id="pricing" className="py-8 sm:py-12 px-2 sm:px-4 scroll-mt-24">
+    <div className="py-8 sm:py-12 px-3 sm:px-8 2xl:px-14 flex-grow animate-in fade-in duration-300">
       <div className="max-w-7xl 2xl:max-w-[1850px] mx-auto">
-        
-        {/* Section Head */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#537568]/10 dark:bg-[#537568]/20 text-[#537568] dark:text-[#5fcb9d] text-xs font-bold uppercase tracking-wider mb-2.5">
+
+        {/* Header (Screenshot 2 Match) */}
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#537568]/10 dark:bg-[#537568]/20 text-[#537568] dark:text-[#50b38c] text-xs font-bold uppercase tracking-wider mb-2.5">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Estimated Niche Budgets</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl 2xl:text-5xl font-black text-[#242b27] dark:text-[#f2f7f4] tracking-tight">
-            Transparent Editing Rates
-          </h2>
+          <h1 className="text-3xl sm:text-5xl font-black text-[#242b27] dark:text-[#f2f7f4] tracking-tight mb-3">
+            Predictable Editing Rates
+          </h1>
 
-          <p className="text-sm sm:text-base 2xl:text-lg text-[#748078] dark:text-[#9bb0a4] mt-3">
-            Estimated baseline pricing brackets across our 6 specialized editing niches. Transparent, reliable, and scalable.
+          <p className="text-sm sm:text-base 2xl:text-lg text-[#748078] dark:text-[#9bb0a4] mt-2 max-w-2xl mx-auto">
+            Estimated baseline pricing brackets across our 5 specialized editing niches. Transparent, reliable, and scalable.
           </p>
         </div>
 
-        {/* Highlighted Project Complexity Notice */}
-        <div className="max-w-4xl 2xl:max-w-5xl mx-auto bg-[#ffffff] dark:bg-[#18201c] border-l-4 border-l-[#537568] dark:border-l-[#5fcb9d] border border-[#eeece4] dark:border-[#26332b] rounded-2xl p-5 sm:p-6 mb-12 shadow-sm flex items-start sm:items-center gap-4">
-          <div className="w-10 h-10 rounded-xl bg-[#537568]/10 dark:bg-[#537568]/20 flex items-center justify-center shrink-0">
-            <Info className="w-5 h-5 text-[#537568] dark:text-[#5fcb9d]" />
-          </div>
-          <div>
-            <div className="font-bold text-sm sm:text-base text-[#242b27] dark:text-[#f2f7f4] mb-0.5">
-              Project-Based Flexible Estimates
-            </div>
-            <p className="text-xs sm:text-sm text-[#4c5750] dark:text-[#a2b5ab] leading-relaxed">
-              The rates below represent standard <strong>minimum to maximum estimated brackets</strong>. Final project charges are customized based on <strong>raw footage complexity, motion graphics density, and turnaround delivery deadlines</strong>.
-            </p>
-          </div>
-        </div>
-
-        {/* 6 Pricing Cards Grid */}
+        {/* Pricing Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 2xl:gap-10">
           {PRICING_PLANS.map((plan) => {
             const isFeatured = plan.featured;
@@ -70,10 +68,10 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
             return (
               <div
                 key={plan.id}
-                className={`relative bg-[#ffffff] dark:bg-[#18201c] rounded-3xl p-7 sm:p-8 flex flex-col justify-between transition-all duration-300 transform hover:-translate-y-1.5 ${
+                className={`relative bg-[#ffffff] dark:bg-[#121815] rounded-3xl p-7 sm:p-8 flex flex-col justify-between transition-all duration-300 transform hover:-translate-y-1.5 ${
                   isFeatured
-                    ? 'border-2 border-[#537568] dark:border-[#5fcb9d] shadow-xl shadow-[#537568]/10'
-                    : 'border border-[#eeece4] dark:border-[#26332b] shadow-sm hover:border-[#537568]/50 hover:shadow-lg'
+                    ? 'border-2 border-[#537568] dark:border-[#50b38c] shadow-xl shadow-[#537568]/10 dark:shadow-[#50b38c]/10'
+                    : 'border border-[#eeece4] dark:border-[#1e2b24] shadow-sm hover:border-[#537568]/50 hover:shadow-lg'
                 }`}
               >
                 {/* Badge */}
@@ -81,8 +79,8 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
                   <div
                     className={`absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider shadow ${
                       isFeatured
-                        ? 'bg-[#537568] dark:bg-[#5fcb9d] text-white dark:text-[#121614]'
-                        : 'bg-[#eeece4] dark:bg-[#202a24] text-[#242b27] dark:text-[#f2f7f4] border border-[#e4e1d5] dark:border-[#2e3b33]'
+                        ? 'bg-[#537568] dark:bg-[#50b38c] text-white dark:text-[#0a0f0d]'
+                        : 'bg-[#eeece4] dark:bg-[#19221d] text-[#242b27] dark:text-[#f2f7f4] border border-[#e4e1d5] dark:border-[#283830]'
                     }`}
                   >
                     {plan.badge}
@@ -111,7 +109,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
                   </p>
 
                   {/* Price Box */}
-                  <div className="bg-[#eeece4]/60 dark:bg-[#202923] border border-[#e4e1d5] dark:border-[#2c3931] rounded-2xl p-4 mb-6">
+                  <div className="bg-[#eeece4]/60 dark:bg-[#19221d] border border-[#e4e1d5] dark:border-[#283830] rounded-2xl p-4 mb-6">
                     <div className="flex items-baseline gap-1.5">
                       <span className="text-2xl sm:text-3xl font-black text-[#242b27] dark:text-[#f2f7f4]">
                         {plan.price}
@@ -129,7 +127,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
                     </div>
                     {plan.features.map((feat, idx) => (
                       <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#4c5750] dark:text-[#b4c7bd]">
-                        <Check className="w-4 h-4 text-[#537568] dark:text-[#5fcb9d] shrink-0 mt-0.5" />
+                        <Check className="w-4 h-4 text-[#537568] dark:text-[#50b38c] shrink-0 mt-0.5" />
                         <span>{feat}</span>
                       </div>
                     ))}
@@ -142,13 +140,13 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
                     soundEngine.playWhoosh();
                     onSelectPlan(plan);
                   }}
-                  className={`w-full py-3.5 px-4 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm hover:shadow active:scale-95 ${
+                  className={`w-full py-3.5 px-5 rounded-2xl font-bold text-xs sm:text-sm transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98] ${
                     isFeatured
-                      ? 'bg-[#537568] hover:bg-[#415e53] text-white'
-                      : 'bg-[#eeece4]/80 dark:bg-[#222c26] hover:bg-[#537568] hover:text-white dark:hover:bg-[#537568] text-[#242b27] dark:text-[#f2f7f4]'
+                      ? 'bg-[#537568] hover:bg-[#436257] text-white shadow-md hover:shadow-lg'
+                      : 'bg-[#eeece4]/80 dark:bg-[#19221d] hover:bg-[#537568] hover:text-white dark:hover:bg-[#537568] text-[#242b27] dark:text-[#f2f7f4] border border-[#dcd9ce] dark:border-[#283830]'
                   }`}
                 >
-                  <span>Inquire / Book This Plan</span>
+                  <span>Select {plan.name} Bracket</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
@@ -157,6 +155,6 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
         </div>
 
       </div>
-    </section>
+    </div>
   );
 };

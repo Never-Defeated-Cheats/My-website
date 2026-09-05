@@ -152,7 +152,7 @@ ${formData.projectDetails || 'Looking forward to discussing video editing requir
   };
 
   return (
-    <section className="py-8 px-4 sm:px-6">
+    <section id="book-call" className="py-12 px-4 sm:px-6 scroll-mt-24">
       <div className="max-w-4xl mx-auto">
         
         {/* Section Head */}

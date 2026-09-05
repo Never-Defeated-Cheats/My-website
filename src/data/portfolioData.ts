@@ -1,4 +1,8 @@
 import { VideoItem, NicheCategory, PricingPlan, ClientReview } from '../types';
+import siteLogo from '../assets/images/logo.png';
+
+// Central Website Brand Logo loaded directly from local source assets
+export const SITE_LOGO_URL = siteLogo;
 
 // Cloudinary Direct Video CDN Assets
 export const CLOUDINARY_VIDEOS = {
@@ -129,7 +133,7 @@ export const RECENT_EDITS_DATA: { vertical: VideoItem[]; horizontal: VideoItem[]
   ]
 };
 
-// 6 Curated Editing Niches
+// 5 Curated Editing Niches
 export const NICHES_DATA: Record<string, NicheCategory> = {
   "talking-head": {
     key: "talking-head",
@@ -157,6 +161,36 @@ export const NICHES_DATA: Record<string, NicheCategory> = {
         previewUrl: CLOUDINARY_VIDEOS.vertReel06.preview,
         masterUrl: CLOUDINARY_VIDEOS.vertReel06.master,
         poster: CLOUDINARY_VIDEOS.vertReel06.poster
+      },
+      {
+        id: "th-v3",
+        title: "Founder Story | Hook & Pacing Cut",
+        client: "Venture Daily",
+        views: "1.6M Views",
+        aspectRatio: "9:16",
+        previewUrl: CLOUDINARY_VIDEOS.vertRealEstate.preview,
+        masterUrl: CLOUDINARY_VIDEOS.vertRealEstate.master,
+        poster: CLOUDINARY_VIDEOS.vertRealEstate.poster
+      },
+      {
+        id: "th-v4",
+        title: "High-Impact Interview Master Short",
+        client: "The Real Talk",
+        views: "920K Views",
+        aspectRatio: "9:16",
+        previewUrl: CLOUDINARY_VIDEOS.vertTajStory.preview,
+        masterUrl: CLOUDINARY_VIDEOS.vertTajStory.master,
+        poster: CLOUDINARY_VIDEOS.vertTajStory.poster
+      },
+      {
+        id: "th-v5",
+        title: "Multi-Angle Kinetic Podcast Reel",
+        client: "Alpha Pod",
+        views: "1.4M Views",
+        aspectRatio: "9:16",
+        previewUrl: CLOUDINARY_VIDEOS.vertReel06.preview,
+        masterUrl: CLOUDINARY_VIDEOS.vertReel06.master,
+        poster: CLOUDINARY_VIDEOS.vertReel06.poster
       }
     ],
     horizontal: [
@@ -167,6 +201,28 @@ export const NICHES_DATA: Record<string, NicheCategory> = {
         views: "750K Views",
         aspectRatio: "16:9",
         duration: "45:20",
+        previewUrl: CLOUDINARY_VIDEOS.horizPerception1.preview,
+        masterUrl: CLOUDINARY_VIDEOS.horizPerception1.master,
+        poster: CLOUDINARY_VIDEOS.horizPerception1.poster
+      },
+      {
+        id: "th-h2",
+        title: "How He Built an Empire | Talking Head Edit",
+        client: "Founder Hub",
+        views: "890K Views",
+        aspectRatio: "16:9",
+        duration: "21:40",
+        previewUrl: CLOUDINARY_VIDEOS.horizPerception1.preview,
+        masterUrl: CLOUDINARY_VIDEOS.horizPerception1.master,
+        poster: CLOUDINARY_VIDEOS.horizPerception1.poster
+      },
+      {
+        id: "th-h3",
+        title: "Deep Dive Studio Interview & Master Audio",
+        client: "Executive Series",
+        views: "620K Views",
+        aspectRatio: "16:9",
+        duration: "34:15",
         previewUrl: CLOUDINARY_VIDEOS.horizPerception1.preview,
         masterUrl: CLOUDINARY_VIDEOS.horizPerception1.master,
         poster: CLOUDINARY_VIDEOS.horizPerception1.poster
@@ -199,6 +255,36 @@ export const NICHES_DATA: Record<string, NicheCategory> = {
         previewUrl: CLOUDINARY_VIDEOS.vertTajStory.preview,
         masterUrl: CLOUDINARY_VIDEOS.vertTajStory.master,
         poster: CLOUDINARY_VIDEOS.vertTajStory.poster
+      },
+      {
+        id: "doc-v3",
+        title: "The Secret Rise of Modern AI",
+        client: "Tech Chronicles",
+        views: "1.7M Views",
+        aspectRatio: "9:16",
+        previewUrl: CLOUDINARY_VIDEOS.vertPerception.preview,
+        masterUrl: CLOUDINARY_VIDEOS.vertPerception.master,
+        poster: CLOUDINARY_VIDEOS.vertPerception.poster
+      },
+      {
+        id: "doc-v4",
+        title: "Shadow Empires | Visual Investigation",
+        client: "Deep Lore",
+        views: "840K Views",
+        aspectRatio: "9:16",
+        previewUrl: CLOUDINARY_VIDEOS.vertReel06.preview,
+        masterUrl: CLOUDINARY_VIDEOS.vertReel06.master,
+        poster: CLOUDINARY_VIDEOS.vertReel06.poster
+      },
+      {
+        id: "doc-v5",
+        title: "Mystery of the Lost Civilization",
+        client: "Historic Wonders",
+        views: "1.3M Views",
+        aspectRatio: "9:16",
+        previewUrl: CLOUDINARY_VIDEOS.vertTajStory.preview,
+        masterUrl: CLOUDINARY_VIDEOS.vertTajStory.master,
+        poster: CLOUDINARY_VIDEOS.vertTajStory.poster
       }
     ],
     horizontal: [
@@ -209,6 +295,28 @@ export const NICHES_DATA: Record<string, NicheCategory> = {
         views: "1.4M Views",
         aspectRatio: "16:9",
         duration: "18:40",
+        previewUrl: CLOUDINARY_VIDEOS.horizPerception1.preview,
+        masterUrl: CLOUDINARY_VIDEOS.horizPerception1.master,
+        poster: CLOUDINARY_VIDEOS.horizPerception1.poster
+      },
+      {
+        id: "doc-h2",
+        title: "High-Retention Documentary Masterclass",
+        client: "Vox Insights",
+        views: "2.2M Views",
+        aspectRatio: "16:9",
+        duration: "24:15",
+        previewUrl: CLOUDINARY_VIDEOS.horizPerception1.preview,
+        masterUrl: CLOUDINARY_VIDEOS.horizPerception1.master,
+        poster: CLOUDINARY_VIDEOS.horizPerception1.poster
+      },
+      {
+        id: "doc-h3",
+        title: "Perception Over Value | 4K Master Film",
+        client: "Creative Vibe",
+        views: "1.5M Views",
+        aspectRatio: "16:9",
+        duration: "04:30",
         previewUrl: CLOUDINARY_VIDEOS.horizPerception1.preview,
         masterUrl: CLOUDINARY_VIDEOS.horizPerception1.master,
         poster: CLOUDINARY_VIDEOS.horizPerception1.poster
@@ -231,6 +339,46 @@ export const NICHES_DATA: Record<string, NicheCategory> = {
         previewUrl: CLOUDINARY_VIDEOS.vertReel06.preview,
         masterUrl: CLOUDINARY_VIDEOS.vertReel06.master,
         poster: CLOUDINARY_VIDEOS.vertReel06.poster
+      },
+      {
+        id: "saas-v2",
+        title: "Fintech UI Feature Animation",
+        client: "CashFlow App",
+        views: "1.1M Views",
+        aspectRatio: "9:16",
+        previewUrl: CLOUDINARY_VIDEOS.vertPerception.preview,
+        masterUrl: CLOUDINARY_VIDEOS.vertPerception.master,
+        poster: CLOUDINARY_VIDEOS.vertPerception.poster
+      },
+      {
+        id: "saas-v3",
+        title: "3D Dashboard Metric Showcase",
+        client: "MetricHQ",
+        views: "780K Views",
+        aspectRatio: "9:16",
+        previewUrl: CLOUDINARY_VIDEOS.vertRealEstate.preview,
+        masterUrl: CLOUDINARY_VIDEOS.vertRealEstate.master,
+        poster: CLOUDINARY_VIDEOS.vertRealEstate.poster
+      },
+      {
+        id: "saas-v4",
+        title: "AI Workflow Tool Showcase Reel",
+        client: "AutoFlow AI",
+        views: "1.5M Views",
+        aspectRatio: "9:16",
+        previewUrl: CLOUDINARY_VIDEOS.vertReel06.preview,
+        masterUrl: CLOUDINARY_VIDEOS.vertReel06.master,
+        poster: CLOUDINARY_VIDEOS.vertReel06.poster
+      },
+      {
+        id: "saas-v5",
+        title: "Clean SaaS Micro-Interactions Reel",
+        client: "DesignSync",
+        views: "890K Views",
+        aspectRatio: "9:16",
+        previewUrl: CLOUDINARY_VIDEOS.vertPerception.preview,
+        masterUrl: CLOUDINARY_VIDEOS.vertPerception.master,
+        poster: CLOUDINARY_VIDEOS.vertPerception.poster
       }
     ],
     horizontal: [
@@ -241,6 +389,28 @@ export const NICHES_DATA: Record<string, NicheCategory> = {
         views: "520K Views",
         aspectRatio: "16:9",
         duration: "02:15",
+        previewUrl: CLOUDINARY_VIDEOS.horizPerception1.preview,
+        masterUrl: CLOUDINARY_VIDEOS.horizPerception1.master,
+        poster: CLOUDINARY_VIDEOS.horizPerception1.poster
+      },
+      {
+        id: "saas-h2",
+        title: "Fintech SaaS Product Explainer Animation",
+        client: "PayFlow Inc",
+        views: "450K Views",
+        aspectRatio: "16:9",
+        duration: "02:15",
+        previewUrl: CLOUDINARY_VIDEOS.horizPerception1.preview,
+        masterUrl: CLOUDINARY_VIDEOS.horizPerception1.master,
+        poster: CLOUDINARY_VIDEOS.horizPerception1.poster
+      },
+      {
+        id: "saas-h3",
+        title: "Enterprise CRM 3D Interactive Feature Demo",
+        client: "SalesNexus",
+        views: "610K Views",
+        aspectRatio: "16:9",
+        duration: "03:00",
         previewUrl: CLOUDINARY_VIDEOS.horizPerception1.preview,
         masterUrl: CLOUDINARY_VIDEOS.horizPerception1.master,
         poster: CLOUDINARY_VIDEOS.horizPerception1.poster
@@ -263,6 +433,46 @@ export const NICHES_DATA: Record<string, NicheCategory> = {
         previewUrl: CLOUDINARY_VIDEOS.vertRealEstate.preview,
         masterUrl: CLOUDINARY_VIDEOS.vertRealEstate.master,
         poster: CLOUDINARY_VIDEOS.vertRealEstate.poster
+      },
+      {
+        id: "ret-v2",
+        title: "Last to Leave the Circle Wins $10,000",
+        client: "Viral Beasts",
+        views: "4.1M Views",
+        aspectRatio: "9:16",
+        previewUrl: CLOUDINARY_VIDEOS.vertTajStory.preview,
+        masterUrl: CLOUDINARY_VIDEOS.vertTajStory.master,
+        poster: CLOUDINARY_VIDEOS.vertTajStory.poster
+      },
+      {
+        id: "ret-v3",
+        title: "World's Most Dangerous Maze Short",
+        client: "Epic Stunts",
+        views: "2.8M Views",
+        aspectRatio: "9:16",
+        previewUrl: CLOUDINARY_VIDEOS.vertReel06.preview,
+        masterUrl: CLOUDINARY_VIDEOS.vertReel06.master,
+        poster: CLOUDINARY_VIDEOS.vertReel06.poster
+      },
+      {
+        id: "ret-v4",
+        title: "Fast-Paced Gaming Challenge Hook",
+        client: "LevelUp Show",
+        views: "1.9M Views",
+        aspectRatio: "9:16",
+        previewUrl: CLOUDINARY_VIDEOS.vertPerception.preview,
+        masterUrl: CLOUDINARY_VIDEOS.vertPerception.master,
+        poster: CLOUDINARY_VIDEOS.vertPerception.poster
+      },
+      {
+        id: "ret-v5",
+        title: "I Gave $1,000 to Strangers (Hook Cut)",
+        client: "Heart Beats",
+        views: "3.5M Views",
+        aspectRatio: "9:16",
+        previewUrl: CLOUDINARY_VIDEOS.vertRealEstate.preview,
+        masterUrl: CLOUDINARY_VIDEOS.vertRealEstate.master,
+        poster: CLOUDINARY_VIDEOS.vertRealEstate.poster
       }
     ],
     horizontal: [
@@ -273,6 +483,28 @@ export const NICHES_DATA: Record<string, NicheCategory> = {
         views: "4.8M Views",
         aspectRatio: "16:9",
         duration: "14:10",
+        previewUrl: CLOUDINARY_VIDEOS.horizPerception1.preview,
+        masterUrl: CLOUDINARY_VIDEOS.horizPerception1.master,
+        poster: CLOUDINARY_VIDEOS.horizPerception1.poster
+      },
+      {
+        id: "ret-h2",
+        title: "I Built a Secret Underground Bunker",
+        client: "Titan Crew",
+        views: "5.2M Views",
+        aspectRatio: "16:9",
+        duration: "19:30",
+        previewUrl: CLOUDINARY_VIDEOS.horizPerception1.preview,
+        masterUrl: CLOUDINARY_VIDEOS.horizPerception1.master,
+        poster: CLOUDINARY_VIDEOS.horizPerception1.poster
+      },
+      {
+        id: "ret-h3",
+        title: "Surviving 7 Days on a Deserted Island",
+        client: "Wild Horizon",
+        views: "3.9M Views",
+        aspectRatio: "16:9",
+        duration: "17:45",
         previewUrl: CLOUDINARY_VIDEOS.horizPerception1.preview,
         masterUrl: CLOUDINARY_VIDEOS.horizPerception1.master,
         poster: CLOUDINARY_VIDEOS.horizPerception1.poster
@@ -295,6 +527,46 @@ export const NICHES_DATA: Record<string, NicheCategory> = {
         previewUrl: CLOUDINARY_VIDEOS.vertRealEstate.preview,
         masterUrl: CLOUDINARY_VIDEOS.vertRealEstate.master,
         poster: CLOUDINARY_VIDEOS.vertRealEstate.poster
+      },
+      {
+        id: "irl-v2",
+        title: "Golden Hour in Amalfi Coast",
+        client: "Wanderlust Films",
+        views: "2.3M Views",
+        aspectRatio: "9:16",
+        previewUrl: CLOUDINARY_VIDEOS.vertTajStory.preview,
+        masterUrl: CLOUDINARY_VIDEOS.vertTajStory.master,
+        poster: CLOUDINARY_VIDEOS.vertTajStory.poster
+      },
+      {
+        id: "irl-v3",
+        title: "Tokyo Street Food Exploration",
+        client: "City Escapes",
+        views: "1.7M Views",
+        aspectRatio: "9:16",
+        previewUrl: CLOUDINARY_VIDEOS.vertPerception.preview,
+        masterUrl: CLOUDINARY_VIDEOS.vertPerception.master,
+        poster: CLOUDINARY_VIDEOS.vertPerception.poster
+      },
+      {
+        id: "irl-v4",
+        title: "Iceland Glaciers & Volcanic Valleys",
+        client: "Nordic Nomad",
+        views: "1.4M Views",
+        aspectRatio: "9:16",
+        previewUrl: CLOUDINARY_VIDEOS.vertReel06.preview,
+        masterUrl: CLOUDINARY_VIDEOS.vertReel06.master,
+        poster: CLOUDINARY_VIDEOS.vertReel06.poster
+      },
+      {
+        id: "irl-v5",
+        title: "Speed Ramp Mountain Bike Descent",
+        client: "Adrenaline Peak",
+        views: "2.1M Views",
+        aspectRatio: "9:16",
+        previewUrl: CLOUDINARY_VIDEOS.vertRealEstate.preview,
+        masterUrl: CLOUDINARY_VIDEOS.vertRealEstate.master,
+        poster: CLOUDINARY_VIDEOS.vertRealEstate.poster
       }
     ],
     horizontal: [
@@ -308,35 +580,25 @@ export const NICHES_DATA: Record<string, NicheCategory> = {
         previewUrl: CLOUDINARY_VIDEOS.horizPerception1.preview,
         masterUrl: CLOUDINARY_VIDEOS.horizPerception1.master,
         poster: CLOUDINARY_VIDEOS.horizPerception1.poster
-      }
-    ]
-  },
-  "custom-retention": {
-    key: "custom-retention",
-    name: "Custom Retention & Brand Films",
-    iconName: "Sparkles",
-    subtitle: "Custom pacing tailored to your specific audience retention analytics, brand guidelines & A/B hook testing",
-    description: "Bespoke commercial brand anthems and high-converting paid acquisition video creatives engineered for maximum ROAS.",
-    vertical: [
+      },
       {
-        id: "cust-v1",
-        title: "Luxury Brand Anthem Reel",
-        client: "Studio Lumina",
-        views: "1.1M Views",
-        aspectRatio: "9:16",
-        previewUrl: CLOUDINARY_VIDEOS.vertPerception.preview,
-        masterUrl: CLOUDINARY_VIDEOS.vertPerception.master,
-        poster: CLOUDINARY_VIDEOS.vertPerception.poster
-      }
-    ],
-    horizontal: [
-      {
-        id: "cust-h1",
-        title: "Commercial Brand Anthem Film",
-        client: "LumaSkin Global",
-        views: "890K Views",
+        id: "irl-h2",
+        title: "Road Trip Across the Swiss Alps",
+        client: "Alpine Journeys",
+        views: "1.2M Views",
         aspectRatio: "16:9",
-        duration: "03:15",
+        duration: "15:20",
+        previewUrl: CLOUDINARY_VIDEOS.horizPerception1.preview,
+        masterUrl: CLOUDINARY_VIDEOS.horizPerception1.master,
+        poster: CLOUDINARY_VIDEOS.horizPerception1.poster
+      },
+      {
+        id: "irl-h3",
+        title: "Lost in Bali - A Cinematic Travel Odyssey",
+        client: "Island Vibe",
+        views: "1.5M Views",
+        aspectRatio: "16:9",
+        duration: "11:45",
         previewUrl: CLOUDINARY_VIDEOS.horizPerception1.preview,
         masterUrl: CLOUDINARY_VIDEOS.horizPerception1.master,
         poster: CLOUDINARY_VIDEOS.horizPerception1.poster
@@ -542,6 +804,66 @@ export const CLIENT_REVIEWS: ClientReview[] = [
     date: "2 weeks ago",
     verified: true,
     projectType: "Custom Retention"
+  },
+  {
+    id: "rev-7",
+    clientName: "Nathaniel Ross",
+    channel: "BuildInPublic SaaS (190K Followers) • Launch Film",
+    rating: 5.0,
+    text: "Creative Vibe cut our product video for Product Hunt launch day. We hit #1 Product of the Day with over 1,200 upvotes. The vector UI choreography and sound effects blew our team away.",
+    date: "3 weeks ago",
+    verified: true,
+    projectType: "SaaS Animations"
+  },
+  {
+    id: "rev-8",
+    clientName: "Chloe Davenport",
+    channel: "Luxury Estates Media • Speed Ramp Reels",
+    rating: 5.0,
+    text: "Our real estate reels went from 15k views to 1.8M and 2.4M on Instagram. The speed ramps and bass drop sound design make million-dollar architectural tours feel like cinematic movie trailers.",
+    date: "3 weeks ago",
+    verified: true,
+    projectType: "Real Estate & Commercial"
+  },
+  {
+    id: "rev-9",
+    clientName: "Julian Vance",
+    channel: "Apex Retention Agency (Managing 12 Channels)",
+    rating: 4.9,
+    text: "We outsource our highest-priority creator edits exclusively to Creative Vibe. Turnarounds are strictly within 48 hours, file organization is immaculate, and retention curves consistently stay above 65%.",
+    date: "1 month ago",
+    verified: true,
+    projectType: "Retention Videos"
+  },
+  {
+    id: "rev-10",
+    clientName: "Dr. Maya Patel",
+    channel: "Health Science Explained (890K Subs)",
+    rating: 5.0,
+    text: "Explaining medical science visually is difficult, but Creative Vibe brings our 3D anatomy models, charts, and research papers to life. Audience average watch percentage increased by 22%.",
+    date: "1 month ago",
+    verified: true,
+    projectType: "Documentary Style"
+  },
+  {
+    id: "rev-11",
+    clientName: "Samir Al-Mansoor",
+    channel: "The Founder's Journey • Executive Studio Podcast",
+    rating: 4.9,
+    text: "Studio multi-cam editing done right. Vocal clarity is radio-grade, the camera cuts match speaker cadence naturally, and the bonus vertical clips generate over 500K monthly impressions.",
+    date: "1 month ago",
+    verified: true,
+    projectType: "Talking Head & Podcast"
+  },
+  {
+    id: "rev-12",
+    clientName: "Toby Wright",
+    channel: "Velocity Gaming & Esports (1.5M Subs)",
+    rating: 5.0,
+    text: "High energy, zero fluff, and insane sound design. He understands YouTube retention algorithms better than full-time agency teams. Absolute masterclass editor.",
+    date: "2 months ago",
+    verified: true,
+    projectType: "Viral Shorts & Reels"
   }
 ];
 

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+﻿import React, { useRef, useState, useEffect, useCallback } from 'react';
 import {
   Play,
   Pause,
@@ -10,9 +10,12 @@ import {
   RotateCw,
   Sparkles,
   Music,
+  Sliders,
+  Check,
   X
 } from 'lucide-react';
 import { soundEngine } from '../utils/soundEngine';
+import { getQualityVideoUrl, VideoQuality } from '../utils/videoUrl';
 
 interface CustomVideoPlayerProps {
   src: string;
@@ -46,6 +49,8 @@ export const CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [playbackSpeed, setPlaybackSpeed] = useState<number>(1);
   const [showSpeedMenu, setShowSpeedMenu] = useState<boolean>(false);
+  const [quality, setQuality] = useState<VideoQuality>('1080p');
+  const [showQualityMenu, setShowQualityMenu] = useState<boolean>(false);
   const [showControls, setShowControls] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [showUnmuteNotice, setShowUnmuteNotice] = useState<boolean>(false);
@@ -56,6 +61,9 @@ export const CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({
 
   const is916 = aspectRatio === '9:16';
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Active transformed video stream based on user-selected quality
+  const activeVideoSrc = getQualityVideoUrl(src, quality);
 
   // Format seconds to MM:SS
   const formatTime = (timeInSec: number): string => {
@@ -253,6 +261,32 @@ export const CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({
     soundEngine.playClick();
   };
 
+  // Change Video Resolution / Quality (lower resolution feature as requested)
+  const handleQualityChange = (newQuality: VideoQuality) => {
+    soundEngine.playPop();
+    if (newQuality === quality) {
+      setShowQualityMenu(false);
+      return;
+    }
+    const video = videoRef.current;
+    const prevTime = video ? video.currentTime : 0;
+    const wasPlaying = video ? !video.paused : true;
+
+    setQuality(newQuality);
+    setShowQualityMenu(false);
+    setIsLoading(true);
+
+    // Restore currentTime and resume playback smoothly once new quality stream loads
+    setTimeout(() => {
+      if (videoRef.current) {
+        videoRef.current.currentTime = prevTime;
+        if (wasPlaying) {
+          videoRef.current.play().catch(() => {});
+        }
+      }
+    }, 150);
+  };
+
   // Toggle Fullscreen
   const toggleFullscreen = () => {
     if (!containerRef.current) return;
@@ -346,14 +380,14 @@ export const CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({
         isFullscreen
           ? 'fixed inset-0 w-screen h-screen max-w-none max-h-none rounded-none border-0 z-[9999] bg-black overflow-hidden'
           : is916
-          ? 'w-full max-w-[340px] sm:max-w-[400px] max-h-[76dvh] aspect-[9/16] mx-auto rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-[#0d100e]'
+          ? 'w-full max-w-[360px] sm:max-w-[420px] 2xl:max-w-[460px] max-h-[78dvh] aspect-[9/16] mx-auto rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-[#0d100e]'
           : 'w-full max-w-5xl max-h-[82dvh] aspect-video mx-auto rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-[#0d100e]'
       }`}
     >
       {/* High-Performance Hardware Accelerated Video Element */}
       <video
         ref={videoRef}
-        src={src}
+        src={activeVideoSrc}
         poster={poster}
         playsInline
         preload="metadata"
@@ -501,45 +535,50 @@ export const CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({
         </div>
 
         {/* Lower Row Controls */}
-        <div className="flex items-center justify-between gap-2 text-white mt-1">
+        <div className="flex items-center justify-between gap-1 sm:gap-2 text-white mt-1">
           
           {/* Left Actions: Play/Pause, Rewind, FastForward, Volume, Time */}
-          <div className="flex items-center gap-1.5 sm:gap-3">
+          <div className="flex items-center gap-1 sm:gap-1.5 min-w-0 shrink">
             <button
               onClick={togglePlay}
-              className="p-1.5 sm:p-2 rounded-lg hover:bg-white/15 text-white transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg hover:bg-white/15 text-white transition-colors cursor-pointer shrink-0"
               title={isPlaying ? 'Pause (Space)' : 'Play (Space)'}
             >
-              {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 fill-current" />}
+              {isPlaying ? <Pause className="w-4 h-4 sm:w-5 sm:h-5" /> : <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />}
             </button>
 
-            <button
-              onClick={() => skipTime(-5)}
-              className="p-1.5 rounded-lg hover:bg-white/15 text-white/80 hover:text-white transition-colors cursor-pointer hidden sm:flex items-center"
-              title="Rewind 5s (←)"
-            >
-              <RotateCcw className="w-4 h-4" />
-            </button>
+            {/* Rewind & Fast Forward (Only shown for 16:9 on sm+ screens to preserve space on 9:16) */}
+            {!is916 && (
+              <>
+                <button
+                  onClick={() => skipTime(-5)}
+                  className="p-1.5 rounded-lg hover:bg-white/15 text-white/80 hover:text-white transition-colors cursor-pointer hidden md:flex items-center shrink-0"
+                  title="Rewind 5s (Left Arrow)"
+                >
+                  <RotateCcw className="w-4 h-4" />
+                </button>
 
-            <button
-              onClick={() => skipTime(5)}
-              className="p-1.5 rounded-lg hover:bg-white/15 text-white/80 hover:text-white transition-colors cursor-pointer hidden sm:flex items-center"
-              title="Fast Forward 5s (→)"
-            >
-              <RotateCw className="w-4 h-4" />
-            </button>
+                <button
+                  onClick={() => skipTime(5)}
+                  className="p-1.5 rounded-lg hover:bg-white/15 text-white/80 hover:text-white transition-colors cursor-pointer hidden md:flex items-center shrink-0"
+                  title="Fast Forward 5s (Right Arrow)"
+                >
+                  <RotateCw className="w-4 h-4" />
+                </button>
+              </>
+            )}
 
-            {/* Volume with Music Indicator */}
-            <div className="flex items-center gap-1 group/vol">
+            {/* Volume */}
+            <div className="flex items-center gap-0.5 sm:gap-1 group/vol shrink-0">
               <button
                 onClick={toggleMute}
-                className="p-1.5 sm:p-2 rounded-lg hover:bg-white/15 text-white transition-colors cursor-pointer"
+                className="p-1.5 rounded-lg hover:bg-white/15 text-white transition-colors cursor-pointer"
                 title={isMuted ? 'Unmute (M)' : 'Mute (M)'}
               >
                 {isMuted || volume === 0 ? (
-                  <VolumeX className="w-5 h-5 text-red-400" />
+                  <VolumeX className="w-4 h-4 sm:w-5 sm:h-5 text-red-400" />
                 ) : (
-                  <Volume2 className="w-5 h-5 text-[#7ae7f9]" />
+                  <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-[#7ae7f9]" />
                 )}
               </button>
 
@@ -550,31 +589,78 @@ export const CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({
                 step={0.05}
                 value={isMuted ? 0 : volume}
                 onChange={handleVolumeChange}
-                className="w-14 sm:w-20 h-1 accent-[#537568] bg-white/30 rounded-lg cursor-pointer hidden group-hover/vol:inline-block transition-all"
+                className={`${is916 ? 'w-10' : 'w-14 sm:w-20'} h-1 accent-[#537568] bg-white/30 rounded-lg cursor-pointer hidden group-hover/vol:inline-block transition-all`}
               />
             </div>
 
             {/* Time Stamp with Current, Total & Remaining */}
-            <div className="text-[11px] sm:text-xs font-mono text-white/90 ml-1 flex items-center gap-1">
-              <span className="font-semibold text-white">{formatTime(currentTime)}</span>
+            <div className="text-[10px] sm:text-xs font-mono text-white/90 flex items-center gap-0.5 shrink min-w-0">
+              <span className="font-semibold text-white whitespace-nowrap">{formatTime(currentTime)}</span>
               <span className="text-white/40">/</span>
-              <span className="text-white/70">{formatTime(duration)}</span>
-              {duration > 0 && (
-                <span className="text-white/50 text-[10px] ml-1 hidden sm:inline">
+              <span className="text-white/70 whitespace-nowrap">{formatTime(duration)}</span>
+              {!is916 && duration > 0 && (
+                <span className="text-white/50 text-[10px] ml-1 hidden lg:inline whitespace-nowrap">
                   (-{formatTime(Math.max(0, duration - currentTime))})
                 </span>
               )}
             </div>
           </div>
 
-          {/* Right Actions: Speed Selector, Fullscreen */}
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* Right Actions: Quality/Resolution Selector, Speed Selector, Fullscreen (STRICTLY shrink-0 so never hidden) */}
+          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
             
-            {/* Speed Selector */}
-            <div className="relative">
+            {/* Resolution / Quality Selector */}
+            <div className="relative shrink-0">
               <button
-                onClick={() => setShowSpeedMenu(!showSpeedMenu)}
-                className="px-2 py-1 rounded-md bg-white/10 hover:bg-white/20 text-[11px] sm:text-xs font-bold text-white transition-colors cursor-pointer flex items-center gap-1"
+                onClick={() => {
+                  setShowQualityMenu(!showQualityMenu);
+                  setShowSpeedMenu(false);
+                }}
+                className="px-1.5 sm:px-2 py-1 rounded-md bg-white/10 hover:bg-white/20 text-[10px] sm:text-xs font-bold text-white transition-colors cursor-pointer flex items-center gap-1 border border-white/10 shrink-0"
+                title="Change Resolution"
+              >
+                <Sliders className="w-3 h-3 text-[#7ae7f9]" />
+                <span>{quality}</span>
+              </button>
+
+              {showQualityMenu && (
+                <div className="absolute bottom-9 right-0 bg-[#161a18] border border-white/20 rounded-xl shadow-2xl p-1.5 flex flex-col gap-1 min-w-[130px] z-40">
+                  <div className="text-[10px] text-white/50 px-2 py-0.5 uppercase tracking-wider font-bold border-b border-white/10 flex items-center justify-between">
+                    <span>Quality</span>
+                    <span className="text-[9px] text-[#7ae7f9] font-normal">CPU Eco</span>
+                  </div>
+                  {(['1080p', '720p', '480p', '360p'] as VideoQuality[]).map((q) => (
+                    <button
+                      key={q}
+                      onClick={() => handleQualityChange(q)}
+                      className={`px-2.5 py-1 text-xs rounded-lg text-left font-semibold transition-colors cursor-pointer flex items-center justify-between ${
+                        quality === q
+                          ? 'bg-[#537568] text-white'
+                          : 'text-white/80 hover:bg-white/10'
+                      }`}
+                    >
+                      <span className="flex items-center gap-1.5">
+                        {quality === q && <Check className="w-3 h-3 text-[#7ae7f9]" />}
+                        {q}
+                      </span>
+                      {q === '1080p' && <span className="text-[9px] text-[#7ae7f9]">Master</span>}
+                      {q === '720p' && <span className="text-[9px] text-white/50">Fast</span>}
+                      {q === '480p' && <span className="text-[9px] text-amber-300">Lite</span>}
+                      {q === '360p' && <span className="text-[9px] text-emerald-400">Low CPU</span>}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Speed Selector */}
+            <div className="relative shrink-0">
+              <button
+                onClick={() => {
+                  setShowSpeedMenu(!showSpeedMenu);
+                  setShowQualityMenu(false);
+                }}
+                className="px-1.5 sm:px-2 py-1 rounded-md bg-white/10 hover:bg-white/20 text-[10px] sm:text-xs font-bold text-white transition-colors cursor-pointer flex items-center gap-0.5 shrink-0"
                 title="Playback Speed"
               >
                 <span>{playbackSpeed}x</span>
@@ -602,10 +688,10 @@ export const CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({
             {/* Fullscreen Toggle */}
             <button
               onClick={toggleFullscreen}
-              className="p-1.5 sm:p-2 rounded-lg hover:bg-white/15 text-white transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg hover:bg-white/15 text-white transition-colors cursor-pointer shrink-0"
               title={isFullscreen ? 'Exit Fullscreen (F / Esc)' : 'Fullscreen (F)'}
             >
-              {isFullscreen ? <Minimize className="w-5 h-5 text-[#7ae7f9]" /> : <Maximize className="w-5 h-5" />}
+              {isFullscreen ? <Minimize className="w-4 h-4 sm:w-5 sm:h-5 text-[#7ae7f9]" /> : <Maximize className="w-4 h-4 sm:w-5 sm:h-5" />}
             </button>
           </div>
 

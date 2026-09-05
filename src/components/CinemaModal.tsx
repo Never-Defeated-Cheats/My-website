@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+﻿import React, { useEffect } from 'react';
 import { VideoItem } from '../types';
 import { X } from 'lucide-react';
 import { soundEngine } from '../utils/soundEngine';
@@ -17,11 +17,21 @@ export const CinemaModal: React.FC<CinemaModalProps> = ({ video, onClose }) => {
     document.body.style.overflow = 'hidden';
     document.body.classList.add('cinema-modal-active');
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        soundEngine.playClick();
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
     return () => {
       document.body.style.overflow = '';
       document.body.classList.remove('cinema-modal-active');
+      window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [video]);
+  }, [video, onClose]);
 
   if (!video) return null;
 

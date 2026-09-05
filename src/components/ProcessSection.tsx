@@ -20,7 +20,7 @@ export const ProcessSection: React.FC = () => {
   };
 
   return (
-    <section className="py-8 px-4 sm:px-8 2xl:px-14">
+    <section id="process" className="py-12 px-4 sm:px-8 2xl:px-14 scroll-mt-24">
       <div className="max-w-7xl 2xl:max-w-[1850px] mx-auto">
         
         {/* Section Head */}

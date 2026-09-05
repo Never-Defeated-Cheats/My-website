@@ -46,7 +46,7 @@ export const WorkShowreels: React.FC<WorkShowreelsProps> = ({
     const show916 = formatFilter === 'all' || formatFilter === '9:16';
 
     return (
-      <div className="py-8 px-4 sm:px-8 2xl:px-14">
+      <section id="work" className="py-10 px-4 sm:px-8 2xl:px-14 scroll-mt-24">
         <div className="max-w-7xl 2xl:max-w-[1850px] mx-auto bg-[#ffffff] border border-[#eeece4] rounded-3xl p-6 sm:p-10 2xl:p-14 shadow-sm animate-in fade-in">
           
           {/* Header with Back button */}
@@ -193,13 +193,13 @@ export const WorkShowreels: React.FC<WorkShowreelsProps> = ({
           </div>
 
         </div>
-      </div>
+      </section>
     );
   }
 
   // All 6 Niches Overview View
   return (
-    <section className="py-8 px-4 sm:px-8 2xl:px-14">
+    <section id="work" className="py-10 px-4 sm:px-8 2xl:px-14 scroll-mt-24">
       <div className="max-w-7xl 2xl:max-w-[1850px] mx-auto">
         
         {/* Section Head */}

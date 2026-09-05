@@ -1,7 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { VideoItem } from '../types';
-import { Play, Pause, Volume2 } from 'lucide-react';
+import { Volume2 } from 'lucide-react';
 import { soundEngine } from '../utils/soundEngine';
+import { getLowResAutoplayUrl } from '../utils/videoUrl';
 
 interface AutoplayVideoCardProps {
   item: VideoItem;
@@ -10,6 +11,7 @@ interface AutoplayVideoCardProps {
   badgeRight?: string;
   onSelect: (item: VideoItem) => void;
   className?: string;
+  enabled?: boolean;
 }
 
 export const AutoplayVideoCard: React.FC<AutoplayVideoCardProps> = ({
@@ -18,6 +20,7 @@ export const AutoplayVideoCard: React.FC<AutoplayVideoCardProps> = ({
   badgeTop,
   onSelect,
   className = '',
+  enabled = true,
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -29,12 +32,10 @@ export const AutoplayVideoCard: React.FC<AutoplayVideoCardProps> = ({
   const [isManuallyPaused, setIsManuallyPaused] = useState<boolean>(false);
 
   const is916 = aspectRatio === '9:16';
-  const videoSrc = item.previewUrl || item.masterUrl;
+  // Use low-resolution, low-bitrate stream for minimal CPU and bandwidth during silent preview
+  const videoSrc = getLowResAutoplayUrl(item.previewUrl || item.masterUrl, aspectRatio);
 
-  // Active state is true when user interacts with this specific card (unmutes sound)
-  const isActive = isHovered || isFocused;
-
-  // IntersectionObserver: Only fetch and stream video when visible in viewport
+  // Strict IntersectionObserver: Only fetch and stream video when actually visible in viewport and enabled
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -42,7 +43,7 @@ export const AutoplayVideoCard: React.FC<AutoplayVideoCardProps> = ({
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && enabled && document.visibilityState !== 'hidden') {
             setIsInView(true);
             if (videoRef.current && !isManuallyPaused) {
               const playPromise = videoRef.current.play();
@@ -59,49 +60,60 @@ export const AutoplayVideoCard: React.FC<AutoplayVideoCardProps> = ({
         });
       },
       {
-        rootMargin: '250px 0px 250px 0px',
-        threshold: 0.05,
+        rootMargin: '20px 20px 20px 20px',
+        threshold: 0.1,
       }
     );
 
     observer.observe(el);
+
+    // Pause when tab becomes hidden or disabled to save CPU
+    const handleVisibilityChange = () => {
+      if ((document.visibilityState === 'hidden' || !enabled) && videoRef.current) {
+        videoRef.current.pause();
+      } else if (enabled && isInView && !isManuallyPaused && videoRef.current) {
+        videoRef.current.play().catch(() => {});
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
     return () => {
       observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [isManuallyPaused]);
+  }, [isInView, isManuallyPaused, enabled]);
 
-  // Handle Autoplay on mount & view change
+  // Synchronize playing state with inView, isManuallyPaused, and enabled
   useEffect(() => {
-    if (isInView && videoRef.current && !isManuallyPaused) {
+    if (enabled && isInView && videoRef.current && !isManuallyPaused && document.visibilityState !== 'hidden') {
       const playPromise = videoRef.current.play();
       if (playPromise !== undefined) {
         playPromise.catch(() => {});
       }
-    } else if (!isInView && videoRef.current) {
+    } else if ((!enabled || !isInView) && videoRef.current) {
       videoRef.current.pause();
     }
-  }, [isInView, isManuallyPaused]);
+  }, [isInView, isManuallyPaused, enabled]);
 
-  // Audio unmute & volume handling when hovered or focused (only on desktop fine pointer)
+  // Audio unmute & volume handling: Strictly ONLY when hovered on desktop fine pointer, 100% silent otherwise
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
     const isFinePointer = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(pointer: fine)').matches;
 
-    if (isActive && isFinePointer) {
+    if (isHovered && isFinePointer && !isManuallyPaused) {
       video.muted = false;
       video.volume = 1;
-      if (!isManuallyPaused) {
-        video.play().catch(() => {});
-      }
+      video.play().catch(() => {});
     } else {
       video.muted = true;
+      video.volume = 0;
       if (!isManuallyPaused && isInView) {
         video.play().catch(() => {});
       }
     }
-  }, [isActive, isManuallyPaused, isInView]);
+  }, [isHovered, isManuallyPaused, isInView]);
 
   // Pause autoplaying video card when CinemaModal is active
   useEffect(() => {
@@ -128,6 +140,10 @@ export const AutoplayVideoCard: React.FC<AutoplayVideoCardProps> = ({
   const handleMouseLeave = () => {
     setIsHovered(false);
     setIsManuallyPaused(false);
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.volume = 0;
+    }
   };
 
   const handleFocus = () => {
@@ -137,6 +153,10 @@ export const AutoplayVideoCard: React.FC<AutoplayVideoCardProps> = ({
   const handleBlur = () => {
     setIsFocused(false);
     setIsManuallyPaused(false);
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.volume = 0;
+    }
   };
 
   // Keyboard navigation: Spacebar toggles Play/Pause, Enter opens Cinema Modal
@@ -149,7 +169,6 @@ export const AutoplayVideoCard: React.FC<AutoplayVideoCardProps> = ({
       if (videoRef.current) {
         if (videoRef.current.paused) {
           setIsManuallyPaused(false);
-          videoRef.current.muted = false;
           videoRef.current.play().catch(() => {});
         } else {
           setIsManuallyPaused(true);
@@ -168,18 +187,29 @@ export const AutoplayVideoCard: React.FC<AutoplayVideoCardProps> = ({
       ref={containerRef}
       tabIndex={0}
       role="button"
-      aria-label={`${item.title} - ${item.client || 'Showreel video'}. Press Space to toggle play/pause, Enter to open fullscreen.`}
+      draggable={false}
+      onDragStart={(e) => {
+        e.preventDefault();
+        return false;
+      }}
+      aria-label={`${item.title} - ${item.client || 'Showreel video'}. Double click to open fullscreen.`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onFocus={handleFocus}
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
-      onClick={() => {
+      onDoubleClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
         soundEngine.playWhoosh();
         onSelect(item);
       }}
-      onContextMenu={(e) => e.preventDefault()}
-      className={`relative overflow-hidden bg-[#161a18] border border-[#eeece4] shadow-sm cursor-pointer group shrink-0 transition-transform duration-200 outline-none focus-visible:ring-4 focus-visible:ring-[#537568] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f6f5f0] focus-visible:scale-[1.03] hover:scale-[1.03] hover:border-[#537568] hover:shadow-xl ${
+      style={{
+        userSelect: 'none',
+        WebkitUserSelect: 'none',
+        WebkitUserDrag: 'none' as any,
+      }}
+      className={`relative overflow-hidden bg-[#161a18] dark:bg-[#121614] border border-[#eeece4] dark:border-[#243029] shadow-sm cursor-pointer group shrink-0 transition-transform duration-200 outline-none focus-visible:ring-4 focus-visible:ring-[#537568] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f6f5f0] dark:focus-visible:ring-offset-[#0f1412] hover:scale-[1.03] hover:border-[#537568] hover:shadow-xl select-none ${
         is916 ? 'aspect-[9/16]' : 'aspect-video'
       } ${className}`}
     >
@@ -189,7 +219,17 @@ export const AutoplayVideoCard: React.FC<AutoplayVideoCardProps> = ({
         alt={item.title}
         loading="lazy"
         decoding="async"
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+        draggable={false}
+        onDragStart={(e) => {
+          e.preventDefault();
+          return false;
+        }}
+        style={{
+          userSelect: 'none',
+          WebkitUserSelect: 'none',
+          WebkitUserDrag: 'none' as any,
+        }}
+        className={`absolute inset-0 w-full h-full object-cover select-none pointer-events-none transition-opacity duration-500 ${
           isVideoLoaded && !isManuallyPaused ? 'opacity-0' : 'opacity-100'
         } group-hover:scale-105 group-focus-visible:scale-105`}
       />
@@ -201,12 +241,22 @@ export const AutoplayVideoCard: React.FC<AutoplayVideoCardProps> = ({
           src={videoSrc}
           poster={item.poster}
           autoPlay
-          muted={!isActive}
+          muted={!isHovered}
           loop
           playsInline
+          draggable={false}
+          onDragStart={(e) => {
+            e.preventDefault();
+            return false;
+          }}
           preload="metadata"
           disablePictureInPicture
           controlsList="nodownload noplaybackrate nofullscreen"
+          style={{
+            userSelect: 'none',
+            WebkitUserSelect: 'none',
+            WebkitUserDrag: 'none' as any,
+          }}
           onLoadedData={() => {
             setIsVideoLoaded(true);
             if (!isManuallyPaused && videoRef.current) {
@@ -225,57 +275,36 @@ export const AutoplayVideoCard: React.FC<AutoplayVideoCardProps> = ({
               }
             }
           }}
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
         />
       )}
 
       {/* Gradient Overlay for Text Readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-black/35 p-3 flex flex-col justify-between pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-black/35 p-3 flex flex-col justify-between pointer-events-none select-none" />
 
       {/* Top Badge & Audio Status */}
-      <div className="absolute top-2.5 inset-x-2.5 sm:top-3 sm:inset-x-3 flex justify-between items-center z-10 pointer-events-none">
+      <div className="absolute top-2.5 inset-x-2.5 sm:top-3 sm:inset-x-3 flex justify-between items-center z-10 pointer-events-none select-none">
         <span className="px-2 py-0.5 rounded-md bg-black/60 text-[9px] sm:text-[10px] font-bold text-white border border-white/10">
           {badgeTop || (is916 ? '9:16 Reel' : '16:9 Cinema')}
         </span>
 
-        {/* Pulsing Music indicator when card is active */}
-        {isActive && !isManuallyPaused && (
+        {/* Pulsing Music indicator strictly when card is hovered */}
+        {isHovered && !isManuallyPaused && (
           <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#537568] text-white text-[10px] font-bold border border-white/20 shadow-md animate-pulse">
             <Volume2 className="w-3 h-3" />
-            <span>Music Playing</span>
+            <span>Sound On</span>
           </div>
         )}
-
-        {/* Paused via keyboard indicator */}
-        {isManuallyPaused && (
-          <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-600 text-white text-[10px] font-bold border border-white/20 shadow-md">
-            <Pause className="w-3 h-3" />
-            <span>Paused</span>
-          </div>
-        )}
-      </div>
-
-      {/* Center Play/Pause / Watch Indicator on Hover or Focus */}
-      <div className={`absolute inset-0 flex items-center justify-center transition-all duration-200 z-10 pointer-events-none ${
-        isActive || isManuallyPaused ? 'opacity-100' : 'opacity-0'
-      }`}>
-        <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 text-[#537568] flex items-center justify-center shadow-lg group-hover:scale-110 group-focus-visible:scale-110 group-hover:bg-[#537568] group-hover:text-white transition-all">
-          {isManuallyPaused ? (
-            <Play className="w-5 h-5 fill-current ml-0.5" />
-          ) : (
-            <Pause className="w-5 h-5" />
-          )}
-        </div>
       </div>
 
       {/* Bottom Metadata */}
-      <div className="absolute bottom-2.5 inset-x-2.5 sm:bottom-3 sm:inset-x-3 z-10 pointer-events-none">
+      <div className="absolute bottom-2.5 inset-x-2.5 sm:bottom-3 sm:inset-x-3 z-10 pointer-events-none select-none">
         <div className="text-xs sm:text-sm font-bold text-white leading-snug line-clamp-2 drop-shadow-md">
           {item.title}
         </div>
         <div className="text-[10px] sm:text-[11px] font-semibold text-[#7ae7f9] mt-0.5 flex items-center justify-between">
           <span>{item.client ? `${item.client} • ` : ''}{item.views}</span>
-          <span className="text-[9px] text-white/50 hidden group-focus-visible:inline">Press Enter to Open</span>
+          <span className="text-[9px] text-white/70 hidden group-focus-visible:inline">Press Enter to Open</span>
         </div>
       </div>
     </div>
